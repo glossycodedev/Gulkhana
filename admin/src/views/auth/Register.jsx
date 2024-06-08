@@ -31,7 +31,7 @@ const Register = () => {
 
     const submit = (e) => {
         e.preventDefault()
-        dispatch(seller_register(state))
+        // dispatch(seller_register(state))
     }
 
     useEffect(() => {

@@ -52,32 +52,13 @@ export const get_user_info = createAsyncThunk(
   }
 );
 
-export const profile_image_upload = createAsyncThunk(
-  'auth/profile_image_upload',
-  async (image, { rejectWithValue, fulfillWithValue }) => {
+export const get_seller = createAsyncThunk(
+  'seller/get_seller',
+  async (sellerId, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.post('/profile-image-upload', image, {
+      const { data } = await api.get(`/get-seller/${sellerId}`, {
         withCredentials: true,
       });
-      // console.log(data)
-      return fulfillWithValue(data);
-    } catch (error) {
-      // console.log(error.response.data)
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
-// end method
-
-export const seller_register = createAsyncThunk(
-  'auth/seller_register',
-  async (info, { rejectWithValue, fulfillWithValue }) => {
-    try {
-      console.log(info);
-      const { data } = await api.post('/seller-register', info, {
-        withCredentials: true,
-      });
-      localStorage.setItem('accessToken', data.token);
       //  console.log(data)
       return fulfillWithValue(data);
     } catch (error) {
@@ -87,7 +68,10 @@ export const seller_register = createAsyncThunk(
   }
 );
 
-// end method
+
+
+
+
 
 export const profile_info_add = createAsyncThunk(
   'auth/profile_info_add',
@@ -150,6 +134,7 @@ export const authReducer = createSlice({
     errorMessage: '',
     loader: false,
     userInfo: '',
+    seller: '',
     role: returnRole(localStorage.getItem('accessToken')),
     token: localStorage.getItem('accessToken'),
   },
@@ -188,33 +173,20 @@ export const authReducer = createSlice({
         state.role = returnRole(payload.token);
       })
 
-      .addCase(seller_register.pending, (state, { payload }) => {
-        state.loader = true;
+      
+
+      .addCase(get_seller.fulfilled, (state, { payload }) => {
+        state.seller = payload.seller;
       })
-      .addCase(seller_register.rejected, (state, { payload }) => {
-        state.loader = false;
-        state.errorMessage = payload.error;
-      })
-      .addCase(seller_register.fulfilled, (state, { payload }) => {
-        state.loader = false;
-        state.successMessage = payload.message;
-        state.token = payload.token;
-        state.role = returnRole(payload.token);
-      })
+
+      
 
       .addCase(get_user_info.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.userInfo = payload.userInfo;
       })
 
-      .addCase(profile_image_upload.pending, (state, { payload }) => {
-        state.loader = true;
-      })
-      .addCase(profile_image_upload.fulfilled, (state, { payload }) => {
-        state.loader = false;
-        state.userInfo = payload.userInfo;
-        state.successMessage = payload.message;
-      })
+      
 
       .addCase(profile_info_add.pending, (state, { payload }) => {
         state.loader = true;

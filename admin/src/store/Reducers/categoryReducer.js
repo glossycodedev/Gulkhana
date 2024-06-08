@@ -100,7 +100,7 @@ export const categoryUpdate = createAsyncThunk(
     { rejectWithValue, fulfillWithValue }
   ) => {
     try {
-      console.log(categoryId, name, image);
+      
       const formData = new FormData();
       formData.append('name', name);
       formData.append('categoryId', categoryId);

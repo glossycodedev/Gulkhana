@@ -26,7 +26,7 @@ const DeactiveSellers = () => {
 
   return (
     <div className="px-2 lg:px-7 pb-5">
-      <div className="w-full pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
+      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <h2 className="text-lg text-[#5c5a5a] font-medium">Deactive Seller</h2>
       </div>
       <div className="w-full p-4 bg-[#ffffff] shadow-md rounded-md">
@@ -146,7 +146,7 @@ const DeactiveSellers = () => {
                   >
                     <div className="flex justify-start items-center gap-4">
                       <Link
-                        to={`/admin/dashboard/seller/details/${d._id}`}
+                        to={`/admin/dashboard/shop/details/${d._id}`}
                         className="p-[6px] bg-[#2A629A] rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
                       >
                         {' '}

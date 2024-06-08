@@ -17,7 +17,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import Search from '../components/Search';
-import { backend_url, backend_url_img } from '../../api/server';
+import { backend_url_img } from '../../api/server';
 
 const Category = () => {
   const dispatch = useDispatch();
@@ -40,29 +40,16 @@ const Category = () => {
 
   const imageHandle = (img, files) => {
     if (files.length > 0) {
-      // if (categoryId) {
-      //   setOldImage(img);
-      //   setNewImage(files[0]);
-      //   // setImage(files[0]);
-      //   // setName(name);
-      //   setState({
-      //     ...state,
-      //     // name: name,
-      //     image: files[0],
-      //   });
-      //   setImage(URL.createObjectURL(files[0]));
-      // } else {
+      
       setImage(URL.createObjectURL(files[0]));
       setState({
         ...state,
         image: files[0],
       });
 
-      // }
     }
   };
-  console.log(state);
-  const add_category = (e) => {
+   const add_category = (e) => {
     e.preventDefault();
     if (categoryId) {
       // dispatch(
@@ -73,7 +60,7 @@ const Category = () => {
       //   })
       // );
       const obj = {
-        name: categoryName,
+        name: state.name,
         image: state.image,
         categoryId: categoryId,
       };
@@ -129,7 +116,7 @@ const Category = () => {
 
   return (
     <div className="px-2 lg:px-7 pb-5">
-      <div className="w-full pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
+      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <h2 className="text-lg text-[#5c5a5a] font-medium">Categories</h2>
       </div>
       <div className="flex lg:hidden justify-between items-center shadow-md mb-5 p-4 bg-[#ffffff] rounded-md">
@@ -285,15 +272,7 @@ const Category = () => {
                         <span>Select Image</span>
                       </>
                     )}
-                    {/* {
-                   (imageShow && imageShow.length > 0) && imageShow.map((img, i) => <div>
-                        <label htmlFor={i}>
-                            <img src={img} alt="" />
-                        </label>
-                        <input onChange={(e) => changeImage(img, e.target.files)} type="file" name="image"
-                    id="image" className='hidden' />
-                    </div> )
-                } */}
+                    
                   </label>
                   <input
                     onChange={(e) => imageHandle(imageShow, e.target.files)}

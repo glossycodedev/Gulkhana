@@ -25,7 +25,7 @@ export const get_products = createAsyncThunk(
         try {
              
             const {data} = await api.get(`/products-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}`,{withCredentials: true}) 
-            console.log(data)
+            // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             // console.log(error.response.data)
@@ -45,7 +45,7 @@ export const get_product = createAsyncThunk(
         try {
              
             const {data} = await api.get(`/product-get/${productId}`,{withCredentials: true}) 
-            console.log(data)
+            // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             // console.log(error.response.data)
@@ -65,7 +65,7 @@ export const update_product = createAsyncThunk(
         try {
              
             const {data} = await api.post('/product-update', product,{withCredentials: true}) 
-            console.log(data)
+            // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             // console.log(error.response.data)
@@ -88,7 +88,7 @@ export const update_product = createAsyncThunk(
             formData.append('newImage', newImage)
             formData.append('productId', productId)             
             const {data} = await api.post('/product-image-update', formData,{withCredentials: true}) 
-            console.log(data)
+            // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             // console.log(error.response.data)

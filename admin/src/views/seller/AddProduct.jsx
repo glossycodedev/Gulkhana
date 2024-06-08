@@ -26,7 +26,7 @@ const AddProduct = () => {
       })
     );
   }, []);
-  console.log(userInfo.shopInfo.shopName);
+ 
 
   const [state, setState] = useState({
     name: '',

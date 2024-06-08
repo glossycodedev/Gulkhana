@@ -10,7 +10,7 @@ export const get_seller_request = createAsyncThunk(
         try {
              
             const {data} = await api.get(`/request-seller-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}`,{withCredentials: true}) 
-             console.log(data)
+            //  console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             // console.log(error.response.data)
@@ -29,7 +29,7 @@ export const get_seller = createAsyncThunk(
         try {
              
             const {data} = await api.get(`/get-seller/${sellerId}`,{withCredentials: true}) 
-             console.log(data)
+            //  console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             // console.log(error.response.data)
@@ -48,7 +48,7 @@ export const get_seller = createAsyncThunk(
         try {
              
             const {data} = await api.post(`/seller-status-update`,info,{withCredentials: true}) 
-             console.log(data)
+            //  console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             // console.log(error.response.data)

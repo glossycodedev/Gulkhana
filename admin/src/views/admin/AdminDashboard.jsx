@@ -115,7 +115,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="px-2 md:px-7 pb-5">
-      <div className="w-full pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
+      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <h2 className="text-lg text-[#5c5a5a] font-medium">Dashboard</h2>
       </div>
 

@@ -99,11 +99,11 @@ export const sellerRoutes = [
         role : 'seller',
         visibility : ['active','deactive','pending']
     },
-    {
-        path: '/seller/dashboard/add-banner/:productId',
-        element : <AddBanner/>,
-        role : 'seller',
-        status : 'active'
-    }
+    // {
+    //     path: '/seller/dashboard/add-banner/:productId',
+    //     element : <AddBanner/>,
+    //     role : 'seller',
+    //     status : 'active'
+    // }
 
 ]

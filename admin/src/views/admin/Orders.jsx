@@ -11,7 +11,7 @@ const Orders = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
-  const [parPage, setParPage] = useState(5);
+  const [parPage, setParPage] = useState(10);
   const [show, setShow] = useState(false);
 
   const { myOrders, totalOrder } = useSelector((state) => state.order);
@@ -27,7 +27,7 @@ const Orders = () => {
 
   return (
     <div className="px-2 lg:px-7 pb-5">
-      <div className="w-full pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
+      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <h2 className="text-lg text-[#5c5a5a] font-medium">Orders</h2>
       </div>
       <div className="w-full p-4 bg-[#ffffff] shadow-md rounded-md">
@@ -39,14 +39,14 @@ const Orders = () => {
               onChange={(e) => setParPage(parseInt(e.target.value))}
               className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
             >
-              <option className="px-4" value="5">
-                5
-              </option>
               <option className="px-4" value="10">
                 10
               </option>
               <option className="px-4" value="20">
                 20
+              </option>
+              <option className="px-4" value="30">
+                30
               </option>
             </select>
           </div>

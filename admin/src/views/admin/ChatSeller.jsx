@@ -90,7 +90,7 @@ const ChatSeller = () => {
 
   return (
     <div className="px-2 lg:px-7">
-      <div className="w-full pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
+      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <h2 className="text-lg text-[#5c5a5a] font-medium">Live Chat</h2>
       </div>
       <div className="w-full bg-[#ffffff] shadow-md px-4 py-4 rounded-md h-[calc(100vh-140px)]">

@@ -29,27 +29,9 @@ class categoryController {
       const existingCategory = await categoryModel.findOne({ name });
 
       if (existingCategory) {
-        const oldImagePath = path.join(
-          __dirname,
-          '..',
-          'uploads',
-          existingCategory.image
-        );
-        fs.unlink(oldImagePath, (err) => {
-          if (err) {
-            console.error('Failed to delete old image:', err);
-          } else {
-            console.log('Old image deleted successfully');
-          }
-        });
-
-        existingCategory.image = imageFileName; // Save only the filename
-        await existingCategory.save();
-
-        return responseReturn(res, 201, {
-          category: existingCategory,
-          message: 'Category updated successfully',
-        });
+        responseReturn(res, 400, { error: 'Category already exist' });
+        return;
+        
       } else {
         const category = await categoryModel.create({
           name,
@@ -117,51 +99,7 @@ class categoryController {
     }
   };
 
-  // category_update = async (req, res) => {
-  //   let { name, categoryId } = req.body;
-  //   name = name.trim();
-  //   const slug = name.split(' ').join('-');
-  //   console.log(req.body);
-  //   try {
-  //     const imageFileName = req.file.filename; // Extract the filename
-
-  //     const existingCategory = await categoryModel.findById(categoryId);
-
-  //     if (existingCategory) {
-  //       const oldImagePath = path.join(
-  //         __dirname,
-  //         '..',
-  //         'uploads',
-  //         existingCategory.image
-  //       );
-  //       fs.unlink(oldImagePath, (err) => {
-  //         if (err) {
-  //           console.error('Failed to delete old image:', err);
-  //         } else {
-  //           console.log('Old image deleted successfully');
-  //         }
-  //       });
-
-  //       existingCategory.image = imageFileName; // Save only the filename
-
-  //       await categoryModel.findByIdAndUpdate(categoryId, {
-  //         name,
-  //         categoryId,
-  //         slug,
-  //         image: imageFileName,
-  //       });
-  //     }
-
-  //     const category = await categoryModel.findById(categoryId);
-  //     responseReturn(res, 200, {
-  //       category,
-  //       message: 'Category Updated Successfully',
-  //     });
-  //   } catch (error) {
-  //     responseReturn(res, 500, { error: error.message });
-  //   }
-  // };
-
+ 
   // End Method
 
   category_image_update = async (req, res) => {

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
-import { FaEye } from 'react-icons/fa';
+import { FaEdit, FaEye } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_active_sellers } from '../../store/Reducers/sellerReducer';
+import { backend_url_img } from '../../api/server';
 
 const Shops = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Shops = () => {
 
   return (
     <div className="px-2 lg:px-7 pb-5">
-      <div className="w-full pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
+      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <h2 className="text-lg text-[#5c5a5a] font-medium">Shops</h2>
       </div>
       <div className="w-full p-4 bg-[#ffffff] shadow-md rounded-md">
@@ -93,37 +94,44 @@ const Shops = () => {
                   key={i}
                   className="text-[#595b5d] text-lg border-b  border-[#dcdada]"
                 >
-                  <td scope="row" className="py-2 px-4  whitespace-nowrap">
+                  <td className="py-2 px-4  whitespace-nowrap">
                     {i + 1}
                   </td>
-                  <td scope="row" className="py-2 px-4  whitespace-nowrap">
-                    <img className="w-[45px] h-[45px]" src={d.image} alt="" />
+                  <td  className="py-2 px-4  whitespace-nowrap">
+                    <img className="w-[50px] h-[50px]" src={`${backend_url_img}/uploads/${d.image}`} alt="" />
                   </td>
-                  <td scope="row" className="py-1 px-4 whitespace-nowrap">
+                  <td className="py-1 px-4 whitespace-nowrap">
                     {d.name}{' '}
                   </td>
-                  <td scope="row" className="py-1 px-4 whitespace-nowrap">
+                  <td  className="py-1 px-4 whitespace-nowrap">
                     {d.shopInfo?.shopName}
                   </td>
-                  <td scope="row" className="py-1 px-4  whitespace-nowrap">
+                  <td className="py-1 px-4  whitespace-nowrap">
                     <span>{d.payment}</span>{' '}
                   </td>
-                  <td scope="row" className="py-1 px-4 whitespace-nowrap">
+                  <td  className="py-1 px-4 whitespace-nowrap">
                     {d.email}{' '}
                   </td>
 
-                  <td scope="row" className="py-1 px-4 whitespace-nowrap">
+                  <td  className="py-1 px-4 whitespace-nowrap">
                     {d.status}{' '}
                   </td>
 
-                  <td scope="row" className="py-1 px-4 whitespace-nowrap">
+                  <td className="py-1 px-4 whitespace-nowrap">
                     {d.shopInfo?.district}{' '}
                   </td>
 
-                  <td scope="row" className="py-1 px-4  whitespace-nowrap">
+                  <td  className="py-1 px-4  whitespace-nowrap">
                     <div className="flex justify-start items-center gap-4">
                       <Link
-                        to={`/admin/dashboard/seller/details/${d._id}`}
+                        to={`/admin/dashboard/edit-shop/${d._id}`}
+                        className="p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50"
+                      >
+                        {' '}
+                        <FaEdit />{' '}
+                      </Link>
+                      <Link
+                        to={`/admin/dashboard/shop/details/${d._id}`}
                         className="p-[6px] bg-[#2A629A] rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
                       >
                         {' '}

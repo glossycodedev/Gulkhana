@@ -5,6 +5,10 @@ const customerOrder = new Schema({
         type : Schema.ObjectId,
         required : true
     },
+    sellerId: {
+        type: Schema.ObjectId,
+        required : true
+    },
     products : {
         type : Array,
         required : true

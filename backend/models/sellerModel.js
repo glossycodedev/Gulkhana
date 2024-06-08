@@ -5,7 +5,7 @@ const sellerSchema = new Schema({
         type: String,
         required : true
     },
-    email: {
+    phone: {
         type: String,
         required : true
     },

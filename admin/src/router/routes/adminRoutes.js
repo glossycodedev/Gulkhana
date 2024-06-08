@@ -1,8 +1,10 @@
 import { lazy } from 'react';
+import EditShop from '../../views/admin/EditShop';
 const AdminDashboard = lazy(() => import('../../views/admin/AdminDashboard'));
 const Orders = lazy(() => import('../../views/admin/Orders'));
 const Category = lazy(() => import('../../views/admin/Category'));
-const Sellers = lazy(() => import('../../views/admin/Sellers'));
+const AddBanner = lazy(() => import('../../views/admin/AddBanner'));
+const AddSeller = lazy(() => import('../../views/admin/AddSeller'));
 const Shops = lazy(() => import('../../views/admin/Shops'));
 const PaymentRequest = lazy(() => import('../../views/admin/PaymentRequest'));
 const DeactiveSellers = lazy(() => import('../../views/admin/DeactiveSellers'));
@@ -23,6 +25,16 @@ export const adminRoutes = [
     role: 'admin',
   },
   {
+    path: 'admin/dashboard/add-shop',
+    element: <AddSeller />,
+    role: 'admin',
+  },
+  {
+    path: 'admin/dashboard/edit-shop/:sellerId',
+    element: <EditShop />,
+    role: 'admin',
+  },
+  {
     path: 'admin/dashboard/shops',
     element: <Shops />,
     role: 'admin',
@@ -33,8 +45,8 @@ export const adminRoutes = [
     role: 'admin',
   },
   {
-    path: 'admin/dashboard/sellers',
-    element: <Sellers />,
+    path: 'admin/dashboard/banners',
+    element: <AddBanner />,
     role: 'admin',
   },
   {
@@ -53,7 +65,7 @@ export const adminRoutes = [
     role: 'admin',
   },
   {
-    path: 'admin/dashboard/seller/details/:sellerId',
+    path: 'admin/dashboard/shop/details/:sellerId',
     element: <SellerDetails />,
     role: 'admin',
   },

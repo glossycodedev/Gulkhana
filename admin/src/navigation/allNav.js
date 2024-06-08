@@ -30,13 +30,20 @@ export const allNav = [
   },
   {
     id: 3,
+    title: 'Add Shop',
+    icon: <CiShop />,
+    role: 'admin',
+    path: '/admin/dashboard/add-shop',
+  },
+  {
+    id: 4,
     title: 'Shops',
     icon: <CiShop />,
     role: 'admin',
     path: '/admin/dashboard/shops',
   },
   {
-    id: 4,
+    id: 5,
     title: 'Orders',
     icon: <AiOutlineShoppingCart />,
     role: 'admin',
@@ -44,19 +51,19 @@ export const allNav = [
   },
 
   {
-    id: 5,
+    id: 6,
     title: 'Banners',
     icon: <FaImages />,
     role: 'admin',
-    path: '/admin/dashboard/addbanners',
+    path: '/admin/dashboard/banners',
   },
-  {
-    id: 6,
-    title: 'Payment Request',
-    icon: <MdPayment />,
-    role: 'admin',
-    path: '/admin/dashboard/payment-request',
-  },
+  // {
+  //   id: 6,
+  //   title: 'Payment Request',
+  //   icon: <MdPayment />,
+  //   role: 'admin',
+  //   path: '/admin/dashboard/payment-request',
+  // },
   {
     id: 7,
     title: 'Deactive Sellers',
