@@ -66,18 +66,19 @@ export const allNav = [
   // },
   {
     id: 7,
+    title: 'Active Seller',
+    icon: <FaCodePullRequest />,
+    role: 'admin',
+    path: '/admin/dashboard/sellers-request',
+  },
+  {
+    id: 8,
     title: 'Deactive Sellers',
     icon: <FaUserTimes />,
     role: 'admin',
     path: '/admin/dashboard/deactive-sellers',
   },
-  {
-    id: 8,
-    title: 'Seller Request',
-    icon: <FaCodePullRequest />,
-    role: 'admin',
-    path: '/admin/dashboard/sellers-request',
-  },
+ 
   {
     id: 9,
     title: 'Live Chat',

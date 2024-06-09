@@ -9,9 +9,9 @@ const Search = ({ setParPage, setSearchValue, searchValue }) => {
         onChange={(e) => setParPage(parseInt(e.target.value))}
         className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
       >
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
+        <option value="15">15</option>
+        <option value="30">30</option>
+        <option value="60">60</option>
       </select>
       </div>
      

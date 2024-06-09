@@ -4,6 +4,7 @@ const { responseReturn } = require('../../utiles/response');
 const sellerModel = require('../../models/sellerModel');
 const bcrpty = require('bcrypt');
 const path = require('path');
+const fs = require('fs').promises;
 
 class sellerController {
   request_seller_get = async (req, res) => {
@@ -103,7 +104,7 @@ class sellerController {
         throw new Error('No file uploaded');
       }
 
-      const imageFileName = req.file.filename;
+      const imageFileName = req.file.filename; // Extract the filename
       console.log(`Uploaded file name: ${imageFileName}`);
 
       const existingSeller = await sellerModel.findById(sellerId);
@@ -128,7 +129,7 @@ class sellerController {
         console.error('Old image not found or inaccessible:', err);
       }
 
-      existingSeller.image = imageFileName;
+      existingSeller.image = imageFileName; // Save only the filename
       await sellerModel.findByIdAndUpdate(sellerId, { image: imageFileName });
 
       const updatedSeller = await sellerModel.findById(sellerId);
@@ -141,57 +142,7 @@ class sellerController {
       responseReturn(res, 500, { error: error.message });
     }
   };
-  //   profile_image_upload = async (req, res) => {
-  //     const { sellerId } = req.params;
-
-  //     try {
-  //       const imageFileName = req.file.filename; // Extract the filename
-  //       console.log(`Uploaded file name: ${imageFileName}, 'id', ${sellerId}`);
-  //       const existingSeller = await sellerModel.findById(sellerId);
-
-  //       if (!existingSeller) {
-  //         throw new Error(`Seller with ID ${sellerId} not found`);
-  //       }
-
-  //       if (existingSeller) {
-  //         const oldImagePath = path.join(
-  //           __dirname,
-  //           '..',
-  //           '../uploads',
-  //           existingSeller.image
-  //         );
-  //         console.log(`Old image path: ${oldImagePath}`);
-  //         // Check if the old image exists before deleting
-  //         fs.access(oldImagePath, fs.constants.F_OK, (err) => {
-  //           if (err) {
-  //             console.error('Old image not found or inaccessible:', err);
-  //           } else {
-  //             fs.unlink(oldImagePath, (err) => {
-  //               if (err) {
-  //                 console.error('Failed to delete old image:', err);
-  //               } else {
-  //                 console.log('Old image deleted successfully');
-  //               }
-  //             });
-  //           }
-  //         });
-
-  //         existingSeller.image = imageFileName; // Save only the filename
-  //         // if (existingSeller) {
-  //         await sellerModel.findByIdAndUpdate(sellerId, {
-  //           image: imageFileName,
-  //         });
-  //       }
-  //       const seller = await sellerModel.findById(sellerId);
-  //       responseReturn(res, 200, {
-  //         seller,
-  //         message: 'Image Updated Successfully',
-  //       });
-
-  //     } catch (error) {
-  //       responseReturn(res, 500, { error: error.message });
-  //     }
-  //   };
+  
 
   // End Method
 

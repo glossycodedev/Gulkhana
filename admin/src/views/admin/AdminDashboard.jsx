@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdCurrencyExchange, MdProductionQuantityLimits } from 'react-icons/md';
 import { FaUsers } from 'react-icons/fa';
 import { FaCartShopping, FaEye } from 'react-icons/fa6';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import seller from '../../assets/seller.png';
 import { get_admin_dashboard_data } from '../../store/Reducers/dashboardReducer';
 import moment from 'moment';
+import { get_admin_orders } from '../../store/Reducers/OrderReducer';
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,22 @@ const AdminDashboard = () => {
     recentMessage,
   } = useSelector((state) => state.dashboard);
   const { userInfo } = useSelector((state) => state.auth);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState('');
+  const [parPage, setParPage] = useState(15);
+  const [show, setShow] = useState(false);
+
+  const { myOrders} = useSelector((state) => state.order);
+
+  useEffect(() => {
+    const obj = {
+      parPage: parseInt(parPage),
+      page: parseInt(currentPage),
+      searchValue,
+    };
+    dispatch(get_admin_orders(obj));
+  }, [searchValue, currentPage, parPage]);
 
   useEffect(() => {
     dispatch(get_admin_dashboard_data());
@@ -234,7 +251,40 @@ const AdminDashboard = () => {
           <h2 className="font-semibold text-lg text-[#6C757D] pb-3 ">
             Recent Orders
           </h2>
-          <Link className="font-semibold text-sm text-[#d0d2d6]">View All</Link>
+          {/* <Link className="font-semibold text-sm text-[#d0d2d6]">View All</Link> */}
+          <div className="flex pb-3 justify-between items-center">
+          <div className="flex gap-3 items-center">
+            <h2 className="text-md text-[#5c5a5a]">Display</h2>
+
+            <select
+              onChange={(e) => setParPage(parseInt(e.target.value))}
+              className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
+            >
+              <option className="px-4" value="15">
+                15
+              </option>
+              <option className="px-4" value="30">
+                30
+              </option>
+              <option className="px-4" value="60">
+                60
+              </option>
+              <option className="px-4" value="100">
+                100
+              </option>
+            </select>
+          </div>
+          <div className="flex gap-3 items-center">
+            {/* <h2 className="text-md text-[#5c5a5a] ">Search</h2> */}
+            {/* <input
+              onChange={(e) => setSearchValue(e.target.value)}
+              value={searchValue}
+              className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
+              type="text"
+              placeholder="search"
+            /> */}
+          </div>
+        </div>
         </div>
 
         <div className="relative  overflow-x-auto">
@@ -260,7 +310,7 @@ const AdminDashboard = () => {
             </thead>
 
             <tbody>
-              {recentOrder.map((d, i) => (
+              {myOrders.map((d, i) => (
                 <tr
                   key={i}
                   className="text-[#595b5d] text-lg border-b  border-[#dcdada]"

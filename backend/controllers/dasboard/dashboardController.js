@@ -250,7 +250,7 @@ class dashboardController {
       const banner = await bannerModel.findById(bannerId);
       responseReturn(res, 200, {
         banner,
-        message: 'Category Updated Successfully',
+        message: 'Banner Updated Successfully',
       });
     } catch (error) {
       responseReturn(res, 500, { error: error.message });

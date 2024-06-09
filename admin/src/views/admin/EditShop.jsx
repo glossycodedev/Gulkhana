@@ -33,7 +33,6 @@ const EditShop = () => {
     address: '',
     shopName: '',
     city: '',
-    image: '',
   });
 
   useEffect(() => {
@@ -68,31 +67,12 @@ const EditShop = () => {
       setImage(URL.createObjectURL(files[0]));
       setSellerImage(files[0]);
     }
-    console.log('img', imageShow, 'sell', sellerImage);
-    // dispatch(profile_image_upload({ image: sellerImage, sellerId: sellerId }));
   };
 
   const add_image = (e) => {
     dispatch(profile_image_upload({ image: sellerImage, sellerId: sellerId }));
   };
 
-  // const add_image = (files) => {
-  //   if (files.length > 0) {
-  //     setImage(URL.createObjectURL(files[0]));
-  //     setSellerImage(URL.createObjectURL(files[0]));
-
-  //     // const obj = {
-  //     //   image: sellerImage,
-  //     //   sellerId: sellerId,
-  //     // };
-  //     // console.log(obj);
-  //       const formData = new FormData();
-  //       formData.append('image', state.image);
-  //       formData.append('sellerId', sellerId);
-  //     dispatch(profile_image_upload(formData));
-  //     // dispatch(get_seller(sellerId));
-  //   }
-  // };
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage);
@@ -106,6 +86,7 @@ const EditShop = () => {
         city: '',
       });
       setImage('');
+      setSellerImage('');
     }
     if (errorMessage) {
       toast.error(errorMessage);
@@ -265,18 +246,20 @@ const EditShop = () => {
                 name="image"
                 id="image"
               />
-              <button
-                onClick={add_image}
-                disabled={loader ? true : false}
-                // className="bg-[#2A629A] w-full hover:bg-[#313A46]  text-white rounded-md px-7 py-2 mb-3"
-                className=" bg-[#2A629A] w-[280px] hover:bg-[#313A46]  hover:shadow-lg text-white rounded-md px-7 py-2 mb-3"
-              >
-                {loader ? (
-                  <PropagateLoader color="#fff" cssOverride={overrideStyle} />
-                ) : (
-                  'Edit Image'
-                )}
-              </button>
+              <div className="px-7 ">
+                <button
+                  onClick={add_image}
+                  disabled={loader ? true : false}
+                  // className="bg-[#2A629A] w-full hover:bg-[#313A46]  text-white rounded-md px-7 py-2 mb-3"
+                  className=" bg-[#36ae5c] w-[200px] hover:bg-[#384631]  hover:shadow-lg text-white rounded-md px-7 py-2 mb-3"
+                >
+                  {loader ? (
+                    <PropagateLoader color="#fff" cssOverride={overrideStyle} />
+                  ) : (
+                    'Edit Image'
+                  )}
+                </button>
+              </div>
             </div>
 
             <div className="flex">

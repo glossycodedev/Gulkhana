@@ -63,7 +63,7 @@ const Header = () => {
 
                             <li className='flex relative justify-center items-center gap-2 text-sm '>
                                 <span><IoMdPhonePortrait  /></span>
-                                <span>+(123) 3243 343</span>
+                                <span>++(964) 750 000 0000</span>
                             </li> 
                         </ul>
 
@@ -109,7 +109,7 @@ const Header = () => {
                     <div className='flex justify-between items-center'>
  
                 <Link to='/'>
-                    <img src="http://localhost:3000/images/logo.png" alt="" />
+                    <img src="http://localhost:3001/images/logo.png" alt="" />
                 </Link>
                 <div className='justify-center items-center w-[30px] h-[30px] bg-white text-slate-600 border border-slate-600 rounded-sm cursor-pointer lg:hidden md-lg:flex xl:hidden hidden' onClick={() => setShowShidebar(false)}>
                     <span> <FaList/> </span>
@@ -121,20 +121,20 @@ const Header = () => {
                 <div className='flex justify-between md-lg:justify-center items-center flex-wrap pl-8'>
                     <ul className='flex justify-start items-start gap-8 text-sm font-bold uppercase md-lg:hidden'>
                         <li>
-                            <Link className={`p-2 block ${pathname === '/' ?  'text-[#059473]' : 'text-slate-600' } `} >Home</Link>
+                            <Link className={`p-2 block ${pathname === '/' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Home</Link>
                         </li>
 
                         <li>
-                            <Link to='/shops' className={`p-2 block ${pathname === '/shops' ?  'text-[#059473]' : 'text-slate-600' } `} >Shop</Link>
+                            <Link to='/shops' className={`p-2 block ${pathname === '/shops' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Shop</Link>
                         </li>
                         <li>
-                            <Link className={`p-2 block ${pathname === '/blog' ?  'text-[#059473]' : 'text-slate-600' } `} >Blog</Link>
+                            <Link className={`p-2 block ${pathname === '/blog' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Blog</Link>
                         </li>
                         <li>
-                            <Link className={`p-2 block ${pathname === '/about' ?  'text-[#059473]' : 'text-slate-600' } `} >About Us</Link>
+                            <Link className={`p-2 block ${pathname === '/about' ?  'text-[#2A629A]' : 'text-slate-600' } `} >About Us</Link>
                         </li>
                         <li>
-                            <Link className={`p-2 block ${pathname === '/contact' ?  'text-[#059473]' : 'text-slate-600' } `} >Contact Us</Link>
+                            <Link className={`p-2 block ${pathname === '/contact' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Contact Us</Link>
                         </li>
 
                     </ul>
@@ -212,20 +212,20 @@ const Header = () => {
 
     <ul className='flex flex-col justify-start items-start text-sm font-bold uppercase'>
                         <li>
-                            <Link className={`py-2 block ${pathname === '/' ?  'text-[#059473]' : 'text-slate-600' } `} >Home</Link>
+                            <Link className={`py-2 block ${pathname === '/' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Home</Link>
                         </li>
 
                         <li>
-                            <Link to='/shops' className={`py-2 block ${pathname === '/shops' ?  'text-[#059473]' : 'text-slate-600' } `} >Shop</Link>
+                            <Link to='/shops' className={`py-2 block ${pathname === '/shops' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Shop</Link>
                         </li>
                         <li>
-                            <Link className={`py-2 block ${pathname === '/blog' ?  'text-[#059473]' : 'text-slate-600' } `} >Blog</Link>
+                            <Link className={`py-2 block ${pathname === '/blog' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Blog</Link>
                         </li>
                         <li>
-                            <Link className={`py-2 block ${pathname === '/about' ?  'text-[#059473]' : 'text-slate-600' } `} >About Us</Link>
+                            <Link className={`py-2 block ${pathname === '/about' ?  'text-[#2A629A]' : 'text-slate-600' } `} >About Us</Link>
                         </li>
                         <li>
-                            <Link className={`py-2 block ${pathname === '/contact' ?  'text-[#059473]' : 'text-slate-600' } `} >Contact Us</Link>
+                            <Link className={`py-2 block ${pathname === '/contact' ?  'text-[#2A629A]' : 'text-slate-600' } `} >Contact Us</Link>
                         </li>
 
                     </ul>
@@ -263,7 +263,7 @@ const Header = () => {
         <div className='flex w-full flex-wrap md-lg:gap-8'>
             <div className='w-3/12 md-lg:w-full'>
                 <div className='bg-white relative'>
-                   <div onClick={() => setCategoryShow(!categoryShow) } className='h-[50px] bg-[#059473] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer'>
+                   <div onClick={() => setCategoryShow(!categoryShow) } className='h-[50px] bg-[#2A629A] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer'>
             <div className='flex justify-center items-center gap-3'>
                 <span><FaList/></span>
                 <span>All Category </span>
@@ -304,7 +304,7 @@ const Header = () => {
                         </select>
                         </div>
                         <input className='w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full' onChange={(e)=> setSearchValue(e.target.value)} type="text" name='' id='' placeholder='What do you need' />
-                        <button onClick={search} className='bg-[#059473] right-0 absolute px-8 h-full font-semibold uppercase text-white'>Search</button>
+                        <button onClick={search} className='bg-[#2A629A] right-0 absolute px-8 h-full font-semibold uppercase text-white'>Search</button>
                     </div> 
                 </div>
 

@@ -257,6 +257,10 @@ export const sellerReducer = createSlice({
       .addCase(profile_image_upload.pending, (state, { payload }) => {
         state.loader = true;
       })
+      .addCase(profile_image_upload.rejected, (state, { payload }) => {
+        state.loader = false;
+        state.errorMessage = payload.error;
+      })
       .addCase(profile_image_upload.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.seller = payload.seller;

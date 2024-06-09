@@ -1,6 +1,6 @@
 const categoryController = require('../../controllers/dasboard/categoryController');
 const { authMiddleware } = require('../../middlewares/authMiddleware');
-const { upload } = require('../../utiles/multer');
+const { upload } = require('../../utiles/categoryMulter');
 
 const router = require('express').Router();
 

@@ -11,8 +11,8 @@ const Shops = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
-  const [parPage, setParPage] = useState(5);
-  const [show, setShow] = useState(false);
+  const [parPage, setParPage] = useState(15);
+  // const [show, setShow] = useState(false);
 
   const { sellers, totalSeller } = useSelector((state) => state.seller);
 
@@ -28,7 +28,10 @@ const Shops = () => {
   return (
     <div className="px-2 lg:px-7 pb-5">
       <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
-        <h2 className="text-lg text-[#5c5a5a] font-medium">Shops</h2>
+        <div className="flex pb-3 justify-between items-center">
+          <h2 className="text-lg text-[#5c5a5a] font-medium">Shops</h2>{' '}
+          <span>{totalSeller} Sellers</span>
+        </div>
       </div>
       <div className="w-full p-4 bg-[#ffffff] shadow-md rounded-md">
         <div className="flex pb-3 justify-between items-center">
@@ -38,9 +41,9 @@ const Shops = () => {
               onChange={(e) => setParPage(parseInt(e.target.value))}
               className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="60">60</option>
             </select>
           </div>
           <div className="flex gap-3 items-center">
@@ -65,22 +68,22 @@ const Shops = () => {
                   Image
                 </th>
                 <th scope="col" className="py-3 px-4">
-                  Name
+                  Seller Name
                 </th>
                 <th scope="col" className="py-3 px-4">
                   Shop Name
                 </th>
-                <th scope="col" className="py-3 px-4">
+                {/* <th scope="col" className="py-3 px-4">
                   Payment Status
-                </th>
+                </th> */}
                 <th scope="col" className="py-3 px-4">
-                  Email
+                  Phone
                 </th>
                 <th scope="col" className="py-3 px-4">
                   Status
                 </th>
                 <th scope="col" className="py-3 px-4">
-                  District
+                  City
                 </th>
                 <th scope="col" className="py-3 px-4">
                   Action
@@ -94,45 +97,41 @@ const Shops = () => {
                   key={i}
                   className="text-[#595b5d] text-lg border-b  border-[#dcdada]"
                 >
+                  <td className="py-2 px-4  whitespace-nowrap">{i + 1}</td>
                   <td className="py-2 px-4  whitespace-nowrap">
-                    {i + 1}
+                    <img
+                      className="w-[50px] h-[50px]"
+                      src={`${backend_url_img}/uploads/${d.image}`}
+                      alt=""
+                    />
                   </td>
-                  <td  className="py-2 px-4  whitespace-nowrap">
-                    <img className="w-[50px] h-[50px]" src={`${backend_url_img}/uploads/${d.image}`} alt="" />
-                  </td>
+                  <td className="py-1 px-4 whitespace-nowrap">{d.name} </td>
                   <td className="py-1 px-4 whitespace-nowrap">
-                    {d.name}{' '}
-                  </td>
-                  <td  className="py-1 px-4 whitespace-nowrap">
                     {d.shopInfo?.shopName}
                   </td>
-                  <td className="py-1 px-4  whitespace-nowrap">
+                  {/* <td className="py-1 px-4  whitespace-nowrap">
                     <span>{d.payment}</span>{' '}
-                  </td>
-                  <td  className="py-1 px-4 whitespace-nowrap">
-                    {d.email}{' '}
-                  </td>
+                  </td> */}
+                  <td className="py-1 px-4 whitespace-nowrap">{d.phone} </td>
 
-                  <td  className="py-1 px-4 whitespace-nowrap">
-                    {d.status}{' '}
-                  </td>
+                  <td className="py-1 px-4 whitespace-nowrap">{d.status} </td>
 
                   <td className="py-1 px-4 whitespace-nowrap">
-                    {d.shopInfo?.district}{' '}
+                    {d.shopInfo?.city}{' '}
                   </td>
 
-                  <td  className="py-1 px-4  whitespace-nowrap">
+                  <td className="py-1 px-4  whitespace-nowrap">
                     <div className="flex justify-start items-center gap-4">
                       <Link
                         to={`/admin/dashboard/edit-shop/${d._id}`}
-                        className="p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50"
+                        className="p-[6px] bg-[#2A629A] rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
                       >
                         {' '}
                         <FaEdit />{' '}
                       </Link>
                       <Link
                         to={`/admin/dashboard/shop/details/${d._id}`}
-                        className="p-[6px] bg-[#2A629A] rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
+                        className="p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50 text-[#343b40]"
                       >
                         {' '}
                         <FaEye />{' '}

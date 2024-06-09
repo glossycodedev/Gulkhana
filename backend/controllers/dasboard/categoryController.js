@@ -61,10 +61,10 @@ class categoryController {
         const oldImagePath = path.join(
           __dirname,
           '..',
-          '../uploads',
+          '../uploads/categories',
           existingCategory.image
         );
-        console.log(`Old image path: ${oldImagePath}`);
+        // console.log(`Old image path: ${oldImagePath}`);
         // Check if the old image exists before deleting
         fs.access(oldImagePath, fs.constants.F_OK, (err) => {
           if (err) {

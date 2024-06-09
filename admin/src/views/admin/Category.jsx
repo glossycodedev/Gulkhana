@@ -12,7 +12,6 @@ import {
   messageClear,
   get_category,
   categoryUpdate,
-  category_image_update,
 } from '../../store/Reducers/categoryReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -26,7 +25,7 @@ const Category = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
-  const [parPage, setParPage] = useState(5);
+  const [parPage, setParPage] = useState(15);
   const [show, setShow] = useState(false);
   const [imageShow, setImage] = useState('');
   const [categoryId, setCategoryId] = useState('');
@@ -40,34 +39,25 @@ const Category = () => {
 
   const imageHandle = (img, files) => {
     if (files.length > 0) {
-      
       setImage(URL.createObjectURL(files[0]));
       setState({
         ...state,
         image: files[0],
       });
-
     }
   };
-   const add_category = (e) => {
+  const add_category = (e) => {
     e.preventDefault();
     if (categoryId) {
-      // dispatch(
-      //   category_image_update({
-      //     oldImage: oldImage,
-      //     newImage: newImage,
-      //     categoryId,
-      //   })
-      // );
       const obj = {
         name: state.name,
         image: state.image,
         categoryId: categoryId,
       };
-      dispatch(categoryUpdate(obj));
-      //  dispatch(categoryUpdate(obj));
+      if (state.image) {
+        dispatch(categoryUpdate(obj));
+      }
     } else {
-      // dispatch(categoryAdd(state));
       dispatch(categoryAdd({ name: state.name, image: state.image }));
     }
     ClearAll();
@@ -89,13 +79,7 @@ const Category = () => {
     if (successMessage) {
       toast.success(successMessage);
       dispatch(messageClear());
-      setOldImage('');
-      setNewImage('');
-      setCategoryId('');
-      setState({
-        name: '',
-        image: '',
-      });
+
       setImage('');
       ClearAll();
     }
@@ -112,7 +96,7 @@ const Category = () => {
       searchValue,
     };
     dispatch(get_category(obj));
-  }, [dispatch, searchValue, currentPage, parPage, category]);
+  }, [searchValue, currentPage, parPage, category]);
 
   return (
     <div className="px-2 lg:px-7 pb-5">
@@ -169,7 +153,7 @@ const Category = () => {
                       <td scope="row" className="py-1 px-4 whitespace-nowrap">
                         <img
                           className="w-[45px] h-[45px]"
-                          src={`${backend_url_img}/uploads/${d.image}`}
+                          src={`${backend_url_img}/uploads/categories/${d.image}`}
                           alt=""
                         />
                       </td>
@@ -189,12 +173,14 @@ const Category = () => {
                                 name: d.name,
                                 // image: `${backend_url_img}/uploads/${d.image}`,
                               });
-                              setImage(`${backend_url_img}/uploads/${d.image}`);
+                              setImage(
+                                `${backend_url_img}/uploads/categories/${d.image}`
+                              );
                               setCategoryId(d._id);
                               setCategoryName(d.name);
                               // console.log(imageShow);
                             }}
-                            className="cursor-pointer p-[6px] text-[#2A629A]"
+                            className="p-[6px] bg-[#2A629A] cursor-pointer rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
                           >
                             {' '}
                             <FaEdit />{' '}
@@ -272,7 +258,6 @@ const Category = () => {
                         <span>Select Image</span>
                       </>
                     )}
-                    
                   </label>
                   <input
                     onChange={(e) => imageHandle(imageShow, e.target.files)}

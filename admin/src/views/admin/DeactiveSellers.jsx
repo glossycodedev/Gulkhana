@@ -10,7 +10,7 @@ const DeactiveSellers = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
-  const [parPage, setParPage] = useState(5);
+  const [parPage, setParPage] = useState(10);
   const [show, setShow] = useState(false);
 
   const { sellers, totalSeller } = useSelector((state) => state.seller);
@@ -37,9 +37,9 @@ const DeactiveSellers = () => {
               onChange={(e) => setParPage(parseInt(e.target.value))}
               className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
             >
-              <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>
+              <option value="40">40</option>
             </select>
           </div>
           <div className="flex gap-3 items-center">

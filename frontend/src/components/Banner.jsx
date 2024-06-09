@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import 'react-multi-carousel/lib/styles.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { get_banners } from '../store/reducers/homeReducer';
+import { backend_url_img } from '../api/server';
 
 const Banner = () => {
 
     const dispatch = useDispatch()
     const {banners} = useSelector(state => state.home)
- 
+ console.log(banners);
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 3000 },
@@ -47,8 +48,8 @@ const Banner = () => {
                     responsive={responsive}
                 >
                 {
-                   banners.length > 0 && banners.map((b, i) => <Link key={i} to={`product/details/${b.link}`}>
-                        <img src={ b.banner} alt="" />
+                   banners.length > 0 && banners.map((b, i) => <Link key={i} to={`product/details/${b.image}`}>
+                        <img src={`${backend_url_img}/uploads/${b.image}`} alt="" />
                     </Link> )
                 }
                 </Carousel>        

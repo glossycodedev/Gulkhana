@@ -297,7 +297,7 @@ const AddBanner = () => {
                                 `${backend_url_img}/uploads/${d.image}`
                               );
                             }}
-                            className="cursor-pointer text-[#2A629A]"
+                             className="p-[6px] bg-[#2A629A] cursor-pointer rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
                           >
                             {' '}
                             <FaEdit />{' '}

@@ -11,7 +11,7 @@ const Orders = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState('');
-  const [parPage, setParPage] = useState(10);
+  const [parPage, setParPage] = useState(15);
   const [show, setShow] = useState(false);
 
   const { myOrders, totalOrder } = useSelector((state) => state.order);
@@ -39,26 +39,29 @@ const Orders = () => {
               onChange={(e) => setParPage(parseInt(e.target.value))}
               className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
             >
-              <option className="px-4" value="10">
-                10
-              </option>
-              <option className="px-4" value="20">
-                20
+              <option className="px-4" value="15">
+                15
               </option>
               <option className="px-4" value="30">
                 30
+              </option>
+              <option className="px-4" value="60">
+                60
+              </option>
+              <option className="px-4" value="100">
+                100
               </option>
             </select>
           </div>
           <div className="flex gap-3 items-center">
             {/* <h2 className="text-md text-[#5c5a5a] ">Search</h2> */}
-            <input
+            {/* <input
               onChange={(e) => setSearchValue(e.target.value)}
               value={searchValue}
               className="px-4 py-1 focus:border-[#bcb9b9] outline-none bg-[#F9FBFE] border border-[#bcb9b9] rounded-md text-[#5c5a5a]"
               type="text"
               placeholder="search"
-            />
+            /> */}
           </div>
         </div>
 
@@ -129,7 +132,8 @@ const Orders = () => {
                   >
                     <div className="flex justify-start items-center gap-4">
                     <Link to={`/admin/dashboard/order/details/${o._id}`} 
-                        className="p-[6px] bg-[#2A629A] rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
+                     className="p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50 text-[#343b40]"
+                        // className="p-[6px] bg-[#2A629A] rounded hover:shadow-lg hover:shadow-[#2a629aab] text-[#e8ebed]"
                       >
                         {' '}
                         <FaEye />{' '}
