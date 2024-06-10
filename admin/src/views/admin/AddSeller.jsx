@@ -109,7 +109,7 @@ const AddSeller = () => {
               </div>
 
               <div className="flex flex-col w-full gap-1">
-                <label htmlFor="brand">Phone</label>
+                <label htmlFor="phone">Phone</label>
                 <input
                   className="px-3 py-2 focus:border-[#969494] outline-none bg-[#ffffff] border border-[#bcb9b9] rounded-md text-[#000000]"
                   onChange={inputHandle}
@@ -140,14 +140,14 @@ const AddSeller = () => {
 
             <div className="flex flex-col mb-3 md:flex-row gap-4 w-full text-[#5c5a5a]">
               <div className="flex flex-col w-full gap-1">
-                <label htmlFor="Shop">Shop Name</label>
+                <label htmlFor="shopName">Shop Name</label>
                 <input
                   value={state.shopName}
                   onChange={inputHandle}
                   className="px-3 py-2 focus:border-[#969494] outline-none bg-[#ffffff] border border-[#bcb9b9] rounded-md text-[#000000]"
                   type="text"
                   name="shopName"
-                  id="Shop"
+                  id="shopName"
                   placeholder="Shop Name"
                 />
               </div>
