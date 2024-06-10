@@ -257,7 +257,7 @@ const Card = () => {
                 <div className="pl-3 md-lg:pl-0 md-lg:mt-5">
                   {card_products.length > 0 && (
                     <div className="bg-white p-3 text-slate-600 flex flex-col gap-3">
-                      <h2 className="text-xl font-bold">Order Summary1</h2>
+                      <h2 className="text-xl font-bold">Order Summary12</h2>
                       <div className="flex justify-between items-center">
                         <span>{buy_product_item} Items </span>
                         <span>${price} </span>

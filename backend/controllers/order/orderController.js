@@ -48,7 +48,13 @@ class orderController {
     const tempDate = moment(Date.now()).format("LLL");
 
     let customerOrderProduct = [];
-
+    console.log("backend, inside  orderController.js", products, userId);
+    // console.log(
+    //   "backend, inside  orderController.js",
+    //   products[0]
+    //   // shippingInfo,
+    //   // userId
+    // );
     for (let i = 0; i < products.length; i++) {
       const pro = products[i].products;
       for (let j = 0; j < pro.length; j++) {
@@ -60,7 +66,10 @@ class orderController {
         }
       }
     }
-
+    // console.log(
+    //   "backend, inside  orderController.js, what is customerOrderProduct",
+    //   customerOrderProduct
+    // );
     try {
       const order = await customerOrder.create({
         customerId: userId,
@@ -320,11 +329,18 @@ class orderController {
   seller_order_status_update = async (req, res) => {
     const { orderId } = req.params;
     const { status } = req.body;
-
+    console.log("1", orderId);
     try {
       await authOrderModel.findByIdAndUpdate(orderId, {
         delivery_status: status,
       });
+      // Awara to show change in both admin & customer
+      await customerOrder.findByIdAndUpdate(orderId, {
+        // delivery_status: 'cancelled'
+        delivery_status: status,
+      });
+      const order = await customerOrder.findById(orderId);
+      console.log("2", order);
       responseReturn(res, 200, {
         message: "order status updated successfully",
       });
@@ -353,6 +369,7 @@ class orderController {
   // End Method
 
   order_confirm = async (req, res) => {
+    console.log("how do we reach order_confirm");
     const { orderId } = req.params;
     try {
       await customerOrder.findByIdAndUpdate(orderId, {
@@ -370,7 +387,70 @@ class orderController {
       const auOrder = await authOrderModel.find({
         orderId: new ObjectId(orderId),
       });
+      //
+      // for (const index in updatedOrder.orderItems) {
+      //   const item = updatedOrder.orderItems[index];
+      //   const product = await Product.findById(item.product);
+      //   product.countInStock -= item.qty;
+      //   product.sold += item.qty;
+      //   await product.save();
+      // }
+      //
+      const time = moment(Date.now()).format("l");
+      const splitTime = time.split("/");
 
+      await myShopWallet.create({
+        amount: cuOrder.price,
+        month: splitTime[0],
+        year: splitTime[2],
+      });
+
+      for (let i = 0; i < auOrder.length; i++) {
+        await sellerWallet.create({
+          sellerId: auOrder[i].sellerId.toString(),
+          amount: auOrder[i].price,
+          month: splitTime[0],
+          year: splitTime[2],
+        });
+      }
+      responseReturn(res, 200, { message: "success" });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  order_confirm_payment_status = async (req, res) => {
+    console.log("order_confirm_payment_status");
+    console.log("order_confirm_payment_status", req);
+    const { orderId } = req.params;
+    const payment_status = req.body;
+    try {
+      await customerOrder.findByIdAndUpdate(orderId, {
+        // payment_status: "paid",
+        payment_status: payment_status.status_payment,
+      });
+      await authOrderModel.updateMany(
+        { orderId: new ObjectId(orderId) },
+        {
+          // payment_status: "paid",
+          payment_status: payment_status.status_payment,
+          delivery_status: "pending",
+        }
+      );
+      const cuOrder = await customerOrder.findById(orderId);
+      console.log("cuOrder after payment changes", cuOrder);
+      const auOrder = await authOrderModel.find({
+        orderId: new ObjectId(orderId),
+      });
+      //
+      // for (const index in updatedOrder.orderItems) {
+      //   const item = updatedOrder.orderItems[index];
+      //   const product = await Product.findById(item.product);
+      //   product.countInStock -= item.qty;
+      //   product.sold += item.qty;
+      //   await product.save();
+      // }
+      //
       const time = moment(Date.now()).format("l");
       const splitTime = time.split("/");
 

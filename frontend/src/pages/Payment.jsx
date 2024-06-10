@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "./../components/Header";
 import Footer from "./../components/Footer";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Stripe from "../components/Stripe";
 import StripeTwo from "../components/StripeTwo";
 
@@ -20,7 +20,7 @@ const Payment = () => {
             <div className="w-7/12 md:w-full">
               <div className="pr-2 md:pr-0">
                 <div className="flex flex-wrap">
-                  <div
+                  {/* <div
                     onClick={() => setPaymentMethod("stripe")}
                     className={`w-[20%] border-r cursor-pointer py-8 px-12 ${
                       paymentMethod === "stripe" ? "bg-white" : "bg-slate-100"
@@ -33,7 +33,7 @@ const Payment = () => {
                       />
                     </div>
                     <span className="text-slate-600">Stripe</span>
-                  </div>
+                  </div> */}
 
                   <div
                     onClick={() => setPaymentMethod("cod")}
@@ -51,21 +51,28 @@ const Payment = () => {
                   </div>
                 </div>
 
-                {paymentMethod === "stripe" && (
+                {/* {paymentMethod === "stripe" && (
                   <div>
                     <Stripe orderId={orderId} price={price} />
                   </div>
-                )}
-                {paymentMethod === "cod" && (
-                  //   <div className="w-full px-4 py-8 bg-white shadow-sm">
-                  //     <button className="px-10 py-[6px] rounded-sm hover:shadow-green-500/20 hover:shadow-lg bg-[#059473] text-white">
-                  //       Pay Now kaka2
-                  //     </button>
-                  //   </div>
-                  <div>
-                    <StripeTwo orderId={orderId} price={price} />
-                  </div>
-                )}
+                )} */}
+                <div className="w-full px-4 py-8 bg-white shadow-sm">
+                  {/* <button className="px-10 py-[6px] rounded-sm hover:shadow-green-500/20 hover:shadow-lg bg-[#059473] text-white">
+                        Pay Now kaka2
+                      </button> */}
+
+                  <Link to="/dashboard/my-orders">
+                    <button className="px-10 py-[6px] rounded-sm hover:shadow-green-500/20 hover:shadow-lg bg-[#059473] text-white">
+                      Go To Your Order
+                    </button>
+                  </Link>
+                </div>
+                {/* {paymentMethod === "cod" && (
+                  
+                  // <div>
+                  //   <StripeTwo orderId={orderId} price={price} />
+                  // </div>
+                )} */}
               </div>
             </div>
 

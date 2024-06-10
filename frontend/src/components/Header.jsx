@@ -16,8 +16,45 @@ import {
   get_card_products,
   get_wishlist_products,
 } from "../store/reducers/cardReducer";
+//
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+import cookies from "js-cookie";
+
+const languages = [
+  {
+    code: "fr",
+    name: "Français",
+    country_code: "fr",
+  },
+  {
+    code: "en",
+    name: "English",
+    country_code: "en",
+  },
+  {
+    code: "ar",
+    name: "العربية",
+    dir: "rtl",
+    country_code: "ar",
+  },
+];
 
 const Header = () => {
+  // Awara
+  console.log("categories at homeScreen");
+  const currentLanguageCode = cookies.get("i18next") || "en";
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const { t } = useTranslation();
+  console.log("what is this t mama");
+  console.log(t);
+
+  useEffect(() => {
+    console.log("Setting page stuff");
+    document.body.dir = currentLanguage.dir || "ltr";
+    document.title = t("app_title");
+  }, [currentLanguage, t]);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { categorys } = useSelector((state) => state.home);
@@ -94,11 +131,28 @@ const Header = () => {
                 <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]">
                   <img src="http://localhost:3000/images/language.png" alt="" />
                   <span>
+                    {/* Language */}
+                    {t("language")}
+                  </span>
+                  <span>
                     <IoMdArrowDropdown />
                   </span>
+
                   <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
-                    <li>Hindi</li>
-                    <li>English</li>
+                    {languages.map(({ code, name, country_code }) => (
+                      <li key={country_code}>
+                        <a
+                          href="/"
+                          className="dromdown-item "
+                          onClick={() => i18next.changeLanguage(code)}
+                          disabled={code === currentLanguageCode}
+                        >
+                          {name}
+                        </a>
+                      </li>
+                    ))}
+                    {/* <li>Hindi</li>
+                    <li>English</li> */}
                   </ul>
                 </div>
 
@@ -161,7 +215,8 @@ const Header = () => {
                         pathname === "/" ? "text-[#059473]" : "text-slate-600"
                       } `}
                     >
-                      Home
+                      {/* Home */}
+                      {t("home")}
                     </Link>
                   </li>
 
