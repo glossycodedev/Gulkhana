@@ -9,10 +9,10 @@ const AdminLogin = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {loader,errorMessage,successMessage} = useSelector(state=>state.auth)
+    const {loader,errorMessage,successMessage,userInfo} = useSelector(state=>state.auth)
 
     const [state, setState] = useState({ 
-        email: "",
+        phone: "",
         password: ""
     })
 
@@ -56,15 +56,15 @@ const AdminLogin = () => {
                
         <div className='h-[70px] flex justify-center items-center'>
             <div className='w-[180px] h-[50px]'>
-                <img className='w-full h-full' src="http://localhost:3000/images/logo.png" alt="image3" />
+                <img className='w-full h-full' src="http://localhost:3001/images/logo.png" alt="image3" />
             </div>
             </div>       
 
     <form onSubmit={submit}>
          
         <div className='flex flex-col w-full gap-1 mb-3'>
-            <label htmlFor="email">Email</label>
-            <input onChange={inputHandle} value={state.email}  className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="email" name='email' placeholder='Email' id='email' required />
+            <label htmlFor="phone">Phone</label>
+            <input onChange={inputHandle} value={state.email}  className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="text" name='phone' placeholder='Phone' id='phone' required />
 
         </div>
 

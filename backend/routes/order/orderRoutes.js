@@ -12,6 +12,7 @@ router.get('/order/confirm/:orderId',orderController.order_confirm)
 
 // Admin
 router.get('/admin/orders',orderController.get_admin_orders)
+router.get('/admin/orders-status/:status',orderController.get_admin_orders_status )
 router.get('/admin/order/:orderId',orderController.get_admin_order)
 router.put('/admin/order-status/update/:orderId',orderController.admin_order_status_update)
 

@@ -21,6 +21,20 @@ export const get_admin_orders = createAsyncThunk(
 
 // End Method
 
+export const get_admin_orders_status = createAsyncThunk(
+  'orders/get_admin_orders_status',
+  async({customerId,status}, { rejectWithValue,fulfillWithValue }) => {
+      try {
+          const {data} = await api.get(`/admin/orders-status/${status}`) 
+          // console.log(data)
+          return fulfillWithValue(data)
+      } catch (error) {
+          return rejectWithValue(error.response.data)
+      }
+  }
+)
+// End Method 
+
 export const get_admin_order = createAsyncThunk(
   'orders/get_admin_order',
   async (orderId, { rejectWithValue, fulfillWithValue }) => {
@@ -123,6 +137,10 @@ export const OrderReducer = createSlice({
     builder
 
       .addCase(get_admin_orders.fulfilled, (state, { payload }) => {
+        state.myOrders = payload.orders;
+        state.totalOrder = payload.totalOrder;
+      })
+      .addCase(get_admin_orders_status.fulfilled, (state, { payload }) => {
         state.myOrders = payload.orders;
         state.totalOrder = payload.totalOrder;
       })

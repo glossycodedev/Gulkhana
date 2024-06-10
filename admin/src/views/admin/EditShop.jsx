@@ -105,15 +105,7 @@ const EditShop = () => {
       city: state.city,
       sellerId: sellerId,
     };
-    // const formData = new FormData();
-    // formData.append('name', state.name);
-    // formData.append('phone', state.phone);
-    // formData.append('password', state.password);
-    // formData.append('address', state.address);
-    // formData.append('shopName', state.shopName);
-    // formData.append('city', state.city);
-    // formData.append('sellerId', sellerId);
-    //formData.append('image', state.image);
+   
 
     dispatch(seller_update(obj));
   };

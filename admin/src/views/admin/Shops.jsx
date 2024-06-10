@@ -151,7 +151,7 @@ const Shops = () => {
               setPageNumber={setCurrentPage}
               totalItem={totalSeller}
               parPage={parPage}
-              showItem={4}
+              showItem={5}
             />
           </div>
         ) : (

@@ -187,6 +187,29 @@ class orderController {
     }
   };
   // End Method
+  get_admin_orders_status = async (req, res) => {
+    const { status } = req.params;
+
+    try {
+      let orders = [];
+      if (status !== 'all') {
+        orders = await customerOrder.find({
+          // customerId: new ObjectId(customerId),
+          delivery_status: status,
+        });
+      } else {
+        orders = await customerOrder.find({
+          // customerId: new ObjectId(customerId),
+        });
+      }
+      responseReturn(res, 200, {
+        orders,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  // End Method
 
   get_admin_orders = async (req, res) => {
     let { page, searchValue, parPage } = req.query;
@@ -197,7 +220,6 @@ class orderController {
 
     try {
       if (searchValue) {
-        
       } else {
         const orders = await customerOrder
           .aggregate([

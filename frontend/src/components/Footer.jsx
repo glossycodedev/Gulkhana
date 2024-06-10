@@ -15,7 +15,7 @@ const Footer = () => {
     const {card_product_count,wishlist_count} = useSelector(state => state.card) 
 
     return (
-        <footer className='bg-[#f3f6fa]'>
+        <footer className='bg-[#FEEAF1]'>
             <div className='w-[85%] flex flex-wrap mx-auto border-b py-16 md-lg:pb-10 sm:pb-6'>
                 <div className='w-3/12 lg:w-4/12 sm:w-full'>
                     <div className='flex flex-col gap-3'>
@@ -103,15 +103,15 @@ const Footer = () => {
 
             </div>
 
-            <div className='w-[90%] flex flex-wrap justify-center items-center text-slate-600 mx-auto py-5 text-center'>
-                <span>Copiright @ 2024 All Rights Reserved </span>
+            <div className='w-full flex flex-wrap justify-center bg-[#F9CEDF] items-center text-slate-600 mx-auto py-5 text-center'>
+                <span>Copyright @ 2024 All Rights Reserved </span>
             </div>
 
 
     <div className='hidden fixed md-lg:block w-[50px] h-[110px] bottom-3 right-2 bg-white rounded-full p-2'>
         <div className='w-full h-full flex gap-3 flex-col justify-center items-center'>
         <div onClick={() => navigate(userInfo ? '/card' : '/login') }  className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
-            <span className='text-xl text-green-500'><FaCartShopping/></span>
+            <span className='text-xl text-[#B65278]'><FaCartShopping/></span>
             {
                 card_product_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
                     {
@@ -124,7 +124,7 @@ const Footer = () => {
         </div>
 
         <div  onClick={() => navigate(userInfo ? '/dashboard/my-wishlist' : '/login') } className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
-            <span className='text-xl text-green-500'><FaHeart/></span>
+            <span className='text-xl text-[#B65278]'><FaHeart/></span>
             {
                 wishlist_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
                     {

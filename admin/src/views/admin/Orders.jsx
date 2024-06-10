@@ -3,7 +3,7 @@ import { LuArrowDownSquare } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { get_admin_orders } from '../../store/Reducers/OrderReducer';
+import { get_admin_orders, get_admin_orders_status } from '../../store/Reducers/OrderReducer';
 import { FaEye } from 'react-icons/fa';
 
 const Orders = () => {
@@ -13,9 +13,14 @@ const Orders = () => {
   const [searchValue, setSearchValue] = useState('');
   const [parPage, setParPage] = useState(15);
   const [show, setShow] = useState(false);
+  const [state, setState] = useState('all')
 
   const { myOrders, totalOrder } = useSelector((state) => state.order);
 
+  useEffect(() => {
+    dispatch(get_admin_orders_status({status:state}))
+},[state])
+console.log(myOrders);
   useEffect(() => {
     const obj = {
       parPage: parseInt(parPage),
@@ -53,7 +58,17 @@ const Orders = () => {
               </option>
             </select>
           </div>
-          <div className="flex gap-3 items-center">
+          <div className="flex items-center">
+          <div className='flex gap-4 justify-between items-center'>
+                <h2 className='text-md text-[#5c5a5a]'>Search </h2>
+                <select className='outline-none px-3 py-1 border rounded-md text-slate-600' value={state} onChange={(e) => setState(e.target.value)} >
+                    <option value="all">--All Orders--</option>
+                    <option value="placed">Placed</option>
+                    <option value="pending">Pending</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="warehouse">Warehouse</option>
+                </select> 
+            </div>
             {/* <h2 className="text-md text-[#5c5a5a] ">Search</h2> */}
             {/* <input
               onChange={(e) => setSearchValue(e.target.value)}
