@@ -229,7 +229,8 @@ const Header = () => {
                           : "text-slate-600"
                       } `}
                     >
-                      Shop
+                      {/* Shop */}
+                      {t("shop")}
                     </Link>
                   </li>
                   <li>
@@ -265,7 +266,8 @@ const Header = () => {
                           : "text-slate-600"
                       } `}
                     >
-                      Contact Us
+                      {/* Contact Us */}
+                      {t("contact-us")}
                     </Link>
                   </li>
                 </ul>

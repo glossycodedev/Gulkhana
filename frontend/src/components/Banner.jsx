@@ -49,8 +49,8 @@ const Banner = () => {
                 {banners.length > 0 &&
                   banners.map((b, i) => (
                     <Link key={i} to={`product/details/${b.link}`}>
+                      {/* Awara */}
                       {/* <img src={ b.banner} alt="" /> */}
-
                       <img
                         src={`${api.backend_url_img}/uploads/${b.image}`}
                         alt=""
