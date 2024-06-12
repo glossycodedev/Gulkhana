@@ -80,11 +80,11 @@ const Details = () => {
     },
     smmobile: {
       breakpoint: { max: 640, min: 0 },
-      items: 2,
+      items: 3,
     },
     xsmobile: {
       breakpoint: { max: 440, min: 0 },
-      items: 1,
+      items: 3,
     },
   };
 
@@ -173,48 +173,48 @@ const Details = () => {
   return (
     <div>
       <Header />
-      <section className='bg-[url("http://localhost:3000/images/banner/shop.png")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+      <section className=' mt-8 bg-cover bg-no-repeat relative bg-left'>
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
-              <h2 className="text-3xl font-bold">Product Details </h2>
-              <div className="flex justify-center items-center gap-2 text-2xl w-full">
+              {/* <h2 className="text-3xl font-bold">Product Details </h2> */}
+              {/* <div className="flex justify-center items-center gap-2 text-2xl w-full">
                 <Link to="/">Home</Link>
                 <span className="pt-1">
                   <IoIosArrowForward />
                 </span>
                 <span>Product Details </span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </section>
 
       <section>
-        <div className="bg-slate-100 py-5 mb-5">
-          <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
+        <div className=" bg-slate-100 py-5 mb-5">
+          <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex justify-start items-center text-md text-slate-600 w-full">
               <Link to="/">Home</Link>
-              <span className="pt-1">
+              <span>
                 <IoIosArrowForward />
               </span>
               <Link to="/">{product.category}</Link>
-              <span className="pt-1">
+              <span>
                 <IoIosArrowForward />
               </span>
-              <span>{product.name} </span>
+              <span className='text-[#B65278]'>{product.name} </span>
             </div>
           </div>
         </div>
       </section>
 
-      <section>
+      <section  className="mt-8">
         <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto  pb-16">
-          <div className="justify-center items-center grid grid-cols-2 gap-8">
+          <div className="justify-start grid grid-cols-2 sm:grid-cols-1 gap-8">
             <div>
-              <div className="p-3 ">
+              <div className="p-1 h-auto">
                 <img
-                  className="h-[600px] w-full "
+                  className="h-[600px] sm:h-auto w-full "
                   src={
                     image
                       ? `${backend_url_img}/uploads/${image}`
@@ -224,7 +224,7 @@ const Details = () => {
                   alt=""
                 />
               </div>
-              <div className="py-3 px-2">
+              <div className="py-3 px-1">
                 {product.images && (
                   <Carousel
                     autoPlay={true}
@@ -235,15 +235,9 @@ const Details = () => {
                   >
                     {product.images.map((img, i) => {
                       return (
-                        <div
-                          key={i}
-                          onClick={() => {
-                            setImage(img);
-                            console.log(image);
-                          }}
-                        >
+                        <div key={i} onClick={() => setImage(img)}>
                           <img
-                            className="h-[120px]  cursor-pointer "
+                            className="h-[120px] px-2 cursor-pointer "
                             src={`${backend_url_img}/uploads/${img}`}
                             alt=""
                           />
@@ -255,8 +249,8 @@ const Details = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-5">
-              <div className="text-3xl text-slate-600 font-bold">
+            <div className="flex flex-col gap-3">
+              <div className="text-lg text-slate-600 font-bold">
                 <h3>{product.name} </h3>
               </div>
               <div className="flex justify-start items-center gap-4">
@@ -266,7 +260,7 @@ const Details = () => {
                 <span className="text-green-500">(24 reviews)</span>
               </div>
 
-              <div className="text-2xl text-red-500 font-bold flex gap-3">
+              <div className="text-lg text-red-500 font-bold flex gap-3">
                 {product.discount !== 0 ? (
                   <>
                     Price : <h2 className="line-through">${product.price}</h2>
@@ -306,7 +300,7 @@ const Details = () => {
                     <div>
                       <button
                         onClick={add_card}
-                        className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#059473] text-white"
+                        className="px-4 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#059473] text-white"
                       >
                         Add To Card
                       </button>
@@ -327,7 +321,7 @@ const Details = () => {
               </div>
 
               <div className="flex py-5 gap-5">
-                <div className="w-[150px] text-black font-bold text-xl flex flex-col gap-5">
+                <div className="w-[150px] text-black font-bold text-lg flex flex-col gap-5">
                   <span>Availability</span>
                   <span>Share On</span>
                 </div>
@@ -407,20 +401,9 @@ const Details = () => {
       <section>
         <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16">
           <div className="flex flex-wrap">
-            <div className="w-[60%] md-lg:w-full">
+            <div className="w-full md-lg:w-full">
               <div className="pr-4 md-lg:pr-0">
                 <div className="grid grid-cols-2">
-                  <button
-                    onClick={() => setState('reviews')}
-                    className={`py-1 hover:text-black px-5 border-b-2 ${
-                      state === 'reviews'
-                        ? 'bg-slate-200 text-slate-700 border-b-[#B65278]'
-                        : 'hover:border-b-[#B65278] text-black'
-                    } rounded-sm`}
-                  >
-                    Reviews{' '}
-                  </button>
-
                   <button
                     onClick={() => setState('description')}
                     className={`py-1 hover:text-black px-5  border-b-2 ${
@@ -430,6 +413,16 @@ const Details = () => {
                     } rounded-sm`}
                   >
                     Description{' '}
+                  </button>
+                  <button
+                    onClick={() => setState('reviews')}
+                    className={`py-1 hover:text-black px-5 border-b-2 ${
+                      state === 'reviews'
+                        ? 'bg-slate-200 text-slate-700 border-b-[#B65278]'
+                        : 'hover:border-b-[#B65278] text-black'
+                    } rounded-sm`}
+                  >
+                    Reviews{' '}
                   </button>
                 </div>
 
@@ -443,7 +436,7 @@ const Details = () => {
               </div>
             </div>
 
-            <div className="w-[28%] md-lg:w-full">
+            {/* <div className="w-[28%] md-lg:w-full">
               <div className="pl-4 md-lg:pl-0">
                 <div className="px-3 py-2 text-slate-600 bg-slate-200">
                   <h2 className="font-bold">From {product.shopName}</h2>
@@ -487,7 +480,7 @@ const Details = () => {
                   })}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

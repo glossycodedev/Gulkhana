@@ -22,6 +22,10 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import cookies from 'js-cookie';
 
+import { Ripple, initTWE } from 'tw-elements';
+
+initTWE({ Ripple });
+
 const languages = [
   {
     code: 'en',
@@ -81,6 +85,40 @@ const Header = () => {
     }
   }, [userInfo]);
 
+  useEffect(() => {
+    const mybutton = document.getElementById('btn-back-to-top');
+
+    if (mybutton) {
+      const scrollFunction = () => {
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          mybutton.classList.remove('hidden');
+        } else {
+          mybutton.classList.add('hidden');
+        }
+      };
+
+      const backToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      mybutton.addEventListener('click', backToTop);
+      window.addEventListener('scroll', scrollFunction);
+
+      // Cleanup function to remove event listeners
+      return () => {
+        mybutton.removeEventListener('click', backToTop);
+        window.removeEventListener('scroll', scrollFunction);
+      };
+    }
+  }, []);
+
+  const backToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="w-full bg-white">
       <div className="header-top bg-[#FEEAF1] md-lg:hidden">
@@ -100,7 +138,7 @@ const Header = () => {
                 <FaGithub />{' '}
               </a>
             </div>
-            
+
             <div>
               <div className="flex justify-center items-center gap-10">
                 <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]">
@@ -539,6 +577,30 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <button
+        onClick={backToTop}
+        type="button"
+        data-twe-ripple-init
+        data-twe-ripple-color="light"
+        className="!fixed bottom-5 end-5  z-10 hidden rounded-full bg-[#B65278] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#D871A1] hover:shadow-lg focus:bg-[#D871A1]  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#D871A1]  active:shadow-lg"
+        id="btn-back-to-top"
+      >
+        <span className="[&>svg]:w-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="3"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
+            />
+          </svg>
+        </span>
+      </button>
     </div>
   );
 };

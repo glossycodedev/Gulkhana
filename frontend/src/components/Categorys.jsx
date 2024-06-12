@@ -37,12 +37,12 @@ const Categorys = () => {
     },
     xsmobile: {
       breakpoint: { max: 440, min: 0 },
-      items: 1,
+      items: 2,
     },
   };
 
   return (
-    <div className="w-[80%] mx-auto relative">
+    <div className="w-[80%] mx-auto relative mt-5">
       <div className="w-full">
         <div className="text-center  flex justify-center items-center flex-col text-2xl text-slate-600 font-bold relative pb-[20px]">
           <h2>{t('home.shop_category')} </h2>

@@ -15,7 +15,7 @@ const Footer = () => {
     const {card_product_count,wishlist_count} = useSelector(state => state.card) 
 
     return (
-        <footer className='bg-[#FEEAF1]'>
+        <footer className='bg-[#F6F7F7]'>
             <div className='w-[85%] flex flex-wrap mx-auto border-b py-16 md-lg:pb-10 sm:pb-6'>
                 <div className='w-3/12 lg:w-4/12 sm:w-full'>
                     <div className='flex flex-col gap-3'>
@@ -80,21 +80,21 @@ const Footer = () => {
                     <span>Get Email updates about tour latest and shop specials offers</span>
                     <div className='h-[50px] w-full bg-white border relative '>
                         <input className='h-full bg-transparent w-full px-3 outline-0' type="text" placeholder='Enter Your Email' />
-                        <button className='h-full absolute ltr:right-0 rtl:left-0 bg-[#059473] text-white uppercase px-4 font-bold text-sm'>Subscribe</button>  
+                        <button className='h-full absolute ltr:right-0 rtl:left-0 bg-[#B65278] text-white uppercase px-4 font-bold text-sm'>Subscribe</button>  
                      </div> 
                      <ul className='flex justify-start items-center gap-3'>
                         <li>
-                            <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaFacebookF/> </a>
+                            <a className='w-[38px] h-[38px] hover:bg-[#B65278] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaFacebookF/> </a>
                         </li>
 
                         <li>
-                            <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaTwitter/> </a>
+                            <a className='w-[38px] h-[38px] hover:bg-[#B65278] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaTwitter/> </a>
                         </li>
                         <li>
-                            <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaLinkedin/> </a>
+                            <a className='w-[38px] h-[38px] hover:bg-[#B65278] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaLinkedin/> </a>
                         </li>
                         <li>
-                            <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaGithub/> </a>
+                            <a className='w-[38px] h-[38px] hover:bg-[#B65278] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaGithub/> </a>
                         </li>
 
                      </ul>
@@ -103,7 +103,7 @@ const Footer = () => {
 
             </div>
 
-            <div className='w-full flex flex-wrap justify-center bg-[#F9CEDF] items-center text-slate-600 mx-auto py-5 text-center'>
+            <div className='w-full flex flex-wrap justify-center bg-[#E7E8E8] items-center text-slate-600 mx-auto py-5 text-center'>
                 <span>Copyright @ 2024 All Rights Reserved </span>
             </div>
 

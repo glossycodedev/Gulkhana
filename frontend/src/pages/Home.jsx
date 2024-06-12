@@ -28,7 +28,16 @@ const Home = () => {
         <FeatureProducts products={products} />
       </div>
 
-      <div className="py-10">
+      <div class="h-[350px] mt-6 max-w-full grid grid-cols-12 gap-4 relative bg-[#D871A1] ">
+        <div class="section_banner flex justify-start  items-center  h-auto w-full col-span-6 md:col-span-4 sm:col-span-12"></div>
+
+        <div class="flex justify-start  items-center sm:absolute col-span-6 md:col-span-8 sm:col-span-11 p-8 sm:mt-20 sm:justify-center text-white">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
+          eiusmod tempor incididun
+        </div>
+      </div>
+
+      <div className="py-20">
         <div className="w-[85%] flex flex-wrap mx-auto">
           <div className="grid w-full grid-cols-3 md-lg:grid-cols-2 md:grid-cols-1 gap-7">
             <div className="overflow-hidden">

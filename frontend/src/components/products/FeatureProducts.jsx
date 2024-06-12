@@ -61,15 +61,15 @@ const FeatureProducts = ({ products }) => {
   };
 
   return (
-    <div className="w-[80%] flex flex-wrap mx-auto">
+    <div className="w-[80%] flex flex-wrap mx-auto mt-5">
       <div className="w-full">
-        <div className=" w-full flex justify-between text-xl text-slate-600  relative pb-[30px]">
-          <h2 className="lg:text-xl md:text-md sm:text-md font-bold">
+        <div className=" w-full flex justify-between  text-slate-600  relative pb-[30px]">
+          <h2 className=" text-xl lg:text-xl md:text-md sm:text-md font-bold">
             {' '}
             {t('home.featur_products')}{' '}
           </h2>
           <div className="w-[80%]  h-[2px] bg-[#FEEAF1] mt-4"></div>
-          <h2 className="lg:text-lg md:text-md sm:text-sm"> View All </h2>
+          <h2 className="text-md lg:text-md md:text-md sm:text-sm"> View All </h2>
         </div>
       </div>
 
@@ -78,9 +78,9 @@ const FeatureProducts = ({ products }) => {
           products.map((p, i) => (
             <div
               key={i}
-              className="border w-full group transition-all duration-500 hover:shadow-md rounded-md "
+              className="border  w-full group transition-all duration-500 hover:shadow-md rounded-md "
             >
-              <div className="relative overflow-hidden ">
+              <div className="relative overflow-hidden h-auto ">
                 {p.discount ? (
                   <div className="flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-[#B65278] font-semibold text-xs left-2 top-2">
                     {p.discount}%{' '}
@@ -90,7 +90,7 @@ const FeatureProducts = ({ products }) => {
                 )}
                 <Link to={`/product/details/${p.slug}`}>
                   <img
-                    className="sm:w-full w-full h-[240px] p-2 rounded-md transition-transform duration-700 hover:scale-125"
+                    className="sm:w-full w-full h-auto p-2 rounded-md transition-transform duration-700 hover:scale-125"
                     src={`${backend_url_img}/uploads/${p.images[0]}`}
                     //   src={p.images[0]}
                     alt=""
@@ -120,7 +120,7 @@ const FeatureProducts = ({ products }) => {
               </div>
 
               <div className="py-3 text-slate-600 px-2">
-                <h2 className="font-bold">{p.name} </h2>
+                <h2 className="font-md">{p.name} </h2>
                 <div className="flex justify-start items-center gap-3">
                   <span className="text-md font-semibold">${p.price}</span>
                   <div className="flex">
