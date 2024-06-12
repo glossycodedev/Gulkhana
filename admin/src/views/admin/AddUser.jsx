@@ -109,12 +109,7 @@ const AddUser = () => {
 
   const deleteUser = (id) => {
     dispatch(delete_admin_user({ userId: id }));
-    // const obj = {
-    //   parPage: parseInt(parPage),
-    //   page: parseInt(currentPage),
-    //   searchValue,
-    // };
-    // dispatch(get_admin_users(obj));
+   
   };
 
   useEffect(() => {

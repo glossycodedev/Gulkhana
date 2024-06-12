@@ -184,7 +184,7 @@ class authControllers {
       const oldImagePath = path.join(
         __dirname,
         '..',
-        '/uploads',
+        '../uploads',
         existingAdmin.image
       );
       console.log(`Old image path: ${oldImagePath}`);

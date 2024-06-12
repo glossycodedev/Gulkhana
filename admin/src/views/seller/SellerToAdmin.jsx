@@ -64,7 +64,10 @@ const SellerToAdmin = () => {
 
   return (
     <div className="px-2 lg:px-7 py-5">
-      <div className="w-full bg-[#6a5fdf] px-4 py-4 rounded-md h-[calc(100vh-140px)]">
+      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
+        <h2 className="text-lg text-[#5c5a5a] font-medium">Chat Support</h2>
+      </div>
+      <div className="w-full bg-[#ffffff] shadow-md px-4 py-4 rounded-md h-[calc(100vh-140px)]">
         <div className="flex w-full h-full relative">
           <div className="w-full md:pl-4">
             <div className="flex justify-between items-center">
@@ -77,12 +80,12 @@ const SellerToAdmin = () => {
                   />
                   <div className="w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0"></div>
                 </div>
-                <h2 className="text-base text-white font-semibold">Support</h2>
+                <h2 className="text-base text-[#5c5a5a] font-semibold">Support</h2>
               </div>
             </div>
 
             <div className="py-4">
-              <div className="bg-[#475569] h-[calc(100vh-290px)] rounded-md p-3 overflow-y-auto">
+              <div className="bg-[#E3E4E5] h-[calc(100vh-290px)] rounded-md p-3 overflow-y-auto">
                 {seller_admin_message.map((m, i) => {
                   if (userInfo._id === m.senderId) {
                     return (
@@ -135,11 +138,11 @@ const SellerToAdmin = () => {
               <input
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="w-full flex justify-between px-2 border border-slate-700 items-center py-[5px] focus:border-blue-500 rounded-md outline-none bg-transparent text-[#d0d2d6]"
+                className="w-full flex justify-between px-2 border border-slate-700 items-center py-[5px] focus:border-[#2A629A] rounded-md outline-none bg-transparent text-[#5c5a5a]"
                 type="text"
                 placeholder="Input Your Message"
               />
-              <button className="shadow-lg bg-[#06b6d4] hover:shadow-cyan-500/50 text-semibold w-[75px] h-[35px] rounded-md text-white flex justify-center items-center">
+              <button className="shadow-lg bg-[#2A629A]  hover:shadow-[#2A629A] text-semibold w-[75px] h-[35px] rounded-md text-white flex justify-center items-center">
                 Send
               </button>
             </form>

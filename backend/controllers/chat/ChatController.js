@@ -183,8 +183,9 @@ class ChatController{
         try {
             const data = await sellerCustomerModel.findOne({ myId : sellerId })
             responseReturn(res, 200, {
-                customers: data.myFriends
+                customers: data?.myFriends
             })
+            //console.log(customers);
         } catch (error) {
             console.log(error)
         }

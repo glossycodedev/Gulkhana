@@ -34,7 +34,6 @@ router.get(
 router.post(
   '/seller-update/',
   authMiddleware,
-
   sellerController.seller_update
 );
 

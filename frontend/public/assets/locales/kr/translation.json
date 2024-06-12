@@ -1,0 +1,20 @@
+{
+  "home": {
+    "app_title": "گوڵخانە",
+    "language": "اللغة",
+    "home": "سەرەکی",
+    "shop": "بازاڕکردن",
+    "about_us": "دەربارەی ئێمە",
+    "contact_us": "پەیوەندی کردن",
+    "login": "چوونەژورەوە",
+    "all_category": "هەموو پۆڵەکان",
+    "select_category": "هەڵبژاردنی پۆڵ",
+    "need": "دەتەوێت لە چی بگەڕێیت",
+    "search": "گەڕان",
+    "featur_products": "بەرهەمە تایبەتمەندەکان",
+    "shop_category": "پۆڵەکان",
+    "latest_products": "نوێترین بەرهەم",
+  "top_products":"بەپێی ریزبەندی",
+  "discount_products":"بەپێی داشکاندن"
+  }
+}

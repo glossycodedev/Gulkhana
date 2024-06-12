@@ -1,0 +1,22 @@
+{
+  "home":{
+  "app_title": "Gulkhana",
+  "language": "Language",
+  "home": "Home",
+  "shop":"Shop",
+  "about_us":"About us",
+  "contact_us":"Contact us",
+  "login":"Login",
+  "all_category":"All Category",
+  "select_category":"Select Category",
+  "need":"What do you need",
+  "search":"Search",
+  "featur_products":"Feature Products",
+  "shop_category":"Shop By Category",
+  "latest_products":"Latest Product",
+  "top_products":"Top Rated Product",
+  "discount_products":"Discount Product"
+  }
+  
+ 
+}

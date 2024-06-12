@@ -205,6 +205,7 @@ export const sellerReducer = createSlice({
     loader: false,
     sellers: [],
     totalSeller: 0,
+    userInfo: '',
     seller: '',
   },
   reducers: {
@@ -264,6 +265,7 @@ export const sellerReducer = createSlice({
       .addCase(profile_image_upload.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.seller = payload.seller;
+        // state.userInfo = payload.userInfo;
         state.successMessage = payload.message;
       })
 

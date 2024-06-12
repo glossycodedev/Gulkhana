@@ -9,6 +9,6 @@ router.get('/product-details/:slug',homeControllers.product_details)
 
 router.post('/customer/submit-review',homeControllers.submit_review)
 router.get('/customer/get-reviews/:productId',homeControllers.get_reviews)
-  
+router.get('/banners', homeControllers.get_banners);
 
 module.exports = router 

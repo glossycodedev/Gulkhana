@@ -18,7 +18,29 @@ import {
 } from '../store/reducers/cardReducer';
 import { backend_url_img } from '../api/server';
 
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import cookies from 'js-cookie';
+
+const languages = [
+  {
+    code: 'en',
+    name: 'English',
+    country_code: 'en',
+  },
+  {
+    code: 'kr',
+    name: 'کوردی',
+    dir: 'rtl',
+    country_code: 'kr',
+  },
+];
+
 const Header = () => {
+  const currentLanguageCode = cookies.get('i18next') || 'en';
+  const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  const { t } = useTranslation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { categorys } = useSelector((state) => state.home);
@@ -34,6 +56,11 @@ const Header = () => {
 
   const [searchValue, setSearchValue] = useState('');
   const [category, setCategory] = useState('');
+
+  useEffect(() => {
+    document.body.dir = currentLanguage.dir || 'ltr';
+    document.title = t('home.app_title');
+  }, [currentLanguage, t]);
 
   const search = () => {
     navigate(`/products/search?category=${category}&&value=${searchValue}`);
@@ -58,47 +85,45 @@ const Header = () => {
     <div className="w-full bg-white">
       <div className="header-top bg-[#FEEAF1] md-lg:hidden">
         <div className="w-[85%] lg:w-[90%] mx-auto">
-          <div className="flex w-full justify-between items-center h-[50px] text-slate-500">
-            <ul className="flex justify-start items-center gap-8 font-semibold text-black">
-              <li className="flex relative justify-center items-center gap-2 text-sm after:absolute after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px]">
-                <span>
-                  <MdEmail />
-                </span>
-                <span>support@gmail.com</span>
-              </li>
-
-              <li className="flex relative justify-center items-center gap-2 text-sm ">
-                <span>
-                  <IoMdPhonePortrait />
-                </span>
-                <span>++(964) 750 000 0000</span>
-              </li>
-            </ul>
-
+          <div className="flex w-full justify-between items-center h-[50px] text-slate-500 rtl:space-x-reverse">
+            <div className="flex justify-center items-center gap-4 text-black">
+              <a href="#">
+                <FaFacebookF />
+              </a>
+              <a href="#">
+                <FaTwitter />{' '}
+              </a>
+              <a href="#">
+                <FaLinkedin />
+              </a>
+              <a href="#">
+                <FaGithub />{' '}
+              </a>
+            </div>
+            
             <div>
               <div className="flex justify-center items-center gap-10">
-                <div className="flex justify-center items-center gap-4 text-black">
-                  <a href="#">
-                    <FaFacebookF />
-                  </a>
-                  <a href="#">
-                    <FaTwitter />{' '}
-                  </a>
-                  <a href="#">
-                    <FaLinkedin />
-                  </a>
-                  <a href="#">
-                    <FaGithub />{' '}
-                  </a>
-                </div>
                 <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]">
                   <img src="http://localhost:3000/images/language.png" alt="" />
                   <span>
                     <IoMdArrowDropdown />
                   </span>
                   <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
-                    <li>Kurdish</li>
-                    <li>English</li>
+                    {languages.map(({ code, name, country_code }) => (
+                      <li key={country_code}>
+                        <a
+                          href="/"
+                          className="dropdown-item"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            i18next.changeLanguage(code);
+                          }}
+                          disabled={code === currentLanguageCode}
+                        >
+                          {name}
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
@@ -122,7 +147,7 @@ const Header = () => {
                       {' '}
                       <FaLock />{' '}
                     </span>
-                    <span>Login </span>
+                    <span>{t('home.login')} </span>
                   </Link>
                 )}
               </div>
@@ -153,14 +178,15 @@ const Header = () => {
 
             <div className="md:lg:w-full w-9/12">
               <div className="flex justify-between md-lg:justify-center items-center flex-wrap pl-8">
-                <ul className="flex justify-start items-start gap-8 text-sm font-bold uppercase md-lg:hidden">
+                <ul className="flex justify-start items-start gap-4 text-sm rtl:text-lg font-bold uppercase md-lg:hidden">
                   <li>
                     <Link
+                      to="/"
                       className={`p-2 block ${
                         pathname === '/' ? 'text-[#B65278]' : 'text-slate-600'
                       } `}
                     >
-                      Home
+                      {t('home.home')}
                     </Link>
                   </li>
 
@@ -173,10 +199,10 @@ const Header = () => {
                           : 'text-slate-600'
                       } `}
                     >
-                      Shop
+                      {t('home.shop')}
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       className={`p-2 block ${
                         pathname === '/blog'
@@ -186,7 +212,7 @@ const Header = () => {
                     >
                       Blog
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link
                       className={`p-2 block ${
@@ -195,7 +221,7 @@ const Header = () => {
                           : 'text-slate-600'
                       } `}
                     >
-                      About Us
+                      {t('home.about_us')}
                     </Link>
                   </li>
                   <li>
@@ -206,7 +232,7 @@ const Header = () => {
                           : 'text-slate-600'
                       } `}
                     >
-                      Contact Us
+                      {t('home.contact_us')}
                     </Link>
                   </li>
                 </ul>
@@ -276,8 +302,18 @@ const Header = () => {
                   <IoMdArrowDropdown />
                 </span>
                 <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
-                  <li>Hindi</li>
-                  <li>English</li>
+                  {languages.map(({ code, name, country_code }) => (
+                    <li key={country_code}>
+                      <a
+                        href="/"
+                        className="dromdown-item "
+                        onClick={() => i18next.changeLanguage(code)}
+                        disabled={code === currentLanguageCode}
+                      >
+                        {name}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
               {userInfo ? (
@@ -293,26 +329,26 @@ const Header = () => {
                 </Link>
               ) : (
                 <Link
-                  className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black"
+                  className="flex cursor-pointer justify-center items-center gap-2 text-sm  text-black"
                   to="/login"
                 >
                   <span>
                     {' '}
                     <FaLock />{' '}
                   </span>
-                  <span>Login </span>
+                  <span>{t('home.login')} </span>
                 </Link>
               )}
             </div>
 
-            <ul className="flex flex-col justify-start items-start text-sm font-bold uppercase">
+            <ul className="flex flex-col justify-start items-start text-sm rtl:text-lg font-bold uppercase">
               <li>
                 <Link
                   className={`py-2 block ${
                     pathname === '/' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
                 >
-                  Home
+                  {t('home.home')}
                 </Link>
               </li>
 
@@ -323,10 +359,10 @@ const Header = () => {
                     pathname === '/shops' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
                 >
-                  Shop
+                  {t('home.shop')}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   className={`py-2 block ${
                     pathname === '/blog' ? 'text-[#B65278]' : 'text-slate-600'
@@ -334,14 +370,14 @@ const Header = () => {
                 >
                   Blog
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   className={`py-2 block ${
                     pathname === '/about' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
                 >
-                  About Us
+                  {t('home.about_us')}
                 </Link>
               </li>
               <li>
@@ -352,7 +388,7 @@ const Header = () => {
                       : 'text-slate-600'
                   } `}
                 >
-                  Contact Us
+                  {t('home.contact_us')}
                 </Link>
               </li>
             </ul>
@@ -371,7 +407,7 @@ const Header = () => {
               </a>
             </div>
 
-            <div className="w-full flex justify-end md-lg:justify-start gap-3 items-center">
+            {/* <div className="w-full flex justify-end md-lg:justify-start gap-3 items-center">
               <div className="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center ">
                 <span>
                   <FaPhoneAlt />
@@ -383,16 +419,16 @@ const Header = () => {
                 </h2>
                 <span className="text-xs">Support 24/7</span>
               </div>
-            </div>
+            </div> */}
 
-            <ul className="flex flex-col justify-start items-start gap-3 text-[#1c1c1c]">
+            {/* <ul className="flex flex-col justify-start items-start gap-3 text-[#1c1c1c]">
               <li className="flex justify-start items-center gap-2 text-sm">
                 <span>
                   <MdEmail />
                 </span>
                 <span>support@gmail.com</span>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
@@ -403,13 +439,13 @@ const Header = () => {
             <div className="bg-white relative">
               <div
                 onClick={() => setCategoryShow(!categoryShow)}
-                className="h-[50px] bg-[#B65278] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md cursor-pointer"
+                className="h-[50px] bg-[#B65278] text-white flex justify-center md-lg:justify-between md-lg:px-6 items-center gap-3 font-bold text-md  rtl:text-lg cursor-pointer"
               >
-                <div className="flex justify-center items-center gap-3">
+                <div className="flex justify-center items-center gap-3 rtl:space-x-reverse">
                   <span>
                     <FaList />
                   </span>
-                  <span>All Category </span>
+                  <span>{t('home.all_category')} </span>
                 </div>
                 <span className="pt-1">
                   <IoIosArrowDown />
@@ -418,15 +454,15 @@ const Header = () => {
 
               <div
                 className={`${
-                  categoryShow ? 'h-0' : 'h-[400px]'
-                } overflow-hidden transition-all md-lg:relative duration-500 absolute z-[99999] bg-[#fcfdfd] w-full border-x`}
+                  categoryShow ? 'h-0' : 'h-auto'
+                } overflow-hidden transition-all md-lg:relative duration-500 absolute z-[99999] bg-[#fcfdfd] w-full  border-x `}
               >
-                <ul className="py-2 text-slate-600 font-medium">
+                <ul className="py-2 text-slate-600 font-medium ">
                   {categorys.map((c, i) => {
                     return (
                       <li
                         key={i}
-                        className="flex justify-start items-center gap-2 px-[24px] py-[6px]"
+                        className="flex justify-start items-center gap-2 px-[24px] py-[6px] "
                       >
                         <img
                           src={`${backend_url_img}/uploads/categories/${c.image}`}
@@ -447,18 +483,18 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="w-9/12 pl-8 md-lg:pl-0 md-lg:w-full">
-            <div className="flex flex-wrap w-full justify-between items-center md-lg:gap-6">
-              <div className="w-8/12 md-lg:w-full">
-                <div className="flex border h-[50px] items-center relative gap-2">
-                  <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] md:hidden">
+          <div className="w-9/12 pl-8 md-lg:pl-0 md-lg:w-full ">
+            <div className="flex flex-wrap w-full justify-between items-center md-lg:gap-6 ">
+              <div className="w-8/12 md-lg:w-full rtl:px-8">
+                <div className="flex border h-[50px] items-center relative gap-2 ">
+                  <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] rtl:after:-right-[-155px] md:hidden">
                     <select
                       onChange={(e) => setCategory(e.target.value)}
                       className="w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none"
                       name=""
                       id=""
                     >
-                      <option value="">Select Category</option>
+                      <option value="">{t('home.select_category')}</option>
                       {categorys.map((c, i) => (
                         <option key={i} value={c.name}>
                           {' '}
@@ -468,23 +504,23 @@ const Header = () => {
                     </select>
                   </div>
                   <input
-                    className="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full"
+                    className="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full rtl:space-x-reverse"
                     onChange={(e) => setSearchValue(e.target.value)}
                     type="text"
                     name=""
                     id=""
-                    placeholder="What do you need"
+                    placeholder={t('home.need')}
                   />
                   <button
                     onClick={search}
-                    className="bg-[#B65278] right-0 absolute px-8 h-full font-semibold uppercase text-white"
+                    className="bg-[#B65278]  px-8 h-full font-semibold uppercase text-white ltr:right-0 rtl:left-0"
                   >
-                    Search
+                    {t('home.search')}
                   </button>
                 </div>
               </div>
 
-              <div className="w-4/12 block md-lg:hidden pl-2 md-lg:w-full md-lg:pl-0">
+              {/* <div className="w-4/12 block md-lg:hidden pl-2 md-lg:w-full md-lg:pl-0">
                 <div className="w-full flex justify-end md-lg:justify-start gap-3 items-center">
                   <div className="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center ">
                     <span>
@@ -498,7 +534,7 @@ const Header = () => {
                     <span className="text-sm">Support 24/7</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

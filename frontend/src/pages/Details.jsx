@@ -25,6 +25,7 @@ import {
   add_to_wishlist,
 } from '../store/reducers/cardReducer';
 import { RiShoppingCartLine } from 'react-icons/ri';
+import { backend_url_img } from '../api/server';
 
 const Details = () => {
   const navigate = useNavigate();
@@ -51,10 +52,9 @@ const Details = () => {
     }
   }, [successMessage, errorMessage]);
 
-  const images = [1, 2, 3, 4, 5, 6];
   const [image, setImage] = useState('');
-  const discount = 10;
-  const stock = 3;
+  // const discount = 10;
+  // const stock = 3;
   const [state, setState] = useState('reviews');
 
   const responsive = {
@@ -209,30 +209,42 @@ const Details = () => {
       </section>
 
       <section>
-        <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16">
-          <div className="grid grid-cols-2 md-lg:grid-cols-1 gap-8">
+        <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto  pb-16">
+          <div className="justify-center items-center grid grid-cols-2 gap-8">
             <div>
-              <div className="p-5 border">
+              <div className="p-3 ">
                 <img
-                  className="h-[600px] w-full"
-                  src={image ? image : product.images?.[0]}
+                  className="h-[600px] w-full "
+                  src={
+                    image
+                      ? `${backend_url_img}/uploads/${image}`
+                      : `${backend_url_img}/uploads/${product.images?.[0]}`
+                  }
+                  // {image ? image : product.images?.[0]}
                   alt=""
                 />
               </div>
-              <div className="py-3">
+              <div className="py-3 px-2">
                 {product.images && (
                   <Carousel
                     autoPlay={true}
                     infinite={true}
+                    arrows={true}
                     responsive={responsive}
                     transitionDuration={500}
                   >
                     {product.images.map((img, i) => {
                       return (
-                        <div key={i} onClick={() => setImage(img)}>
+                        <div
+                          key={i}
+                          onClick={() => {
+                            setImage(img);
+                            console.log(image);
+                          }}
+                        >
                           <img
-                            className="h-[120px]  cursor-pointer"
-                            src={img}
+                            className="h-[120px]  cursor-pointer "
+                            src={`${backend_url_img}/uploads/${img}`}
                             alt=""
                           />
                         </div>
@@ -393,17 +405,17 @@ const Details = () => {
       </section>
 
       <section>
-        <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16">
+        <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16">
           <div className="flex flex-wrap">
-            <div className="w-[72%] md-lg:w-full">
+            <div className="w-[60%] md-lg:w-full">
               <div className="pr-4 md-lg:pr-0">
                 <div className="grid grid-cols-2">
                   <button
                     onClick={() => setState('reviews')}
-                    className={`py-1 hover:text-white px-5 hover:bg-[#059473] ${
+                    className={`py-1 hover:text-black px-5 border-b-2 ${
                       state === 'reviews'
-                        ? 'bg-[#059473] text-white'
-                        : 'bg-slate-200 text-slate-700'
+                        ? 'bg-slate-200 text-slate-700 border-b-[#B65278]'
+                        : 'hover:border-b-[#B65278] text-black'
                     } rounded-sm`}
                   >
                     Reviews{' '}
@@ -411,10 +423,10 @@ const Details = () => {
 
                   <button
                     onClick={() => setState('description')}
-                    className={`py-1 hover:text-white px-5 hover:bg-[#059473] ${
+                    className={`py-1 hover:text-black px-5  border-b-2 ${
                       state === 'description'
-                        ? 'bg-[#059473] text-white'
-                        : 'bg-slate-200 text-slate-700'
+                        ? 'bg-slate-200 text-slate-700 border-b-[#B65278]'
+                        : 'hover:border-b-[#B65278] text-black '
                     } rounded-sm`}
                   >
                     Description{' '}

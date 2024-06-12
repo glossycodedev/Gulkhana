@@ -235,10 +235,10 @@ export const authReducer = createSlice({
     token: localStorage.getItem('accessToken'),
   },
   reducers: {
-    messageClear : (state,_) => {
-      state.errorMessage = ""
-      state.successMessage = ""
-  },
+    messageClear: (state, _) => {
+      state.errorMessage = '';
+      state.successMessage = '';
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -287,6 +287,7 @@ export const authReducer = createSlice({
 
       .addCase(get_seller.fulfilled, (state, { payload }) => {
         state.seller = payload.seller;
+        
       })
 
       .addCase(get_user_info.fulfilled, (state, { payload }) => {
@@ -295,7 +296,7 @@ export const authReducer = createSlice({
       })
 
       .addCase(get_admin_users.fulfilled, (state, { payload }) => {
-         state.loader = false;
+        state.loader = false;
         state.adminUsers = payload.adminUsers;
         state.totalAdmin = payload.totalAdmin;
       })
@@ -324,11 +325,14 @@ export const authReducer = createSlice({
         // state.token = payload.token;
         // state.role = returnRole(payload.token);
       })
+      .addCase(admin_image_upload.pending, (state, { payload }) => {
+        state.loader = true;
+      })
 
       .addCase(admin_image_upload.fulfilled, (state, { payload }) => {
         state.loader = false;
         state.adminUser = payload.adminUser;
-        state.successMessage = payload.message;
+                state.successMessage = payload.message;
       })
 
       .addCase(profile_info_add.pending, (state, { payload }) => {

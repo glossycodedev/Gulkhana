@@ -56,7 +56,7 @@ const OrderDetails = () => {
             value={status}
             name=""
             id=""
-            className="px-4 py-2 focus:border-[#829ebab9] outline-none bg-[#2A629A] border border-slate-700 rounded-md text-[#d0d2d6]"
+            className="px-4 py-2 focus:border-[#2A629A] outline-none bg-[#2A629A] border border-slate-700 rounded-md text-[#d0d2d6]"
           >
             <option value="pending">pending</option>
             <option value="processing">processing</option>
@@ -121,7 +121,7 @@ const OrderDetails = () => {
                                   <span>Brand : </span>
                                   <span>{p.brand}</span>
                                   <div>
-                                    <span className="text-lg">
+                                    <span className="text-lg ">
                                       Quantity : {p.quantity}{' '}
                                     </span>
                                   </div>

@@ -30,7 +30,7 @@ const Shops = () => {
       <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <div className="flex pb-3 justify-between items-center">
           <h2 className="text-lg text-[#5c5a5a] font-medium">Shops</h2>{' '}
-          <span>{totalSeller} Sellers</span>
+          <span className="px-2">{totalSeller} Sellers</span>
         </div>
       </div>
       <div className="w-full p-4 bg-[#ffffff] shadow-md rounded-md">

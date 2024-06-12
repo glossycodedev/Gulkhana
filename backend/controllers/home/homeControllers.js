@@ -39,6 +39,16 @@ class homeControllers{
     }
     // end method 
 
+    get_banners = async (req, res) => {
+        try {
+          const banners = await bannerModel.find({});
+                   responseReturn(res, 200, { banners });
+        } catch (error) {
+          responseReturn(res, 500, { error: error.message });
+        }
+      };
+      //end Method
+
     get_products = async(req, res) => {
         try {
             const products = await productModel.find({}).limit(12).sort({
@@ -65,7 +75,7 @@ class homeControllers{
                 topRated_product,
                 discount_product
             })
-            
+          
         } catch (error) {
             console.log(error.message)
         }

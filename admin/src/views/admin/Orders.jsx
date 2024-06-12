@@ -32,9 +32,10 @@ console.log(myOrders);
 
   return (
     <div className="px-2 lg:px-7 pb-5">
-      <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
-        <h2 className="text-lg text-[#5c5a5a] font-medium">Orders</h2>
-      </div>
+      <div className="flex pb-3 justify-between items-center">
+          <h2 className="text-lg text-[#5c5a5a] font-medium ">Orders</h2>{' '}
+          <span className='px-2'>{totalOrder} Orderss</span>
+        </div>
       <div className="w-full p-4 bg-[#ffffff] shadow-md rounded-md">
         <div className="flex pb-3 justify-between items-center">
           <div className="flex gap-3 items-center">

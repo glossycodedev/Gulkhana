@@ -1,3 +1,6 @@
+body {
+  font-family: 'Noto Sans Arabic', sans-serif;
+}
 .App {
   text-align: center;
 }
@@ -35,4 +38,37 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.custom-arrow {
+  background-color: #feeaf1;
+  border: none;
+  font-size: 1rem; /* Adjust size as needed */
+  color: #333; /* Adjust color as needed */
+  cursor: pointer;
+  z-index: 10;
+  color: #000;
+}
+
+.custom-arrow:hover {
+  background-color: #b65278;
+  color: #fff;
+}
+
+.custom-left-arrow {
+  position: absolute;
+  top: 50%;
+  left: 14px; /* Adjust position as needed */
+  transform: translateY(-50%);
+}
+
+.custom-right-arrow {
+  position: absolute;
+  top: 50%;
+  right: 14px; /* Adjust position as needed */
+  transform: translateY(-50%);
+}
+
+.custom-arrow:hover {
+  color: #000; /* Adjust hover color as needed */
 }

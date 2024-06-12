@@ -24,12 +24,39 @@ import OrderDetails from './components/dashboard/OrderDetails';
 import Chat from './components/dashboard/Chat';
 import ConfirmOrder from './pages/ConfirmOrder';
 
-function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(get_category()) 
-},[])
+// import { useTranslation } from "react-i18next";
+// // import i18next from "i18next";
+// import cookies from "js-cookie";
 
+// const languages = [
+//   {
+//     code: "en",
+//     name: "English",
+//     country_code: "en",
+//   },
+//   {
+//     code: "kr",
+//     name: "کوردی",
+//     dir: "rtl",
+//     country_code: "kr",
+//   },
+// ];
+
+function App() {
+  // const currentLanguageCode = cookies.get("i18next") || "en";
+  // const currentLanguage = languages.find((l) => l.code === currentLanguageCode);
+  // const { t } = useTranslation();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(get_category());
+  }, []);
+
+  // useEffect(() => {
+    
+  //   document.body.dir = currentLanguage.dir || "ltr";
+  //   document.title = t("app_title");
+  // }, [currentLanguage, t]);
 
   return (
     <BrowserRouter>
