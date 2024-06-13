@@ -187,6 +187,7 @@ class ChatController {
     const { sellerId } = req.params;
     try {
       const data = await sellerCustomerModel.find({ myId: sellerId });
+      console.log(data);
       responseReturn(res, 200, {
         customers: data?.myFriends,
       });

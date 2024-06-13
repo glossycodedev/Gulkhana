@@ -131,7 +131,7 @@ const SellerToCustomer = () => {
 
           <div className="w-full md:w-[calc(100%-200px)] md:pl-4">
             <div className="flex justify-between items-center">
-              {sellerId && (
+              {userInfo._id && (
                 <div className="flex justify-start items-center gap-3">
                   <div className="relative">
                     <img
