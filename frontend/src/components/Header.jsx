@@ -54,7 +54,7 @@ const Header = () => {
   );
 
   const { pathname } = useLocation();
-
+  const [showTooltip, setShowTooltip] = useState(false);
   const [showShidebar, setShowShidebar] = useState(true);
   const [categoryShow, setCategoryShow] = useState(true);
 
@@ -296,6 +296,7 @@ const Header = () => {
 
                     <div
                       onClick={redirect_card_page}
+                      
                       className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
                     >
                       <span className="text-xl text-[#B65278]">
@@ -303,10 +304,13 @@ const Header = () => {
                       </span>
 
                       {card_product_count !== 0 && (
-                        <div className="w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] ">
+                        <div
+                          className={`w-[20px] h-[20px]  absolute bg-red-500  rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] `}
+                        >
                           {card_product_count}
                         </div>
                       )}
+                     
                     </div>
                   </div>
                 </div>

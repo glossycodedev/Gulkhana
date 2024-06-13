@@ -119,7 +119,7 @@ const Shops = () => {
         </div>
       </section>
       <section>
-        <div className=" bg-slate-100 py-5 mb-5">
+        <div className=" bg-[#F8F9F9] py-5 mb-5">
           <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex justify-start items-center text-md text-slate-600 w-full">
               <Link to="/">Home</Link>
@@ -137,7 +137,7 @@ const Shops = () => {
       </section>
 
       <section className="py-6">
-        <div className="w-[80%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
+        <div className="w-[68%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
           <div className={` md:block hidden ${!filter ? 'mb-6' : 'mb-0'} `}>
             <button
               onClick={() => setFilter(!filter)}

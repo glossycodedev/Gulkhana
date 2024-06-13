@@ -31,7 +31,7 @@ const Details = () => {
   const navigate = useNavigate();
   const { slug } = useParams();
   const dispatch = useDispatch();
-  const { product, relatedProducts, moreProducts } = useSelector(
+  const { product, relatedProducts, moreProducts, totalReview } = useSelector(
     (state) => state.home
   );
   const { userInfo } = useSelector((state) => state.auth);
@@ -191,7 +191,7 @@ const Details = () => {
       </section>
 
       <section>
-        <div className=" bg-slate-100 py-5 mb-5">
+        <div className=" bg-[#F8F9F9] py-5 mb-5">
           <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex justify-start items-center text-md text-slate-600 w-full">
               <Link to="/">Home</Link>
@@ -212,9 +212,9 @@ const Details = () => {
         <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto  pb-16">
           <div className="justify-start grid grid-cols-2 sm:grid-cols-1 gap-8">
             <div>
-              <div className="p-1 h-auto">
+              <div className="p-1 h-auto overflow-hidden">
                 <img
-                  className="h-[600px] sm:h-auto w-full "
+                  className="h-[600px] sm:h-auto w-full transition-transform duration-300 transform hover:scale-125 peer"
                   src={
                     image
                       ? `${backend_url_img}/uploads/${image}`
@@ -257,7 +257,7 @@ const Details = () => {
                 <div className="flex text-xl">
                   <Rating ratings={4.5} />
                 </div>
-                <span className="text-green-500">(24 reviews)</span>
+                <span className="text-green-500">({totalReview} reviews)</span>
               </div>
 
               <div className="text-lg text-red-500 font-bold flex gap-3">
@@ -516,7 +516,7 @@ const Details = () => {
                         <div className=" w-full h-full ">
                           <img
                             className="w-full h-full"
-                            src={p.images[0]}
+                            src={`${backend_url_img}/uploads/${p.images?.[0]}`}
                             alt=""
                           />
                           {/* <ul className="flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3">

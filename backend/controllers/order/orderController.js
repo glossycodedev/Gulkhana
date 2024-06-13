@@ -58,10 +58,11 @@ class orderController {
         }
       }
     }
-
+    
     try {
       const order = await customerOrder.create({
         customerId: userId,
+        sellerId: products[0].sellerId,
         shippingInfo,
         products: customerOrderProduct,
         price: price + shipping_fee,
@@ -69,10 +70,13 @@ class orderController {
         delivery_status: 'pending',
         date: tempDate,
       });
+      
       for (let i = 0; i < products.length; i++) {
         const pro = products[i].products;
         const pri = products[i].price;
+        
         const sellerId = products[i].sellerId;
+       
         let storePor = [];
         for (let j = 0; j < pro.length; j++) {
           const tempPro = pro[j].productInfo;

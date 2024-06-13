@@ -61,15 +61,15 @@ const FeatureProducts = ({ products }) => {
   };
 
   return (
-    <div className="w-[80%] flex flex-wrap mx-auto mt-5">
+    <div className="w-[70%] flex flex-wrap mx-auto mt-5">
       <div className="w-full">
         <div className=" w-full flex justify-between  text-slate-600  relative pb-[30px]">
           <h2 className=" text-xl lg:text-xl md:text-md sm:text-md font-bold">
             {' '}
             {t('home.featur_products')}{' '}
           </h2>
-          <div className="w-[80%]  h-[2px] bg-[#FEEAF1] mt-4"></div>
-          <h2 className="text-md lg:text-md md:text-md sm:text-sm"> View All </h2>
+          <div className="w-[70%]  h-[2px] bg-[#FEEAF1] mt-4"></div>
+          <h2 className="text-md lg:text-md md:text-md sm:text-sm"><Link to="/shops" >View All </Link> </h2>
         </div>
       </div>
 
@@ -119,10 +119,27 @@ const FeatureProducts = ({ products }) => {
                 </ul>
               </div>
 
-              <div className="py-3 text-slate-600 px-2">
+              <div className="py-2 text-slate-600 px-2">
                 <h2 className="font-md">{p.name} </h2>
-                <div className="flex justify-start items-center gap-3">
-                  <span className="text-md font-semibold">${p.price}</span>
+                <div className="flex justify-between items-center gap-3">
+                  <span className="flex text-md">
+                  {p.discount !== 0 ? (
+                  <>
+                  <h2 className="">
+                      $
+                      {p.price -
+                        Math.floor(
+                          (p.price * p.discount) / 100
+                        )}{' '}
+                     
+                    </h2>
+                     <h2 className="line-through px-3 text-[#B65278]">${p.price}</h2>
+                    
+                  </>
+                ) : (
+                  <h2>  ${p.price} </h2>
+                )}
+                    </span>
                   <div className="flex">
                     <Rating ratings={p.rating} />
                   </div>

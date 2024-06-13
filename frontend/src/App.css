@@ -74,8 +74,7 @@ body {
 }
 
 .section_banner {
-  
   background: #ffffff
-    url(https://phuler.myshopify.com/cdn/shop/files/deal-1.png?v=1613740608) no-repeat
-    scroll center center / cover;
+    url(https://phuler.myshopify.com/cdn/shop/files/deal-1.png?v=1613740608)
+    no-repeat scroll center center / cover;
 }

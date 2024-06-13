@@ -88,13 +88,13 @@ const Chat = () => {
                 <span><AiOutlineMessage /></span>
                 <span>Message</span>
             </div>
-            <div className='w-full flex flex-col text-slate-600 py-4 h-[400px] pr-3'>
+            <div className='w-full flex flex-col border text-slate-600 py-4 h-[400px] pr-3'>
                {
                 my_friends.map((f,i) => <Link to={`/dashboard/chat/${f.fdId}`} key={i}  className={`flex gap-2 justify-start items-center pl-2 py-[5px]`} >
                 <div className='w-[30px] h-[30px] rounded-full relative'>
                    
                    {
-                    activeSeller.some(c => c.sellerId === f.fdId ) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div> 
+                    activeSeller.some(c => c.sellerId === f.fdId ) && <div className='w-[10px] border h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div> 
                    } 
                     
                     <img src={f.image} alt="" />
@@ -112,7 +112,7 @@ const Chat = () => {
                 <div className='flex justify-between gap-3 items-center text-slate-600 text-xl h-[50px]'>
            
             <div className='flex gap-2'>
-            <div className='w-[30px] h-[30px] rounded-full relative'>
+            <div className='w-[30px] h-[30px] border rounded-full relative'>
             {
             activeSeller.some(c => c.sellerId === currentFd.fdId) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div>
             } 
