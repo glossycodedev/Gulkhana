@@ -5,10 +5,11 @@ export const get_customers = createAsyncThunk(
   'chat/get_customers',
   async (sellerId, { rejectWithValue, fulfillWithValue }) => {
     try {
+      
       const { data } = await api.get(`/chat/seller/get-customers/${sellerId}`, {
         withCredentials: true,
       });
-
+      
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -25,7 +26,7 @@ export const get_customer_message = createAsyncThunk(
         `/chat/seller/get-customer-message/${customerId}`,
         { withCredentials: true }
       );
-      // console.log(data)
+      console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);

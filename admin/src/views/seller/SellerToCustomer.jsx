@@ -27,12 +27,14 @@ const SellerToCustomer = () => {
   const [receverMessage, setReceverMessage] = useState('');
   const sellerId = userInfo._id;
   const { customerId } = useParams();
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(get_customers(userInfo._id));
-  }, []);
+    if (userInfo?._id) {
+      dispatch(get_customers(userInfo._id));
+    }
+  }, [dispatch, userInfo]);
 
   useEffect(() => {
     if (customerId) {
@@ -131,7 +133,7 @@ const SellerToCustomer = () => {
 
           <div className="w-full md:w-[calc(100%-200px)] md:pl-4">
             <div className="flex justify-between items-center">
-              {userInfo._id && (
+              {sellerId && (
                 <div className="flex justify-start items-center gap-3">
                   <div className="relative">
                     <img

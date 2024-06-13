@@ -26,6 +26,7 @@ import {
 } from '../store/reducers/cardReducer';
 import { RiShoppingCartLine } from 'react-icons/ri';
 import { backend_url_img } from '../api/server';
+import { CiHeart } from 'react-icons/ci';
 
 const Details = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Details = () => {
   );
   const { userInfo } = useSelector((state) => state.auth);
   const { errorMessage, successMessage } = useSelector((state) => state.card);
+  
 
   useEffect(() => {
     dispatch(product_details(slug));
@@ -173,7 +175,7 @@ const Details = () => {
   return (
     <div>
       <Header />
-      <section className=' mt-8 bg-cover bg-no-repeat relative bg-left'>
+      <section className=" mt-8 bg-cover bg-no-repeat relative bg-left">
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
@@ -202,13 +204,13 @@ const Details = () => {
               <span>
                 <IoIosArrowForward />
               </span>
-              <span className='text-[#B65278]'>{product.name} </span>
+              <span className="text-[#B65278]">{product.name} </span>
             </div>
           </div>
         </div>
       </section>
 
-      <section  className="mt-8">
+      <section className="mt-8">
         <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto  pb-16">
           <div className="justify-start grid grid-cols-2 sm:grid-cols-1 gap-8">
             <div>
@@ -224,7 +226,7 @@ const Details = () => {
                   alt=""
                 />
               </div>
-              <div className="py-3 px-1">
+              <div className="py-3 px-0">
                 {product.images && (
                   <Carousel
                     autoPlay={true}
@@ -235,9 +237,15 @@ const Details = () => {
                   >
                     {product.images.map((img, i) => {
                       return (
-                        <div key={i} onClick={() => setImage(img)}>
+                        <div
+                          key={i}
+                          onClick={() => setImage(img)}
+                          className={`focus:border-blue border-solid cursor-pointer ml-4 ${
+                            image === img ? 'border-blue-500' : ''
+                          }`}
+                        >
                           <img
-                            className="h-[120px] px-2 cursor-pointer "
+                            className="h-auto w-full cursor-pointer "
                             src={`${backend_url_img}/uploads/${img}`}
                             alt=""
                           />
@@ -260,8 +268,24 @@ const Details = () => {
                 <span className="text-green-500">({totalReview} reviews)</span>
               </div>
 
-              <div className="text-lg text-red-500 font-bold flex gap-3">
-                {product.discount !== 0 ? (
+              <div className="text-lg text-black  flex gap-3">
+              {product.discount !== 0 ? (
+                  <>
+                  <h2 className="">
+                  Price :  $
+                      {product.price -
+                        Math.floor(
+                          (product.price * product.discount) / 100
+                        )}{' '}
+                     
+                    </h2>
+                     <h2 className="line-through px-3 text-[#B65278]">${product.price}</h2>
+                    
+                  </>
+                ) : (
+                  <h2>  ${product.price} </h2>
+                )}
+                {/* {product.discount !== 0 ? (
                   <>
                     Price : <h2 className="line-through">${product.price}</h2>
                     <h2>
@@ -275,20 +299,34 @@ const Details = () => {
                   </>
                 ) : (
                   <h2> Price : ${product.price} </h2>
-                )}
+                )} */}
               </div>
-
+              <div className="flex py-1 gap-4">
+                <div className=" text-black  text-lg flex flex-col">
+                  <span>Availability</span>
+                              </div>
+                <div className="flex flex-col">
+                  <span
+                    className={`text-${product.stock ? 'green' : 'red'}-500`}
+                  >
+                    {product.stock
+                      ? `In Stock(${product.stock})`
+                      : 'Out Of Stock'}
+                  </span>
+                </div>
+</div>
               <div className="text-slate-600">
                 <p>{product.description} </p>
                 <p className="text-slate-600 py-1 font-bold">
                   Shop Name : {product.shopName}
                 </p>
               </div>
+              
 
               <div className="flex gap-3 pb-10 border-b">
                 {product.stock ? (
                   <>
-                    <div className="flex bg-slate-200 h-[50px] justify-center items-center text-xl">
+                    <div className="flex bg-[#F8F9F9] py-[7px] border justify-center items-center text-xl">
                       <div onClick={dec} className="px-6 cursor-pointer">
                         -
                       </div>
@@ -300,7 +338,8 @@ const Details = () => {
                     <div>
                       <button
                         onClick={add_card}
-                        className="px-4 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#059473] text-white"
+                        className="px-7 py-[10px] bg-[#256236] hover:bg-[#0e0f0f]  hover:text-[#ffffff] rounded-sm text-white"
+                        // className="px-4 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#059473] text-white"
                       >
                         Add To Card
                       </button>
@@ -313,15 +352,15 @@ const Details = () => {
                 <div>
                   <div
                     onClick={add_wishlist}
-                    className="h-[50px] w-[50px] flex justify-center items-center cursor-pointer hover:shadow-lg hover:shadow-cyan-500/40 bg-cyan-500 text-white"
+                    className="py-[8px] px-4 flex justify-center items-center cursor-pointer hover:shadow-lg rounded-sm hover:text-white  hover:bg-[#B65278] bg-[#F8F9F9] text-black"
                   >
-                    <FaHeart />
+                    <CiHeart className="text-black size-7" />
                   </div>
                 </div>
               </div>
 
               <div className="flex py-5 gap-5">
-                <div className="w-[150px] text-black font-bold text-lg flex flex-col gap-5">
+                <div className="w-[150px] text-black  text-lg flex flex-col gap-5">
                   <span>Availability</span>
                   <span>Share On</span>
                 </div>
@@ -379,19 +418,20 @@ const Details = () => {
                 {product.stock ? (
                   <button
                     onClick={buynow}
-                    className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#247462] text-white"
+                    className="px-10 py-[10px] bg-[#B65278] hover:bg-[#0e0f0f]  hover:text-[#ffffff] rounded-sm text-white"
+                    // className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#247462] text-white"
                   >
                     Buy Now
                   </button>
                 ) : (
                   ''
                 )}
-                <Link
+                {/* <Link
                   to={`/dashboard/chat/${product.sellerId}`}
                   className="px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-red-500/40 bg-red-500 text-white"
                 >
                   Chat Seller
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
@@ -511,7 +551,7 @@ const Details = () => {
               {relatedProducts.map((p, i) => {
                 return (
                   <SwiperSlide key={i}>
-                    <Link to={`/product/details/${p.slug}`} className="block">
+                    <Link to={`/product/details/${p.slug}`} className="block ">
                       <div className="relative h-[270px]">
                         <div className=" w-full h-full ">
                           <img

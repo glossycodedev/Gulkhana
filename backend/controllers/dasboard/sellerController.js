@@ -68,7 +68,7 @@ class sellerController {
   seller_update = async (req, res) => {
     const { phone, name, password, address, shopName, city, sellerId } =
       req.body;
-    console.log(sellerId);
+    
     try {
       await sellerModel.findByIdAndUpdate(sellerId, {
         name,

@@ -6,6 +6,96 @@ const adminSellerMessage = require('../../models/chat/adminSellerMessage');
 const { responseReturn } = require('../../utiles/response');
 
 class ChatController {
+  // add_customer_friend = async (req, res) => {
+  //   const { sellerId, userId } = req.body;
+
+  //   try {
+  //     if (sellerId !== '') {
+  //       const seller = await sellerModel.findById(sellerId);
+  //       const user = await customerModel.findById(userId);
+
+  //       if (!seller || !user) {
+  //         return responseReturn(res, 404, {
+  //           message: 'Seller or User not found',
+  //         });
+  //       }
+
+  //       const checkSeller = await sellerCustomerModel.findOne({
+  //         myId: userId,
+  //         'myFriends.fdId': sellerId,
+  //       });
+
+  //       if (!checkSeller) {
+  //         await sellerCustomerModel.updateOne(
+  //           { myId: userId },
+  //           {
+  //             $push: {
+  //               myFriends: {
+  //                 fdId: sellerId,
+  //                 name: seller.shopInfo?.shopName,
+  //                 image: seller.image,
+  //               },
+  //             },
+  //           }
+  //         );
+  //       }
+
+  //       const checkCustomer = await sellerCustomerModel.findOne({
+  //         myId: sellerId,
+  //         'myFriends.fdId': userId,
+  //       });
+
+  //       if (!checkCustomer) {
+  //         await sellerCustomerModel.updateOne(
+  //           { myId: sellerId },
+  //           {
+  //             $push: {
+  //               myFriends: {
+  //                 fdId: userId,
+  //                 name: user.name,
+  //                 image: '',
+  //               },
+  //             },
+  //           }
+  //         );
+  //       }
+
+  //       const messages = await sellerCustomerMessage.find({
+  //         $or: [
+  //           { receverId: sellerId, senderId: userId },
+  //           { receverId: userId, senderId: sellerId },
+  //         ],
+  //       });
+
+  //       const MyFriends = await sellerCustomerModel.findOne({ myId: userId });
+
+  //       if (!MyFriends) {
+  //         return responseReturn(res, 404, { message: 'Friends not found' });
+  //       }
+
+  //       const currentFd = MyFriends.myFriends.find((s) => s.fdId === sellerId);
+
+  //       responseReturn(res, 200, {
+  //         MyFriends: MyFriends.myFriends,
+  //         currentFd,
+  //         messages,
+  //       });
+  //     } else {
+  //       const MyFriends = await sellerCustomerModel.findOne({ myId: userId });
+
+  //       if (!MyFriends) {
+  //         return responseReturn(res, 404, { message: 'Friends not found' });
+  //       }
+
+  //       responseReturn(res, 200, {
+  //         MyFriends: MyFriends.myFriends,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     responseReturn(res, 500, { message: 'Server Error' });
+  //   }
+  // };
   add_customer_friend = async (req, res) => {
     const { sellerId, userId } = req.body;
 
@@ -109,9 +199,10 @@ class ChatController {
         const MyFriends = await sellerCustomerModel.findOne({
           myId: userId,
         });
+       
         const currentFd = MyFriends.myFriends.find((s) => s.fdId === sellerId);
         responseReturn(res, 200, {
-          MyFriends: MyFriends.myFriends,
+          MyFriends: MyFriends?.myFriends,
           currentFd,
           messages,
         });
@@ -185,16 +276,31 @@ class ChatController {
 
   get_customers = async (req, res) => {
     const { sellerId } = req.params;
+
     try {
-      const data = await sellerCustomerModel.find({ myId: sellerId });
-      console.log(data);
-      responseReturn(res, 200, {
-        customers: data?.myFriends,
-      });
+      const seller = await sellerCustomerModel.findOne({ myId: sellerId });
+      if (seller) {
+        responseReturn(res, 200, { customers: seller.myFriends });
+      } else {
+        responseReturn(res, 404, { message: 'Seller not found' });
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      responseReturn(res, 500, { message: 'Server error' });
     }
   };
+  // get_customers = async (req, res) => {
+  //   const { sellerId } = req.params;
+  //   try {
+  //     const data = await sellerCustomerModel.find({ myId: sellerId });
+
+  //     responseReturn(res, 200, {
+  //       customers: data?.myFriends,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   // End Method
 
   get_customers_seller_message = async (req, res) => {
@@ -236,6 +342,7 @@ class ChatController {
         messages,
         currentCustomer,
       });
+      console.log(messages);
     } catch (error) {
       console.log(error);
     }
@@ -309,7 +416,7 @@ class ChatController {
 
   seller_admin_message_insert = async (req, res) => {
     const { senderId, receverId, message, senderName } = req.body;
-
+console.log(receverId);
     try {
       const messageData = await adminSellerMessage.create({
         senderId,

@@ -66,6 +66,7 @@ io.on('connection', (soc) => {
   soc.on('add_user', (customerId, userInfo) => {
     addUser(customerId, soc.id, userInfo);
     io.emit('activeSeller', allSeller);
+   
   });
   soc.on('add_seller', (sellerId, userInfo) => {
     addSeller(sellerId, soc.id, userInfo);
@@ -96,6 +97,8 @@ io.on('connection', (soc) => {
       soc.to(admin.socketId).emit('receved_seller_message', msg);
     }
   });
+
+ 
 
   soc.on('add_admin', (adminInfo) => {
     delete adminInfo.email;

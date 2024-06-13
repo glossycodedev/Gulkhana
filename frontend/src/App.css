@@ -74,7 +74,12 @@ body {
 }
 
 .section_banner {
-  background: #ffffff
-    url(https://phuler.myshopify.com/cdn/shop/files/deal-1.png?v=1613740608)
+  background: #ffffff url(http://localhost:5000/uploads/c3-1718288725717-50735008.png)
     no-repeat scroll center center / cover;
+    width: 200px;
+    
+}
+
+.border-blue-500 {
+  border: 2px solid #B65278;
 }

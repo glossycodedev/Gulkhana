@@ -136,13 +136,13 @@ export const allNav = [
   //   role: 'seller',
   //   path: '/seller/dashboard/payments',
   // },
-  {
-    id: 17,
-    title: 'Chat-Customer',
-    icon: <IoChatbubbles />,
-    role: 'seller',
-    path: '/seller/dashboard/chat-customer',
-  },
+  // {
+  //   id: 17,
+  //   title: 'Chat-Customer',
+  //   icon: <IoChatbubbles />,
+  //   role: 'seller',
+  //   path: '/seller/dashboard/chat-customer',
+  // },
   {
     id: 18,
     title: 'Chat-Support',
