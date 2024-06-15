@@ -174,6 +174,7 @@ const ChatSeller = () => {
                     if (m.senderId === sellerId) {
                       return (
                         <div
+                        key={i}
                           ref={scrollRef}
                           className="w-full flex justify-start items-center"
                         >

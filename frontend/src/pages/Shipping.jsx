@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
+import { submit_address, get_address } from '../store/reducers/homeReducer';
 import { place_order } from '../store/reducers/orderReducer';
 import { backend_url_img } from '../api/server';
+import toast from 'react-hot-toast';
 
 const Shipping = () => {
   const {
@@ -14,17 +16,29 @@ const Shipping = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
+  const { addresses } = useSelector((state) => state.home);
 
   const [res, setRes] = useState(false);
+  const [existPlace, setExistPlace] = useState(false);
+  const [place, setPlace] = useState('');
+  const [addressId, setAddressId] = useState('');
+  const [existAddress, setExistAddress] = useState('');
+  const [touched, setTouched] = useState(false);
+  const [update, setUpdate] = useState(false);
   const [state, setState] = useState({
-    name: '',
+    place: '',
     address: '',
     phone: '',
-    post: '',
-    province: '',
+    street: '',
     city: '',
-    area: '',
   });
+
+  useEffect(() => {
+    if (existPlace || userInfo) {
+      dispatch(get_address(userInfo.id));
+      // setExistPlace(false);
+    }
+  }, [existPlace, userInfo]);
 
   const inputHandle = (e) => {
     setState({
@@ -32,15 +46,15 @@ const Shipping = () => {
       [e.target.name]: e.target.value,
     });
   };
+  console.log(state.place);
+  // const save = (e) => {
+  //   e.preventDefault();
+  //   const { place, address, phone, street, city } = state;
+  //   if (place && address && phone && street && city) {
+  //     setRes(true);
+  //   }
+  // };
 
-  const save = (e) => {
-    e.preventDefault();
-    const { name, address, phone, post, province, city, area } = state;
-    if (name && address && phone && post && province && city && area) {
-      setRes(true);
-    }
-  };
-console.log(userInfo.id);
   const placeOrder = () => {
     dispatch(
       place_order({
@@ -55,22 +69,30 @@ console.log(userInfo.id);
     );
   };
 
+  const addAddress = () => {
+    const obj = {
+      userId: userInfo.id,
+      place: state.place,
+      address: state.address,
+      phone: state.phone,
+      street: state.street,
+      city: state.city,
+    };
+
+    dispatch(submit_address(obj));
+    setExistPlace(true);
+    setUpdate(false);
+    setRes(true);
+    console.log(existPlace);
+  };
+
   return (
     <div>
       <Header />
-      <section className=' mt-8 bg-cover bg-no-repeat relative bg-left'>
+      <section className=" mt-8 bg-cover bg-no-repeat relative bg-left">
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
-            <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
-              {/* <h2 className="text-3xl font-bold">Shipping Page </h2>
-              <div className="flex justify-center items-center gap-2 text-2xl w-full">
-                <Link to="/">Home</Link>
-                <span className="pt-1">
-                  <IoIosArrowForward />
-                </span>
-                <span>Shipping </span>
-              </div> */}
-            </div>
+            <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white"></div>
           </div>
         </div>
       </section>
@@ -83,10 +105,7 @@ console.log(userInfo.id);
               <span>
                 <IoIosArrowForward />
               </span>
-              {/* <Link to="/">{}</Link> */}
-              {/* <span>
-                <IoIosArrowForward />
-              </span> */}
+
               <span className="text-[#B65278]">Shipping </span>
             </div>
           </div>
@@ -99,15 +118,85 @@ console.log(userInfo.id);
             <div className="w-[67%] md-lg:w-full">
               <div className="flex flex-col gap-3">
                 <div className="bg-white p-6 shadow-sm border rounded-sm">
-                  <h2 className="text-slate-600 font-bold pb-3">
-                    Shipping Information{' '}
-                  </h2>
+                  <div className="flex items-center bg-white pb-5">
+                    <h2 className="text-slate-600 font-bold  ">
+                      Shipping Address{' '}
+                    </h2>
+                    <button
+                      onClick={() => {
+                        setRes(false);
+                        setExistAddress('');
+                        setExistPlace(false);
+                        setUpdate(false);
+                        // setPlace('');
+                        setState({
+                          place: '',
+                          address: '',
+                          phone: '',
+                          street: '',
+                          city: '',
+                        });
+                      }}
+                      className="px-3 py-[6px] ml-4 rounded-sm hover:bg-[#14321e] hover:shadow-lg bg-[#00A535] text-white"
+                    >
+                      Add New Address{' '}
+                    </button>
+                  </div>
+                  <div className="flex  py-1 rounded">
+                    {addresses &&
+                      addresses?.map((a, i) => (
+                        <div
+                          key={i}
+                          onClick={() => {
+                            setExistAddress(a.place);
+                            setState({
+                              place: a.place,
+                              address: a.address,
+                              phone: a.phone,
+                              street: a.street,
+                              city: a.city,
+                            });
+                            setRes(true);
+                            setExistPlace(true);
+                            setAddressId(a._id);
+                          }}
+                          className="cursor-pointer ml-4 bg-blue-200 text-blue-800 text-sm px-4 py-2 font-medium rounded"
+                        >
+                          {a.place}
+                        </div>
+                      ))}
+                  </div>
 
-                  {!res && (
+                  {!existPlace && (
                     <>
-                      <form onSubmit={save}>
+                      <form onSubmit={addAddress}>
                         <div className="flex md:flex-col md:gap-2 w-full gap-5 text-slate-600">
-                          <div className="flex flex-col gap-1 mb-2 w-full">
+                          <div className="flex justify-between items-center py-3">
+                            <h2 className="text-lg  text-slate-600 p-2">
+                              Place{' '}
+                            </h2>
+                            <select
+                            name="place"
+                              className="outline-none px-3 py-1 border rounded-md text-slate-600"
+                              required
+                              value={state.place}
+                              onChange={inputHandle}
+                              // onChange={(e) => setPlace(e.target.value)}
+                              // onBlur={() => setTouched(true)}
+                            >
+                              <option value="all">--Address Place--</option>
+                              <option value="home">Home</option>
+                              <option value="work">Work</option>
+                            </select>
+                            {/* {touched && place === '' && (
+                              <span className="text-red-500">
+                                Please select a place
+                              </span>
+                            )} */}
+                          </div>
+                        </div>
+                        <div className="flex md:flex-col md:gap-2 w-full gap-5 text-slate-600">
+                          {/* <div className="flex flex-col gap-1 mb-2 w-full">
                             <label htmlFor="name"> Name </label>
                             <input
                               onChange={inputHandle}
@@ -118,11 +207,12 @@ console.log(userInfo.id);
                               id="name"
                               placeholder="Name"
                             />
-                          </div>
+                          </div> */}
 
                           <div className="flex flex-col gap-1 mb-2 w-full">
                             <label htmlFor="address"> Address </label>
                             <input
+                              required
                               onChange={inputHandle}
                               value={state.address}
                               type="text"
@@ -132,12 +222,10 @@ console.log(userInfo.id);
                               placeholder="Address"
                             />
                           </div>
-                        </div>
-
-                        <div className="flex md:flex-col md:gap-2 w-full gap-5 text-slate-600">
                           <div className="flex flex-col gap-1 mb-2 w-full">
                             <label htmlFor="phone"> Phone </label>
                             <input
+                              required
                               onChange={inputHandle}
                               value={state.phone}
                               type="text"
@@ -147,38 +235,27 @@ console.log(userInfo.id);
                               placeholder="Phone"
                             />
                           </div>
-
-                          <div className="flex flex-col gap-1 mb-2 w-full">
-                            <label htmlFor="post"> Post </label>
-                            <input
-                              onChange={inputHandle}
-                              value={state.post}
-                              type="text"
-                              className="w-full px-3 py-2 border border-slate-200 outline-none focus:border-green-500 rounded-md"
-                              name="post"
-                              id="post"
-                              placeholder="Post"
-                            />
-                          </div>
                         </div>
 
                         <div className="flex md:flex-col md:gap-2 w-full gap-5 text-slate-600">
                           <div className="flex flex-col gap-1 mb-2 w-full">
-                            <label htmlFor="province"> Province </label>
+                            <label htmlFor="province"> Street </label>
                             <input
+                              required
                               onChange={inputHandle}
-                              value={state.province}
+                              value={state.street}
                               type="text"
                               className="w-full px-3 py-2 border border-slate-200 outline-none focus:border-green-500 rounded-md"
-                              name="province"
-                              id="province"
-                              placeholder="Province"
+                              name="street"
+                              id="street"
+                              placeholder="Street"
                             />
                           </div>
 
                           <div className="flex flex-col gap-1 mb-2 w-full">
                             <label htmlFor="city"> City </label>
                             <input
+                              required
                               onChange={inputHandle}
                               value={state.city}
                               type="text"
@@ -191,8 +268,16 @@ console.log(userInfo.id);
                         </div>
 
                         <div className="flex md:flex-col md:gap-2 w-full gap-5 text-slate-600">
+                          <div className="flex flex-col gap-1 mt-7 mb-2 w-full">
+                            <button
+                              // disabled={!touched || place === ''}
+                              className="px-3 py-[6px] rounded-sm hover:bg-[#14321e] hover:shadow-lg bg-[#00A535] text-white"
+                            >
+                              {update ? 'Update Address' : 'Save Address'}
+                            </button>
+                          </div>
                           <div className="flex flex-col gap-1 mb-2 w-full">
-                            <label htmlFor="area"> Area </label>
+                            {/* <label htmlFor="area"> Area </label>
                             <input
                               onChange={inputHandle}
                               value={state.area}
@@ -201,50 +286,63 @@ console.log(userInfo.id);
                               name="area"
                               id="area"
                               placeholder="Area"
-                            />
-                          </div>
-
-                          <div className="flex flex-col gap-1 mt-7 mb-2 w-full">
-                            <button className="px-3 py-[6px] rounded-sm hover:bg-[#14321e] hover:shadow-lg bg-[#00A535] text-white">
-                              Save Change{' '}
-                            </button>
+                            /> */}
                           </div>
                         </div>
                       </form>
                     </>
                   )}
 
-                  {res && (
-                    <div className="flex flex-col gap-1">
-                      <h2 className="text-slate-600 font-semibold pb-2">
-                        Deliver To {state.name}
-                      </h2>
-                      <p>
-                        <span className="bg-blue-200 text-blue-800 text-sm font-medium mr-2 px-2 py-1 rounded">
-                          Home
-                        </span>
-                        <span>
-                          {state.phone} {state.address} {state.province}{' '}
-                          {state.city} {state.area}{' '}
-                        </span>
+                  {existPlace && (
+                    <div className="flex flex-col gap-1 mt-3">
+                      {addresses?.map(
+                        (a, i) =>
+                          a.place === existAddress && (
+                            <div key={i}>
+                              <h2 className="text-slate-600 font-semibold pb-2">
+                                Deliver To {existAddress}
+                              </h2>
 
-                        <span
-                          onClick={() => setRes(false)}
-                          className="text-indigo-500 cursor-pointer"
-                        >
-                          Change{' '}
-                        </span>
-                      </p>
+                              <span>
+                                {a.address} {a.phone} {a.street} {a.city}{' '}
+                              </span>
 
+                              <span
+                                onClick={() => {
+                                  setRes(false);
+                                  setState({
+                                    place: a.place,
+                                    address: a.address,
+                                    phone: a.phone,
+                                    street: a.street,
+                                    city: a.city,
+                                  });
+                                  // setPlace(a.place);
+                                  setExistAddress('');
+                                  setExistPlace(false);
+                                  setAddressId(a._id);
+                                  setUpdate(true);
+                                }}
+                                className="text-indigo-500 cursor-pointer"
+                              >
+                                Change{' '}
+                              </span>
+                            </div>
+                          )
+                      )}
+                      {/* 
                       <p className="text-slate-600 text-sm">
                         Email To ariyan@gmail.com
-                      </p>
+                      </p> */}
                     </div>
                   )}
                 </div>
 
                 {products.map((p, i) => (
-                  <div key={i} className="flex border bg-white p-4 flex-col gap-2">
+                  <div
+                    key={i}
+                    className="flex border bg-white p-4 flex-col gap-2"
+                  >
                     <div className="flex justify-start items-center">
                       <h2 className="text-md text-slate-600 font-bold">
                         {p.shopName}
@@ -276,22 +374,24 @@ console.log(userInfo.id);
                           <div className="pl-4 sm:pl-0">
                             {/* <h2 className="text-lg text-orange-500"> */}
                             {pt.productInfo.discount !== 0 ? (
-                                    <>
-                                      <h2 className="">
-                                        $
-                                        {pt.productInfo.price -
-                                          Math.floor(
-                                            (pt.productInfo.price * pt.productInfo.discount) / 100
-                                          )}{' '}
-                                      </h2>
-                                      <h2 className="line-through  text-[#B65278]">
-                                        ${pt.productInfo.price}
-                                      </h2>
-                                    </>
-                                  ) : (
-                                    <h2> ${pt.productInfo.price} </h2>
-                                  )}
-                              {/* $
+                              <>
+                                <h2 className="">
+                                  $
+                                  {pt.productInfo.price -
+                                    Math.floor(
+                                      (pt.productInfo.price *
+                                        pt.productInfo.discount) /
+                                        100
+                                    )}{' '}
+                                </h2>
+                                <h2 className="line-through  text-[#B65278]">
+                                  ${pt.productInfo.price}
+                                </h2>
+                              </>
+                            ) : (
+                              <h2> ${pt.productInfo.price} </h2>
+                            )}
+                            {/* $
                               {pt.productInfo.price -
                                 Math.floor(
                                   (pt.productInfo.price *
@@ -305,8 +405,8 @@ console.log(userInfo.id);
                             <p>-{pt.productInfo.discount}%</p> */}
                           </div>
                           <div className="flex gap-2 flex-col">
-                          <div className="px-3">Quantity: {pt.quantity}</div>
-                            </div>
+                            <div className="px-3">Quantity: {pt.quantity}</div>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -343,7 +443,9 @@ console.log(userInfo.id);
                     onClick={placeOrder}
                     disabled={res ? false : true}
                     className={`px-5 py-[6px] rounded-sm ${
-                      res ? 'bg-[#B65278] hover:bg-[#D871A1] hover:text-black' : 'bg-[#e195b9] '
+                      res
+                        ? 'bg-[#B65278] hover:bg-[#D871A1] hover:text-black'
+                        : 'bg-[#e195b9] '
                     }  text-sm text-white uppercase`}
                   >
                     Place Order

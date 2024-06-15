@@ -227,7 +227,7 @@ const Card = () => {
 
                         <div className="bg-white p-4">
                           {outofstock_products.map((p, i) => (
-                            <div className="w-full flex flex-wrap">
+                            <div key={i} className="w-full flex flex-wrap">
                               <div className="flex sm:w-full gap-2 w-7/12">
                                 <div className="flex gap-2 justify-start items-center">
                                   <img

@@ -7,6 +7,7 @@ import {
   messageClear,
 } from '../../store/Reducers/OrderReducer';
 import toast from 'react-hot-toast';
+import { backend_url_img } from '../../api/server';
 
 const OrderDetails = () => {
   const { orderId } = useParams();
@@ -73,44 +74,45 @@ const OrderDetails = () => {
                 <h2>#{order._id}</h2>
                 <span>{order.date}</span>
               </div>
-              <div className=" text-[#5c5a5a]text-lg">
+              <div className=" text-[#5c5a5a] text-lg">
                 <div className="flex flex-col gap-1">
                   <h2 className="pb-2 font-semibold">
-                    Deliver To : {order.shippingInfo?.name}{' '}
+                    Deliver To : {order.shippingInfo?.place}{' '}
                   </h2>
                   <p>
-                    <span className="text-sm">
-                      {order.shippingInfo?.address}
-                      {order.shippingInfo?.province}
-                      {order.shippingInfo?.city}
-                      {order.shippingInfo?.area}
-                    </span>
+                    <div className=" flex gap-4 text-lg">
+                    <h2>Address: </h2>
+                    <span>{order.shippingInfo?.address}-</span>
+                    <span>{order.shippingInfo?.phone}-</span>
+                    <span>{order.shippingInfo?.street}-</span>
+                    <span>{order.shippingInfo?.city}</span>
+                    </div>
                   </p>
                 </div>
                 <div className="flex justify-start items-center gap-3">
                   <h2>Payment Status: </h2>
-                  <span className="text-base">{order.payment_status}</span>
+                  <span className="text-md">{order.payment_status}</span>
                 </div>
-                <span>Price : ${order.price}</span>
+                <span className="text-lg">Price : <span className='text-[#B65278] text-lg font-medium'>${order.price}</span></span>
 
-                <div className="mt-4 flex flex-col  gap-4 bg-[#ECEDED] rounded-md">
-                  <div className="text-[#5c5a5a]  p-1">
+                <div className="mt-4 flex flex-col  gap-4 bg-[#F9F9F9] rounded-md">
+                  <div className="text-[#5c5a5a]   p-2">
                     {order.products &&
                       order.products.map((p, i) => (
-                        <>
-                          <div>
+                        <div key={i} className='border-b py-3 '>
+                          <div >
                             <span>Shop Name : </span>
                             <span className="text-md font-medium">
                               {p.shopName}
                             </span>
                           </div>
                           <div
-                            key={i}
+                            
                             className="flex gap-3 text-md justify-start items-center"
                           >
                             <img
                               className="w-[50px] h-[50px] "
-                              src={p.images[0]}
+                              src={`${backend_url_img}/uploads/${p.images[0]}`}
                               alt=""
                             />
 
@@ -129,7 +131,7 @@ const OrderDetails = () => {
                               </div>
                             </div>
                           </div>
-                        </>
+                        </div>
                       ))}
                   </div>
                 </div>
@@ -140,10 +142,10 @@ const OrderDetails = () => {
               <div className="">
                 <div className="mt-4 flex flex-col bg-[#F9F9F9] border rounded-md p-4">
                   {order?.suborder?.map((o, i) => (
-                    <div key={i + 20} className="text-[#5c5a5a]mt-2">
+                    <div key={i + 20} className="text-[#5c5a5a] py-3 border-b ">
                       <div className="flex justify-start items-center gap-3">
-                        <h2>Seller {i + 1} Order : </h2>
-                        <span>{o.delivery_status}</span>
+                        <h2 className='text-md font-medium border-b border-[#B65278]'>Seller {i + 1} Order : </h2>
+                        <span className='text-md font-medium text-[#B65278]'>{o.delivery_status}</span>
                       </div>
 
                       {o.products?.map((p, i) => (
@@ -160,7 +162,7 @@ const OrderDetails = () => {
                           >
                             <img
                               className="w-[50px] h-[50px]"
-                              src={p.images[0]}
+                              src={`${backend_url_img}/uploads/${p.images[0]}`}
                               alt=""
                             />
 

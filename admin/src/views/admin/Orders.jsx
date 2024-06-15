@@ -20,7 +20,7 @@ const Orders = () => {
   useEffect(() => {
     dispatch(get_admin_orders_status({status:state}))
 },[state])
-console.log(myOrders);
+
   useEffect(() => {
     const obj = {
       parPage: parseInt(parPage),
@@ -101,6 +101,9 @@ console.log(myOrders);
                 Order Status
                 </th>
                 <th scope="col" className="py-3 px-4">
+                Order Date
+                </th>
+                <th scope="col" className="py-3 px-4">
                 Action
                 </th>
                 
@@ -140,7 +143,12 @@ console.log(myOrders);
                   >
                    {o.delivery_status}
                   </td>
-                  
+                  <td
+                    scope="row"
+                    className="py-2 px-4 whitespace-nowrap"
+                  >
+                   {o.date}
+                  </td>
 
                   <td
                     scope="row"

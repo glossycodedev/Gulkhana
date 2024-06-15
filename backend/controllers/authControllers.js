@@ -251,7 +251,7 @@ class authControllers {
   }; // End getUser Method
 
   profile_info_add = async (req, res) => {
-    const { Address, Phone, shopName, City } = req.body;
+    const { address, phone, shopName, city } = req.body;
     const { id } = req;
 
     try {

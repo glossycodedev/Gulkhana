@@ -7,6 +7,7 @@ import {
   seller_order_status_update,
 } from '../../store/Reducers/OrderReducer';
 import toast from 'react-hot-toast';
+import { backend_url_img } from '../../api/server';
 
 const OrderDetails = () => {
   const { orderId } = useParams();
@@ -77,8 +78,17 @@ const OrderDetails = () => {
               <div className="pr-3 text-text-[#5c5a5a] text-lg">
                 <div className="flex flex-col gap-1">
                   <h2 className="pb-2 font-semibold">
-                    Deliver To : {order.shippingInfo}{' '}
+                    Deliver To : {order.shippingInfo?.place}{' '}
                   </h2>
+                  <p>
+                    <div className=" flex gap-4 text-lg">
+                      <h2>Address: </h2>
+                      <span>{order.shippingInfo?.address}-</span>
+                      <span>{order.shippingInfo?.phone}-</span>
+                      <span>{order.shippingInfo?.street}-</span>
+                      <span>{order.shippingInfo?.city}</span>
+                    </div>
+                  </p>
                 </div>
                 <div className="flex justify-start items-center gap-3">
                   <h2>Payment Status: </h2>
@@ -95,7 +105,8 @@ const OrderDetails = () => {
                       <div className="flex gap-3 text-md">
                         <img
                           className="w-[50px] h-[50px]"
-                          src={p.images[0]}
+                          src={`${backend_url_img}/uploads/${p.images[0]}`}
+                          // src={p.images[0]}
                           alt=""
                         />
 

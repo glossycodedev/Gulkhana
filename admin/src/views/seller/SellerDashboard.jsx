@@ -191,7 +191,7 @@ const SellerDashboard = () => {
             <div className="flex flex-col gap-2 pt-6 text-[#d0d2d6]">
               <ol className="relative border-1 border-slate-600 ml-4">
                 {recentMessage.map((m, i) => (
-                  <li className="mb-3 ml-6">
+                  <li key={i} className="mb-3 ml-6">
                     <div className="flex absolute -left-5 shadow-lg justify-center items-center w-10 h-10 p-[6px] bg-[#4c7fe2] rounded-full z-10">
                       {m.senderId === userInfo._id ? (
                         <img

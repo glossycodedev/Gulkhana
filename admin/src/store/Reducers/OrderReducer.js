@@ -23,17 +23,17 @@ export const get_admin_orders = createAsyncThunk(
 
 export const get_admin_orders_status = createAsyncThunk(
   'orders/get_admin_orders_status',
-  async({customerId,status}, { rejectWithValue,fulfillWithValue }) => {
-      try {
-          const {data} = await api.get(`/admin/orders-status/${status}`) 
-          // console.log(data)
-          return fulfillWithValue(data)
-      } catch (error) {
-          return rejectWithValue(error.response.data)
-      }
+  async ({ customerId, status }, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.get(`/admin/orders-status/${status}`);
+      // console.log(data)
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
   }
-)
-// End Method 
+);
+// End Method
 
 export const get_admin_order = createAsyncThunk(
   'orders/get_admin_order',

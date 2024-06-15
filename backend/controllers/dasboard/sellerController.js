@@ -68,7 +68,7 @@ class sellerController {
   seller_update = async (req, res) => {
     const { phone, name, password, address, shopName, city, sellerId } =
       req.body;
-    
+
     try {
       await sellerModel.findByIdAndUpdate(sellerId, {
         name,
@@ -142,7 +142,6 @@ class sellerController {
       responseReturn(res, 500, { error: error.message });
     }
   };
-  
 
   // End Method
 

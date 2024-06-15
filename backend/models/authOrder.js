@@ -21,9 +21,9 @@ const authSchema = new Schema({
         type: String,
         required : true  
     },
-    shippingInfo: {
-        type: String,
-        required : true  
+    shippingInfo : {
+        type : Object,
+        required : true
     },
     delivery_status: {
         type: String,
@@ -33,6 +33,19 @@ const authSchema = new Schema({
         type: String,
         required : true
     } 
-},{ timestamps: true })
+},{ timestamps: true });
+
+authSchema.index(
+    {
+        delivery_status: 'text',
+        orderId: 'text',
+    },
+    {
+      weights: {
+        delivery_status: 5,
+        orderId: 4,
+      },
+    }
+  );
 
 module.exports = model('authorOrders',authSchema)

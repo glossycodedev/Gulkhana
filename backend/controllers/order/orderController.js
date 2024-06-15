@@ -10,6 +10,7 @@ const { responseReturn } = require('../../utiles/response');
 const {
   mongo: { ObjectId },
 } = require('mongoose');
+const productModel = require('../../models/productModel');
 const stripe = require('stripe')(
   'sk_test_51Oml5cGAwoXiNtjJZbPFBKav0pyrR8GSwzUaLHLhInsyeCa4HI8kKf2IcNeUXc8jc8XVzBJyqjKnDLX9MlRjohrL003UDGPZgQ'
 );
@@ -58,7 +59,7 @@ class orderController {
         }
       }
     }
-    
+
     try {
       const order = await customerOrder.create({
         customerId: userId,
@@ -70,18 +71,33 @@ class orderController {
         delivery_status: 'pending',
         date: tempDate,
       });
-      
+
       for (let i = 0; i < products.length; i++) {
         const pro = products[i].products;
         const pri = products[i].price;
-        
+
         const sellerId = products[i].sellerId;
-       
+
         let storePor = [];
         for (let j = 0; j < pro.length; j++) {
           const tempPro = pro[j].productInfo;
           tempPro.quantity = pro[j].quantity;
           storePor.push(tempPro);
+
+          //Update Stock
+
+          const product = await productModel.findById(pro[j].productInfo._id);
+          if (product) {
+            // Calculate new stock value
+            const newStock = product.stock - pro[j].quantity;
+
+            // Update the stock value in the database
+            await productModel.findByIdAndUpdate(pro[j].productInfo._id, {
+              stock: newStock,
+            });
+          }
+
+          //End Update Stock
         }
 
         authorOrderData.push({
@@ -90,7 +106,7 @@ class orderController {
           products: storePor,
           price: pri,
           payment_status: 'unpaid',
-          shippingInfo: 'Easy Main Warehouse',
+          shippingInfo,
           delivery_status: 'pending',
           date: tempDate,
         });
@@ -124,7 +140,7 @@ class orderController {
         .find({
           customerId: new ObjectId(userId),
         })
-        .limit(5);
+        .limit(15);
       const pendingOrder = await customerOrder
         .find({
           customerId: new ObjectId(userId),
@@ -160,14 +176,18 @@ class orderController {
     try {
       let orders = [];
       if (status !== 'all') {
-        orders = await customerOrder.find({
-          customerId: new ObjectId(customerId),
-          delivery_status: status,
-        });
+        orders = await customerOrder
+          .find({
+            customerId: new ObjectId(customerId),
+            delivery_status: status,
+          })
+          .sort({ createdAt: -1 });
       } else {
-        orders = await customerOrder.find({
-          customerId: new ObjectId(customerId),
-        });
+        orders = await customerOrder
+          .find({
+            customerId: new ObjectId(customerId),
+          })
+          .sort({ createdAt: -1 });
       }
       responseReturn(res, 200, {
         orders,
@@ -308,6 +328,22 @@ class orderController {
 
     try {
       if (searchValue) {
+        const orders = await authOrderModel
+          .find({
+            sellerId,
+            $text: { $search: searchValue },
+          })
+          .skip(skipPage)
+          .limit(parPage)
+          .sort({ createdAt: -1 });
+
+        const totalOrder = await authOrderModel
+          .find({
+            sellerId,
+            $text: { $search: searchValue },
+          })
+          .countDocuments();
+        responseReturn(res, 200, { totalOrder, orders });
       } else {
         const orders = await authOrderModel
           .find({

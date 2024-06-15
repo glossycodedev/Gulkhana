@@ -17,30 +17,34 @@ const OrderDetails = () => {
 
   return (
     <div className="bg-white p-5">
-      <h2 className="text-slate-600 font-semibold">
+      <h2 className="text-slate-600 ">
         #{myOrder._id} , <span className="pl-1">{myOrder.date}</span>{' '}
       </h2>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-3">
         <div className="flex flex-col gap-1">
           <h2 className="text-slate-600 font-semibold font-sans">
-            Deliver To : {myOrder.shippingInfo?.name}{' '}
+            Deliver To : {myOrder.shippingInfo?.place}{' '}
           </h2>
           <p>
-            <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2 py-2 rounded">
-              Home
-            </span>
-            <span className="text-slate-600 text-sm">
+            <div className="  justify-center gap-4 text-md font-medium py-2">
+              <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2 py-2 rounded">
+                Address
+              </span>
+              <span>{myOrder.shippingInfo?.address}-</span>
+              <span>{myOrder.shippingInfo?.phone}-</span>
+              <span>{myOrder.shippingInfo?.street}-</span>
+              <span>{myOrder.shippingInfo?.city}</span>
+            </div>
+            {/* <span className="text-slate-600 text-sm">
               {myOrder.shippingInfo?.address}
               {myOrder.shippingInfo?.province}
               {myOrder.shippingInfo?.city}
-            </span>
+            </span> */}
           </p>
-          <p className="text-slate-600 text-md font-semibold">
-            Email To {userInfo.email}
-          </p>
+          <p className="text-slate-600 text-md ">Email To {userInfo.email}</p>
         </div>
 
-        <div className="text-slate-600">
+        <div className="text-slate-600 bg-[#F9F9F9] p-2">
           <h2 className="font-mono">
             Price : ${myOrder.price} Include Shipping
           </h2>
@@ -48,7 +52,7 @@ const OrderDetails = () => {
             {' '}
             Payment Status :{' '}
             <span
-              className={`py-[1px] text-xs px-3 ${
+              className={`py-[1px] text-sm px-3 ${
                 myOrder.payment_status === 'paid'
                   ? 'bg-green-300 text-green-800'
                   : 'bg-red-300 text-red-800'
@@ -63,7 +67,7 @@ const OrderDetails = () => {
             {' '}
             Order Status :{' '}
             <span
-              className={`py-[1px] text-xs px-3 ${
+              className={`py-[1px] text-sm px-3 ${
                 myOrder.delivery_status === 'paid'
                   ? 'bg-green-300 text-green-800'
                   : 'bg-red-300 text-red-800'
@@ -77,13 +81,13 @@ const OrderDetails = () => {
       </div>
 
       <div className="mt-4">
-        <h2 className="text-slate-600 text-lg pb-2 font-sans font-bold">
+        <h2 className="text-slate-600 text-lg pb-2 font-sans font-semibold">
           Order Products{' '}
         </h2>
         <div className="flex gap-5 flex-col">
           {myOrder.products?.map((p, i) => (
             <div key={i}>
-              <div className="flex gap-5 justify-start items-center text-slate-600">
+              <div className="flex gap-5 justify-start items-center p-2 bg-[#F9F9F9] text-slate-600">
                 <div className="flex gap-2">
                   <img
                     className="w-[55px] h-[55px]"
@@ -94,7 +98,7 @@ const OrderDetails = () => {
                     <Link> {p.name} </Link>
                     <p>
                       {' '}
-                      <span>Brand : {p.brand}</span>{' '}
+                      <span>Category : {p.category}</span>{' '}
                     </p>
                     <p>
                       <span>Quantity : {p.quantity}</span>
@@ -102,12 +106,24 @@ const OrderDetails = () => {
                   </div>
                 </div>
 
-                <div className="pl-4 flex flex-col">
-                  <h2 className="text-md text-green-800">
+                <div className="pl-4 flex ">
+                  {p.discount !== 0 ? (
+                    <>
+                      <h2 className="">
+                        ${p.price - Math.floor((p.price * p.discount) / 100)}{' '}
+                      </h2>
+                      <h2 className="line-through px-4 text-[#B65278]">
+                        ${p.price}
+                      </h2>
+                    </>
+                  ) : (
+                    <h2> ${p.price} </h2>
+                  )}
+                  {/* <h2 className="text-md text-green-800">
                     ${p.price - Math.floor((p.price * p.discount) / 100)}
                   </h2>
                   <p className="line-through">{p.price}</p>
-                  <p>-{p.discount}%</p>
+                  <p>-{p.discount}%</p> */}
                 </div>
               </div>
             </div>

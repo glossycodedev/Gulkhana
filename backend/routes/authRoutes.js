@@ -33,4 +33,6 @@ router.post(
 );
 router.get('/logout', authMiddleware, authControllers.logout);
 
+
+
 module.exports = router;

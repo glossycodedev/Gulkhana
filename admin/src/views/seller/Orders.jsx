@@ -31,7 +31,7 @@ const Orders = () => {
       <div className="w-full pl-3 pb-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-7">
         <div className="flex pb-3 justify-between items-center">
           <h2 className="text-lg text-[#5c5a5a] font-medium ">Orders</h2>{' '}
-          <span className='px-2'>{totalOrder} Orderss</span>
+          <span className="px-2">{totalOrder} Orderss</span>
         </div>
       </div>
 
@@ -69,43 +69,28 @@ const Orders = () => {
 
             <tbody>
               {myOrders.map((d, i) => (
-                <tr key={i} className="text-[#595b5d] text-lg border-b  border-[#dcdada]">
-                  <td
-                    scope="row"
-                    className="py-1 px-4  whitespace-nowrap"
-                  >
+                <tr
+                  key={i}
+                  className="text-[#595b5d] text-lg border-b  border-[#dcdada]"
+                >
+                  <td scope="row" className="py-1 px-4  whitespace-nowrap">
                     #{d._id}
                   </td>
-                  <td
-                    scope="row"
-                    className="py-1 px-4  whitespace-nowrap"
-                  >
+                  <td scope="row" className="py-1 px-4  whitespace-nowrap">
                     ${d.price}
                   </td>
-                  <td
-                    scope="row"
-                    className="py-1 px-4 whitespace-nowrap"
-                  >
+                  <td scope="row" className="py-1 px-4 whitespace-nowrap">
                     {d.payment_status}{' '}
                   </td>
-                  <td
-                    scope="row"
-                    className="py-1 px-4  whitespace-nowrap"
-                  >
+                  <td scope="row" className="py-1 px-4  whitespace-nowrap">
                     {d.delivery_status}
                   </td>
-                  <td
-                    scope="row"
-                    className="py-1 px-4 whitespace-nowrap"
-                  >
+                  <td scope="row" className="py-1 px-4 whitespace-nowrap">
                     {d.date}
                   </td>
-                  <td
-                    scope="row"
-                    className="py-1 px-4  whitespace-nowrap"
-                  >
+                  <td scope="row" className="py-1 px-4  whitespace-nowrap">
                     <div className="flex justify-start items-center gap-4">
-                    <Link
+                      <Link
                         to={`/seller/dashboard/order/details/${d._id}`}
                         className="p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50 text-[#343b40]"
                       >

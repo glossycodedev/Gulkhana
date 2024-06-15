@@ -70,7 +70,7 @@ const Orders = () => {
             </thead>
             <tbody>
               {myOrders.map((o, i) => (
-                <tr className="bg-white border-b">
+                <tr key={i} className="bg-white border-b">
                   <td
                     scope="row"
                     className="px-6 py-4 font-medium whitespace-nowrap"
