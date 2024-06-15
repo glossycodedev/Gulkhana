@@ -5,6 +5,7 @@ const AdminDashboard = lazy(() => import('../../views/admin/AdminDashboard'));
 const Orders = lazy(() => import('../../views/admin/Orders'));
 const Category = lazy(() => import('../../views/admin/Category'));
 const AddBanner = lazy(() => import('../../views/admin/AddBanner'));
+const Reklam = lazy(() => import('../../views/admin/Reklam'));
 const AddSeller = lazy(() => import('../../views/admin/AddSeller'));
 const Shops = lazy(() => import('../../views/admin/Shops'));
 const PaymentRequest = lazy(() => import('../../views/admin/PaymentRequest'));
@@ -48,6 +49,11 @@ export const adminRoutes = [
   {
     path: 'admin/dashboard/banners',
     element: <AddBanner />,
+    role: 'admin',
+  },
+  {
+    path: 'admin/dashboard/reklam',
+    element: <Reklam />,
     role: 'admin',
   },
   {

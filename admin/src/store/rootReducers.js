@@ -6,12 +6,14 @@ import categoryReducer from './Reducers/categoryReducer';
 import chatReducer from './Reducers/chatReducer';
 import dashboardReducer from './Reducers/dashboardReducer';
 import productReducer from './Reducers/productReducer';
+import reklamReducer from './Reducers/reklamReducer';
 import sellerReducer from './Reducers/sellerReducer';
 import shopReducer from './Reducers/shopReducer';
 
 const rootReducer = {
   auth: authReducer,
   category: categoryReducer,
+  reklam: reklamReducer,
   product: productReducer,
   seller: sellerReducer,
   shop: shopReducer,

@@ -66,7 +66,6 @@ io.on('connection', (soc) => {
   soc.on('add_user', (customerId, userInfo) => {
     addUser(customerId, soc.id, userInfo);
     io.emit('activeSeller', allSeller);
-   
   });
   soc.on('add_seller', (sellerId, userInfo) => {
     addSeller(sellerId, soc.id, userInfo);
@@ -98,8 +97,6 @@ io.on('connection', (soc) => {
     }
   });
 
- 
-
   soc.on('add_admin', (adminInfo) => {
     delete adminInfo.email;
     delete adminInfo.password;
@@ -126,14 +123,13 @@ app.use('/api', require('./routes/authRoutes'));
 app.use('/api', require('./routes/order/orderRoutes'));
 app.use('/api', require('./routes/home/cardRoutes'));
 app.use('/api', require('./routes/dashboard/categoryRoutes'));
+app.use('/api', require('./routes/dashboard/reklamRoutes'));
 app.use('/api', require('./routes/dashboard/productRoutes'));
 app.use('/api', require('./routes/dashboard/sellerRoutes'));
 app.use('/api', require('./routes/home/customerAuthRoutes'));
 app.use('/api', require('./routes/chatRoutes'));
 app.use('/api', require('./routes/paymentRoutes'));
 app.use('/api', require('./routes/dashboard/dashboardRoutes'));
-
-
 
 app.get('/', (req, res) => res.send('Hello Server'));
 const port = process.env.PORT;

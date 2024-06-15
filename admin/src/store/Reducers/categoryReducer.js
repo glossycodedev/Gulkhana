@@ -27,7 +27,6 @@ export const categoryAdd = createAsyncThunk(
   'category/categoryAdd',
   async ({ name, image }, { rejectWithValue, fulfillWithValue }) => {
     try {
-     
       const formData = new FormData();
       formData.append('name', name);
       formData.append('image', image);
@@ -100,7 +99,6 @@ export const categoryUpdate = createAsyncThunk(
     { rejectWithValue, fulfillWithValue }
   ) => {
     try {
-      
       const formData = new FormData();
       formData.append('name', name);
       formData.append('categoryId', categoryId);
@@ -119,27 +117,27 @@ export const categoryUpdate = createAsyncThunk(
 
 // End Method
 
-export const category_image_update = createAsyncThunk(
-  'category/category_image_update',
-  async (
-    { oldImage, newImage, categoryId },
-    { rejectWithValue, fulfillWithValue }
-  ) => {
-    try {
-      const formData = new FormData();
-      formData.append('oldImage', oldImage);
-      formData.append('newImage', newImage);
-      formData.append('categoryId', categoryId);
-      const { data } = await api.post('/category-image-update', formData, {
-        withCredentials: true,
-      });
-      //console.log(data);
-      return fulfillWithValue(data);
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  }
-);
+// export const category_image_update = createAsyncThunk(
+//   'category/category_image_update',
+//   async (
+//     { oldImage, newImage, categoryId },
+//     { rejectWithValue, fulfillWithValue }
+//   ) => {
+//     try {
+//       const formData = new FormData();
+//       formData.append('oldImage', oldImage);
+//       formData.append('newImage', newImage);
+//       formData.append('categoryId', categoryId);
+//       const { data } = await api.post('/category-image-update', formData, {
+//         withCredentials: true,
+//       });
+//       //console.log(data);
+//       return fulfillWithValue(data);
+//     } catch (error) {
+//       return rejectWithValue(error.response.data);
+//     }
+//   }
+// );
 
 // End Method
 
@@ -191,10 +189,10 @@ export const categoryReducer = createSlice({
         state.successMessage = payload.message;
       })
 
-      .addCase(category_image_update.fulfilled, (state, { payload }) => {
-        state.category = payload.category;
-        // state.successMessage = payload.message;
-      })
+      // .addCase(category_image_update.fulfilled, (state, { payload }) => {
+      //   state.category = payload.category;
+      //   // state.successMessage = payload.message;
+      // })
 
       .addCase(get_category.fulfilled, (state, { payload }) => {
         state.totalCategory = payload.totalCategory;

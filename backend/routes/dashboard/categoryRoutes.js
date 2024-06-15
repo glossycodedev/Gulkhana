@@ -18,10 +18,10 @@ router.post(
   upload.single('image'),
   categoryController.category_update
 );
-router.post(
-  '/category-image-update',
-  authMiddleware,
-  categoryController.category_image_update
-);
+// router.post(
+//   '/category-image-update',
+//   authMiddleware,
+//   categoryController.category_image_update
+// );
 
 module.exports = router;

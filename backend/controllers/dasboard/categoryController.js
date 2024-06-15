@@ -102,57 +102,57 @@ class categoryController {
  
   // End Method
 
-  category_image_update = async (req, res) => {
-    const form = formidable({ multiples: true });
+  // category_image_update = async (req, res) => {
+  //   const form = formidable({ multiples: true });
 
-    form.parse(req, async (err, fields, files) => {
-      const { oldImage, categoryId } = fields;
-      const { newImage } = files;
+  //   form.parse(req, async (err, fields, files) => {
+  //     const { oldImage, categoryId } = fields;
+  //     const { newImage } = files;
 
-      if (err) {
-        responseReturn(res, 400, { error: err.message });
-        return;
-      }
+  //     if (err) {
+  //       responseReturn(res, 400, { error: err.message });
+  //       return;
+  //     }
 
-      if (!oldImage || !categoryId || !newImage) {
-        responseReturn(res, 400, { error: 'Missing required fields' });
-        return;
-      }
+  //     if (!oldImage || !categoryId || !newImage) {
+  //       responseReturn(res, 400, { error: 'Missing required fields' });
+  //       return;
+  //     }
 
-      try {
-        const result = await cloudinary.uploader.upload(newImage.filepath, {
-          folder: 'categorys',
-        });
+  //     try {
+  //       const result = await cloudinary.uploader.upload(newImage.filepath, {
+  //         folder: 'categorys',
+  //       });
 
-        if (!result) {
-          responseReturn(res, 404, { error: 'Image Upload Failed' });
-          return;
-        }
+  //       if (!result) {
+  //         responseReturn(res, 404, { error: 'Image Upload Failed' });
+  //         return;
+  //       }
 
-        const category = await categoryModel.findById(categoryId);
-        if (!category) {
-          responseReturn(res, 404, { error: 'Category Not Found' });
-          return;
-        }
+  //       const category = await categoryModel.findById(categoryId);
+  //       if (!category) {
+  //         responseReturn(res, 404, { error: 'Category Not Found' });
+  //         return;
+  //       }
 
-        if (category.image !== oldImage) {
-          responseReturn(res, 404, { error: 'Old Image Not Found' });
-          return;
-        }
+  //       if (category.image !== oldImage) {
+  //         responseReturn(res, 404, { error: 'Old Image Not Found' });
+  //         return;
+  //       }
 
-        category.image = result.url;
-        await category.save();
+  //       category.image = result.url;
+  //       await category.save();
 
-        responseReturn(res, 200, {
-          category,
-          message: 'Category Image Updated Successfully',
-        });
-      } catch (error) {
-        responseReturn(res, 500, { error: error.message });
-      }
-    });
-  };
-  //End Method
+  //       responseReturn(res, 200, {
+  //         category,
+  //         message: 'Category Image Updated Successfully',
+  //       });
+  //     } catch (error) {
+  //       responseReturn(res, 500, { error: error.message });
+  //     }
+  //   });
+  // };
+  // //End Method
 
   get_categoryId = async (req, res) => {
     const { categoryId } = req.params;

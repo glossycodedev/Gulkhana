@@ -122,6 +122,21 @@ export const get_banners = createAsyncThunk(
 );
 // End Method
 
+
+export const get_reklams = createAsyncThunk(
+  'reklam/get_reklams',
+  async (_, { fulfillWithValue }) => {
+    try {
+      const { data } = await api.get(`/reklam-get`);
+      //  console.log(data)
+      return fulfillWithValue(data);
+    } catch (error) {
+      console.log(error.respone);
+    }
+  }
+);
+// End Method
+
 export const submit_address = createAsyncThunk(
   'address/submit_address',
   async (address, { rejectWithValue, fulfillWithValue }) => {
@@ -162,6 +177,7 @@ export const homeReducer = createSlice({
   initialState: {
     addresses: [],
     categorys: [],
+    reklams: [],
     products: [],
     totalProduct: 0,
     parPage: 3,
@@ -227,6 +243,9 @@ export const homeReducer = createSlice({
 
       .addCase(get_banners.fulfilled, (state, { payload }) => {
         state.banners = payload.banners;
+      })
+      .addCase(get_reklams.fulfilled, (state, { payload }) => {
+        state.reklams = payload.reklams;
       })
 
       .addCase(submit_address.pending, (state) => {
