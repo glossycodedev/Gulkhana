@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "private": true,
+  "homepage": ".",
   "dependencies": {
     "@reduxjs/toolkit": "^2.0.1",
     "@stripe/react-stripe-js": "^2.5.0",
