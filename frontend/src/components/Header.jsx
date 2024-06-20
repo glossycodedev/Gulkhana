@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MdEmail } from 'react-icons/md';
+import { MdEmail, MdOutlineLanguage } from 'react-icons/md';
 import { IoMdPhonePortrait } from 'react-icons/io';
 import { FaFacebookF, FaList, FaLock, FaUser } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa6';
@@ -32,12 +32,14 @@ const languages = [
     code: 'en',
     name: 'English',
     country_code: 'en',
+    image: '../../../images/language.png',
   },
   {
     code: 'kr',
     name: 'کوردی',
     dir: 'rtl',
     country_code: 'kr',
+    image: '../../../images/kur.png',
   },
 ];
 
@@ -123,7 +125,7 @@ const Header = () => {
   };
 
   const headerLogo = '../../../images/logo.png';
-
+  const langlogo = '../../../images/language.png';
   return (
     <div className="w-full bg-white">
       <div className="header-top bg-[#FEEAF1] md-lg:hidden">
@@ -147,12 +149,13 @@ const Header = () => {
             <div>
               <div className="flex justify-center items-center gap-10">
                 <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]">
-                  <img src="http://localhost:3000/images/language.png" alt="" />
+                  <img src={langlogo} alt="" />
+                  {/* <MdOutlineLanguage /> */}
                   <span>
                     <IoMdArrowDropdown />
                   </span>
                   <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
-                    {languages.map(({ code, name, country_code }) => (
+                    {languages.map(({ code, name, country_code, image }) => (
                       <li key={country_code}>
                         <a
                           href="/"
@@ -163,7 +166,10 @@ const Header = () => {
                           }}
                           disabled={code === currentLanguageCode}
                         >
-                          {name}
+                          <div className="flex justify-between">
+                          {name}<img src={image} alt={`${name} logo`} />
+                          </div>
+                          
                         </a>
                       </li>
                     ))}
@@ -200,17 +206,17 @@ const Header = () => {
       </div>
 
       <div className="w-full bg-white shadow-sm z-50 ">
-        <div className="w-[85%] lg:w-[90%] mx-auto">
+        <div className="w-[75%] lg:w-[90%] mx-auto">
           <div className="h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap">
             <div className="md-lg:w-full w-3/12 md-lg:pt-4">
               <div className="flex justify-between items-center">
                 <Link to="/">
-                <img
-                // src="http://localhost:3001/images/logo.png"
-                src={headerLogo}
-                className="w-[190px] h-[80px]"
-                alt=""
-              />
+                  <img
+                    // src="http://localhost:3001/images/logo.png"
+                    src={headerLogo}
+                    className="w-[190px] h-[80px]"
+                    alt=""
+                  />
                   {/* <img src="http://localhost:3001/images/logo.png" alt="" /> */}
                 </Link>
                 <div
