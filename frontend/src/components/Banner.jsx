@@ -33,7 +33,7 @@ const Banner = () => {
   const CustomLeftArrow = ({ onClick }) => {
     return (
       <button
-        className="custom-arrow text-[#242122] px-4 rounded-md hover:text-[#ffffff] py-3 custom-left-arrow"
+        className="custom-arrow text-[#242122]  px-4 rounded-md hover:text-[#ffffff] py-3 custom-left-arrow-banner"
         onClick={onClick}
       >
         <IoIosArrowBack />
@@ -44,7 +44,7 @@ const Banner = () => {
   const CustomRightArrow = ({ onClick }) => {
     return (
       <button
-        className="custom-arrow  text-[#242122] px-4 py-3 rounded-md hover:text-[#ffffff] custom-right-arrow"
+        className="custom-arrow  text-[#242122] px-4 py-3 rounded-md hover:text-[#ffffff] custom-right-arrow-banner"
         onClick={onClick}
       >
         <IoIosArrowForward />
@@ -57,11 +57,11 @@ const Banner = () => {
   }, []);
 
   return (
-    <div className="w-full md-lg:mt-6">
+    <div className="w-full md-lg:mt-6 sm:mt-0">
       <div className="w-[100%] lg:w-[100%] mx-auto">
         <div className="w-full flex flex-wrap md-lg:gap-8">
           <div className="w-full">
-            <div className="my-8">
+            <div className="my-0">
               <Carousel
                 autoPlay={true}
                 infinite={true}

@@ -23,6 +23,7 @@ import i18next from 'i18next';
 import cookies from 'js-cookie';
 
 import { Ripple, initTWE } from 'tw-elements';
+import { CiSearch } from 'react-icons/ci';
 
 initTWE({ Ripple });
 
@@ -57,6 +58,7 @@ const Header = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [showShidebar, setShowShidebar] = useState(true);
   const [categoryShow, setCategoryShow] = useState(true);
+  const [searchActive, setSearchActive] = useState(false);
 
   const [searchValue, setSearchValue] = useState('');
   const [category, setCategory] = useState('');
@@ -83,6 +85,7 @@ const Header = () => {
       dispatch(get_card_products(userInfo.id));
       dispatch(get_wishlist_products(userInfo.id));
     }
+    setSearchActive(false);
   }, [userInfo]);
 
   useEffect(() => {
@@ -194,7 +197,7 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="w-white">
+      <div className="w-full bg-white shadow-sm z-50 " >
         <div className="w-[85%] lg:w-[90%] mx-auto">
           <div className="h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap">
             <div className="md-lg:w-full w-3/12 md-lg:pt-4">
@@ -273,9 +276,21 @@ const Header = () => {
                       {t('home.contact_us')}
                     </Link>
                   </li>
+                  
                 </ul>
 
                 <div className="flex md-lg:hidden justify-center items-center gap-5">
+                 <div className="flex justify-center gap-5">
+                    <span
+                      onClick={() => setSearchActive(!searchActive)}
+                      className="text-3xl cursor-pointer text-[#B65278]"
+                    >
+                      <CiSearch />
+                    </span>
+                  </div>
+                </div>
+                <div className="flex md-lg:hidden justify-center items-center gap-5">
+                
                   <div className="flex justify-center gap-5">
                     <div
                       onClick={() =>
@@ -296,7 +311,6 @@ const Header = () => {
 
                     <div
                       onClick={redirect_card_page}
-                      
                       className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
                     >
                       <span className="text-xl text-[#B65278]">
@@ -310,7 +324,6 @@ const Header = () => {
                           {card_product_count}
                         </div>
                       )}
-                     
                     </div>
                   </div>
                 </div>
@@ -386,6 +399,7 @@ const Header = () => {
             <ul className="flex flex-col justify-start items-start text-sm rtl:text-lg font-bold uppercase">
               <li>
                 <Link
+                 to="/"
                   className={`py-2 block ${
                     pathname === '/' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
@@ -433,7 +447,18 @@ const Header = () => {
                   {t('home.contact_us')}
                 </Link>
               </li>
+              <div className="flex  justify-center items-center gap-5">
+                 <div className="flex justify-center gap-5">
+                 <span
+                      onClick={() => setSearchActive(!searchActive)}
+                      className="text-3xl cursor-pointer text-[#B65278]"
+                    >
+                      <CiSearch />
+                    </span>
+                  </div>
+                </div>
             </ul>
+            
             <div className="flex justify-start items-center gap-4 text-black">
               <a href="#">
                 <FaFacebookF />
@@ -475,9 +500,9 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="w-[85%] lg:w-[90%] mx-auto">
+      <div className="w-[85%] lg:w-[90%] flex justify-center items-center mx-auto">
         <div className="flex w-full flex-wrap md-lg:gap-8">
-          <div className="w-3/12 md-lg:w-full">
+          {/* <div className="w-3/12 md-lg:w-full">
             <div className="bg-white relative">
               <div
                 onClick={() => setCategoryShow(!categoryShow)}
@@ -523,62 +548,49 @@ const Header = () => {
                 </ul>
               </div>
             </div>
-          </div>
-
-          <div className="w-9/12 pl-8 md-lg:pl-0 md-lg:w-full ">
-            <div className="flex flex-wrap w-full justify-between items-center md-lg:gap-6 ">
-              <div className="w-8/12 md-lg:w-full rtl:px-8">
-                <div className="flex border h-[50px] items-center relative gap-2 ">
-                  <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] rtl:after:-right-[-155px] md:hidden">
-                    <select
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none"
+          </div> */}
+          {searchActive && (
+            <div className="w-full py-2 flex justify-center items-center">
+              <div className="flex flex-wrap w-full justify-center items-center ">
+                <div className="w-8/12 sm:w-full bg-[#F6F7F7]  md-lg:w-full">
+                  <div className="flex border h-[50px] items-center relative gap-2 ">
+                    <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] rtl:after:-right-[-155px] md:hidden">
+                      <select
+                        onChange={(e) => setCategory(e.target.value)}
+                        className="w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none"
+                        name=""
+                        id=""
+                      >
+                        <option value="">{t('home.select_category')}</option>
+                        {categorys.map((c, i) => (
+                          <option key={i} value={c.name}>
+                            {' '}
+                            {c.name}{' '}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <input
+                      className="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full rtl:space-x-reverse"
+                      onChange={(e) => setSearchValue(e.target.value)}
+                      type="text"
                       name=""
                       id=""
+                      placeholder={t('home.need')}
+                    />
+                    <button
+                      onClick={search}
+                      className="bg-[#B65278]  px-8 h-full font-semibold uppercase text-white ltr:right-0 rtl:left-0"
                     >
-                      <option value="">{t('home.select_category')}</option>
-                      {categorys.map((c, i) => (
-                        <option key={i} value={c.name}>
-                          {' '}
-                          {c.name}{' '}
-                        </option>
-                      ))}
-                    </select>
+                      {t('home.search')}
+                    </button>
                   </div>
-                  <input
-                    className="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full rtl:space-x-reverse"
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder={t('home.need')}
-                  />
-                  <button
-                    onClick={search}
-                    className="bg-[#B65278]  px-8 h-full font-semibold uppercase text-white ltr:right-0 rtl:left-0"
-                  >
-                    {t('home.search')}
-                  </button>
                 </div>
-              </div>
 
-              {/* <div className="w-4/12 block md-lg:hidden pl-2 md-lg:w-full md-lg:pl-0">
-                <div className="w-full flex justify-end md-lg:justify-start gap-3 items-center">
-                  <div className="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center ">
-                    <span>
-                      <FaPhoneAlt />
-                    </span>
-                  </div>
-                  <div className="flex justify-end flex-col gap-1">
-                    <h2 className="text-md font-medium text-slate-700">
-                      +1343-43233455
-                    </h2>
-                    <span className="text-sm">Support 24/7</span>
-                  </div>
-                </div>
-              </div> */}
+                
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <button
@@ -586,7 +598,7 @@ const Header = () => {
         type="button"
         data-twe-ripple-init
         data-twe-ripple-color="light"
-        className="!fixed bottom-5 end-5  z-10 hidden rounded-full bg-[#B65278] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#D871A1] hover:shadow-lg focus:bg-[#D871A1]  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#D871A1]  active:shadow-lg"
+        className="!fixed bottom-5 sm:bottom-32 end-3  z-10 hidden rounded-full bg-[#B65278] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#D871A1] hover:shadow-lg focus:bg-[#D871A1]  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#D871A1]  active:shadow-lg"
         id="btn-back-to-top"
       >
         <span className="[&>svg]:w-4">

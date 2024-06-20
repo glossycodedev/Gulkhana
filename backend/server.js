@@ -10,7 +10,7 @@ const http = require('http');
 const server = http.createServer(app);
 app.use(
   cors({
-    origin: ['http://54.198.12.163', 'http://54.198.12.163'],
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     credentials: true,
   })
 );
@@ -134,4 +134,15 @@ app.use('/api', require('./routes/dashboard/dashboardRoutes'));
 app.get('/', (req, res) => res.send('Hello Server'));
 const port = process.env.PORT;
 dbConnect();
+
+// config;
+if (process.env.NODE_ENV !== 'PRODUCTION') {
+  app.use(express.static(path.join(__dirname, './frontend/build')));
+
+  // 👇️ catch-all route
+  app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, './frontend/build', 'index.html'));
+  });
+}
+
 server.listen(port, () => console.log(`Server is running on port ${port}`));

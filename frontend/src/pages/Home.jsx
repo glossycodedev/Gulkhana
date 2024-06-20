@@ -31,12 +31,15 @@ const Home = () => {
     <div className="w-full">
       <Header />
       <Banner />
+     
       <Categorys />
+     
+      
       <div className=" py-[45px]">
         <FeatureProducts products={products} />
       </div>
 
-      <div className="h-[350px] mt-6 max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] ">
+      {/* <div className="h-[350px] mt-6 max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] ">
         {reklams?.map((reklam) => (
           <>
             <div className="flex justify-center  items-center  h-full w-full col-span-6 md:col-span-4 sm:col-span-12 ">
@@ -48,7 +51,7 @@ const Home = () => {
             </div>
 
             <div className="w-full sm:absolute col-span-6 md:col-span-8 sm:col-span-12 p-6  z-50 text-white ">
-            <div >
+              <div>
                 <div className="py-1">
                   <h2 className="flex justify-center py-8 w-full items-center text-4xl font-bold">
                     {reklam.title}
@@ -69,14 +72,25 @@ const Home = () => {
                     Shop Now
                   </Link>
                 </div>
-                </div>
+              </div>
             </div>
           </>
         ))}
+      </div> */}
+      <div className="py-10">
+        <div className="w-full flex flex-wrap mx-auto">
+          <div className="grid w-full grid-cols-1 md-lg:grid-cols-1 md:grid-cols-1 gap-3">
+            <div className="overflow-hidden">
+              <SlideProducts
+                title={t('home.latest_products')}
+                reklams={reklams}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div className="py-20">
-        <div className="w-[70%] flex flex-wrap mx-auto">
+      <div className="py-10">
+        <div className="w-[70%] sm:w-[90%] flex flex-wrap mx-auto">
           <div className="grid w-full grid-cols-3 md-lg:grid-cols-2 md:grid-cols-1 gap-7">
             <div className="overflow-hidden">
               <Products
@@ -101,6 +115,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );

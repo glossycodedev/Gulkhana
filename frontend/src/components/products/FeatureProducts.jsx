@@ -61,14 +61,14 @@ const FeatureProducts = ({ products }) => {
   };
 
   return (
-    <div className="w-[70%] flex flex-wrap mx-auto mt-5">
+    <div className="w-[70%] sm:w-[90%] flex flex-wrap mx-auto mt-5">
       <div className="w-full">
         <div className=" w-full flex justify-between  text-slate-600  relative pb-[30px]">
           <h2 className=" text-xl lg:text-xl md:text-md sm:text-md font-bold">
             {' '}
             {t('home.featur_products')}{' '}
           </h2>
-          <div className="w-[70%]  h-[2px] bg-[#FEEAF1] mt-4"></div>
+          <div className="w-[80%] sm:w-[30%]  h-[2px] bg-[#FEEAF1] mt-4"></div>
           <h2 className="text-md lg:text-md md:text-md sm:text-sm"><Link to="/shops" >View All </Link> </h2>
         </div>
       </div>

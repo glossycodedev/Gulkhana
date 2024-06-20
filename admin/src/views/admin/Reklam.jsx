@@ -12,7 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import Search from '../components/Search';
 import { backend_url_img } from '../../api/server';
-import { get_reklam, messageClear, reklamAdd } from '../../store/Reducers/reklamReducer';
+import {
+  get_reklam,
+  messageClear,
+  reklamAdd,
+} from '../../store/Reducers/reklamReducer';
 
 const Reklam = () => {
   const dispatch = useDispatch();
@@ -95,14 +99,14 @@ const Reklam = () => {
     }
   }, [successMessage, errorMessage]);
 
-    useEffect(() => {
-      const obj = {
-        parPage: parseInt(parPage),
-        page: parseInt(currentPage),
-        searchValue,
-      };
-      dispatch(get_reklam(obj));
-    }, [searchValue, currentPage, parPage, reklam]);
+  useEffect(() => {
+    const obj = {
+      parPage: parseInt(parPage),
+      page: parseInt(currentPage),
+      searchValue,
+    };
+    dispatch(get_reklam(obj));
+  }, [searchValue, currentPage, parPage, reklam]);
 
   return (
     <div className="px-2 lg:px-7 pb-5">
@@ -169,8 +173,13 @@ const Reklam = () => {
                       <td scope="row" className="py-1 px-4 whitespace-nowrap">
                         {d.title}
                       </td>
-                      <td scope="row" className="py-1 px-4 whitespace-nowrap">
-                        {d.description}
+                      <td
+                        scope="row"
+                        className="py-1 px-4 whitespace-nowrap "
+                      >
+                        <div className="line-clamp-1 block">
+                          {d.description.slice(0,20)}
+                        </div>
                       </td>
 
                       <td
@@ -187,9 +196,7 @@ const Reklam = () => {
                                 // image: `${backend_url_img}/uploads/${d.image}`,
                                 // image: `${backend_url_img}/uploads/${d.image}`,
                               });
-                              setImage(
-                                `${backend_url_img}/uploads/${d.image}`
-                              );
+                              setImage(`${backend_url_img}/uploads/${d.image}`);
                               setReklamId(d._id);
                               setReklamName(d.name);
                               // console.log(imageShow);

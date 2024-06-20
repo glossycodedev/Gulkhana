@@ -41,32 +41,51 @@ body {
 }
 
 .custom-arrow {
-  background-color: #feeaf1;
+  background-color:#b65278 ;
   border: none;
   font-size: 1rem; /* Adjust size as needed */
   color: #333; /* Adjust color as needed */
   cursor: pointer;
   z-index: 10;
-  color: #000;
+  color: #ffffff;
+  /* margin-left: -30px; */
 }
 
 .custom-arrow:hover {
-  background-color: #b65278;
-  color: #fff;
+  background-color: #F9CEDF;
+  color: #030303;
 }
 
 .custom-left-arrow {
   position: absolute;
   top: 50%;
-  left: 14px; /* Adjust position as needed */
+  left: 0px; /* Adjust position as needed */
   transform: translateY(-50%);
+ 
 }
 
 .custom-right-arrow {
   position: absolute;
   top: 50%;
-  right: 14px; /* Adjust position as needed */
+  right: 0px; /* Adjust position as needed */
   transform: translateY(-50%);
+  
+}
+
+.custom-left-arrow-banner {
+  position: absolute;
+  top: 50%;
+  left: 16px; /* Adjust position as needed */
+  transform: translateY(-50%);
+ 
+}
+
+.custom-right-arrow-banner {
+  position: absolute;
+  top: 50%;
+  right: 16px; /* Adjust position as needed */
+  transform: translateY(-50%);
+  
 }
 
 .custom-arrow:hover {
