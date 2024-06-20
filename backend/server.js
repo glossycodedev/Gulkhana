@@ -10,7 +10,7 @@ const http = require('http');
 const server = http.createServer(app);
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: ['http://54.198.12.163', 'http://54.198.12.163'],
     credentials: true,
   })
 );
