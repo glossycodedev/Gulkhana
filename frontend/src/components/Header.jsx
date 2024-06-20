@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdEmail, MdOutlineLanguage } from 'react-icons/md';
 import { IoMdPhonePortrait } from 'react-icons/io';
-import { FaFacebookF, FaList, FaLock, FaUser } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaList, FaLock, FaUser } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa6';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
@@ -136,7 +136,7 @@ const Header = () => {
                 <FaFacebookF />
               </a>
               <a href="#">
-                <FaTwitter />{' '}
+              <FaInstagram />{' '}
               </a>
               <a href="#">
                 <FaLinkedin />
@@ -154,7 +154,7 @@ const Header = () => {
                   <span>
                     <IoMdArrowDropdown />
                   </span>
-                  <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
+                  <ul className="absolute invisible transition-all top-8 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
                     {languages.map(({ code, name, country_code, image }) => (
                       <li key={country_code}>
                         <a
@@ -166,8 +166,8 @@ const Header = () => {
                           }}
                           disabled={code === currentLanguageCode}
                         >
-                          <div className="flex justify-between">
-                          {name}<img src={image} alt={`${name} logo`} />
+                          <div className="flex justify-between items-center">
+                          {name}<img src={image}  className="w-[22px] h-[15px]" alt={`${name} logo`} />
                           </div>
                           
                         </a>
@@ -369,12 +369,12 @@ const Header = () => {
             </Link>
             <div className="flex justify-start items-center gap-10">
               <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute ">
-                <img src="http://localhost:3000/images/language.png" alt="" />
+                <img src={langlogo} alt="" />
                 <span>
                   <IoMdArrowDropdown />
                 </span>
-                <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
-                  {languages.map(({ code, name, country_code }) => (
+                <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white sm:ml-6 p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
+                  {languages.map(({ code, name, country_code, image }) => (
                     <li key={country_code}>
                       <a
                         href="/"
@@ -382,7 +382,9 @@ const Header = () => {
                         onClick={() => i18next.changeLanguage(code)}
                         disabled={code === currentLanguageCode}
                       >
-                        {name}
+                        <div className="flex justify-between items-center">
+                          {name}<img src={image}  className="w-[22px] h-[15px]" alt={`${name} logo`} />
+                          </div>
                       </a>
                     </li>
                   ))}
