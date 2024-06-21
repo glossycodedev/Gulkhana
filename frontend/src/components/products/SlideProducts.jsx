@@ -53,7 +53,7 @@ const SlideProducts = ({ title, products }) => {
     <div className="flex gap-6 flex-col-reverse">
       <Carousel
         autoPlay={false}
-        infinite={false}
+        infinite={true}
         arrows={false}
         rtl={currentLanguageCode === 'en' ? false : true}
         responsive={responsive}

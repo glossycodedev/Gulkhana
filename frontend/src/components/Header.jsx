@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { MdEmail } from 'react-icons/md';
 import { IoMdPhonePortrait } from 'react-icons/io';
+<<<<<<< Updated upstream
 import { FaFacebookF, FaList, FaLock, FaUser } from 'react-icons/fa';
+=======
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaList,
+  FaLock,
+  FaUser,
+} from 'react-icons/fa';
+>>>>>>> Stashed changes
 import { FaTwitter } from 'react-icons/fa6';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
@@ -129,7 +139,11 @@ const Header = () => {
                 <FaFacebookF />
               </a>
               <a href="#">
+<<<<<<< Updated upstream
                 <FaTwitter />{' '}
+=======
+                <FaInstagram />{' '}
+>>>>>>> Stashed changes
               </a>
               <a href="#">
                 <FaLinkedin />
@@ -158,7 +172,18 @@ const Header = () => {
                           }}
                           disabled={code === currentLanguageCode}
                         >
+<<<<<<< Updated upstream
                           {name}
+=======
+                          <div className="flex justify-between items-center">
+                            {name}
+                            <img
+                              src={image}
+                              className="w-[22px] h-[15px]"
+                              alt={`${name} logo`}
+                            />
+                          </div>
+>>>>>>> Stashed changes
                         </a>
                       </li>
                     ))}
@@ -240,17 +265,53 @@ const Header = () => {
                       {t('home.shop')}
                     </Link>
                   </li>
-                  {/* <li>
+                  <li>
                     <Link
-                      className={`p-2 block ${
+                      onClick={() => setCategoryShow(!categoryShow)}
+                      className={`flex p-2  ${
                         pathname === '/blog'
                           ? 'text-[#B65278]'
                           : 'text-slate-600'
                       } `}
                     >
-                      Blog
+                      Categories
+                      <span className="pt-1">
+                        <IoIosArrowDown />
+                      </span>
                     </Link>
-                  </li> */}
+                    <div className="">
+                      <div
+                        className={`${
+                          categoryShow ? 'h-0' : 'h-auto'
+                        } overflow-hidden transition-all md-lg:relative duration-500 absolute w-2/12 z-[99999] bg-[#fcfdfd]  border-x`}
+                      >
+                        <ul className="py-2 text-slate-600 font-medium ">
+                          {categorys.map((c, i) => {
+                            return (
+                              <li
+                                key={i}
+                                className="flex justify-start items-center gap-2 px-[24px] py-[6px] "
+                              >
+                                <img
+                                  src={`${backend_url_img}/uploads/categories/${c.image}`}
+                                  className="w-[30px] h-[30px] rounded-full overflow-hidden"
+                                  alt=""
+                                />
+                                <Link
+                                  to={`/products?category=${c.name}`}
+                                  className="text-sm block"
+                                  onClick={() => setCategoryShow(!categoryShow)}
+                                >
+                                  {c.name}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    </div>
+                    {/* </div> */}
+                  </li>
                   <li>
                     <Link
                       className={`p-2 block ${
@@ -352,7 +413,18 @@ const Header = () => {
                         onClick={() => i18next.changeLanguage(code)}
                         disabled={code === currentLanguageCode}
                       >
+<<<<<<< Updated upstream
                         {name}
+=======
+                        <div className="flex justify-between items-center">
+                          {name}
+                          <img
+                            src={image}
+                            className="w-[22px] h-[15px]"
+                            alt={`${name} logo`}
+                          />
+                        </div>
+>>>>>>> Stashed changes
                       </a>
                     </li>
                   ))}
@@ -404,15 +476,51 @@ const Header = () => {
                   {t('home.shop')}
                 </Link>
               </li>
-              {/* <li>
+              <li>
                 <Link
-                  className={`py-2 block ${
+                  onClick={() => setCategoryShow(!categoryShow)}
+                  className={`flex p-2 ${
                     pathname === '/blog' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
                 >
-                  Blog
+                  Categories
+                  <span className="pt-1">
+                    <IoIosArrowDown />
+                  </span>
                 </Link>
-              </li> */}
+                <div className="">
+                  <div
+                    className={`${
+                      categoryShow ? 'h-0' : 'h-auto'
+                    } overflow-hidden transition-all md-lg:relative duration-500 absolute w-full z-[99999] bg-[#fcfdfd]  border-x`}
+                  >
+                    <ul className="py-2 text-slate-600 font-medium ">
+                      {categorys.map((c, i) => {
+                        return (
+                          <li
+                            key={i}
+                            className="flex justify-start items-center gap-2 px-[24px] py-[6px] "
+                          >
+                            <img
+                              src={`${backend_url_img}/uploads/categories/${c.image}`}
+                              className="w-[30px] h-[30px] rounded-full overflow-hidden"
+                              alt=""
+                            />
+                            <Link
+                              to={`/products?category=${c.name}`}
+                              className="text-sm block"
+                              onClick={() => setCategoryShow(!categoryShow)}
+                            >
+                              {c.name}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+                {/* </div> */}
+              </li>
               <li>
                 <Link
                   className={`py-2 block ${

@@ -338,7 +338,7 @@ const Details = () => {
                     <div>
                       <button
                         onClick={add_card}
-                        className="px-7 py-[10px] bg-[#256236] hover:bg-[#0e0f0f]  hover:text-[#ffffff] rounded-sm text-white"
+                        className="px-7 sm:px-3 py-[10px] bg-[#256236] hover:bg-[#0e0f0f]  hover:text-[#ffffff] rounded-sm text-white"
                         // className="px-4 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#059473] text-white"
                       >
                         Add To Card

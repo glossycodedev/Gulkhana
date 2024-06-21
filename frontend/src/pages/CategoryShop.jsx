@@ -124,12 +124,12 @@ const CategoryShop = () => {
         </div>
       </section>
 
-      <section className="py-6">
-        <div className="w-[65%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
+      <section className="py-6 ">
+        <div className="w-[65%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto ">
           <div className={` md:block hidden ${!filter ? 'mb-6' : 'mb-0'} `}>
             <button
               onClick={() => setFilter(!filter)}
-              className="text-center w-full py-2 px-3 bg-indigo-500 text-white"
+              className="text-center w-full py-2 px-3 bg-[#B65278] text-white"
             >
               Filter Product
             </button>
@@ -143,8 +143,8 @@ const CategoryShop = () => {
                   : 'md:h-auto md:overflow-auto md:mb-0'
               } `}
             >
-              <div className="py-2 flex flex-col gap-5">
-                <h2 className="text-3xl font-bold mb-3 text-slate-600">
+              <div className="py-1 px-2 flex flex-col gap-5 mb-3">
+                <h2 className="text-3xl sm:text-xl font-bold mb-3 text-slate-600">
                   Price
                 </h2>
 
@@ -178,7 +178,7 @@ const CategoryShop = () => {
               </div>
 
               <div className="py-3 flex flex-col gap-4">
-                <h2 className="text-3xl font-bold mb-3 text-slate-600">
+                <h2 className="text-3xl sm:text-xl font-bold mb-3 text-slate-600">
                   Rating{' '}
                 </h2>
                 <div className="flex flex-col gap-3">

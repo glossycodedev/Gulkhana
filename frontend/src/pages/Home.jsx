@@ -32,7 +32,13 @@ const Home = () => {
       <Header />
       <Banner />
       <Categorys />
+<<<<<<< Updated upstream
       <div className=" py-[45px]">
+=======
+     
+      
+      <div className=" py-[30px] mt-4">
+>>>>>>> Stashed changes
         <FeatureProducts products={products} />
       </div>
 
@@ -73,6 +79,21 @@ const Home = () => {
             </div>
           </>
         ))}
+<<<<<<< Updated upstream
+=======
+      </div> */}
+      <div className="py-10 sm:py-4">
+        <div className="w-full flex flex-wrap mx-auto">
+          <div className="grid w-full grid-cols-1 md-lg:grid-cols-1 md:grid-cols-1 gap-3">
+            <div className="overflow-hidden">
+              <SlideProducts
+                title={t('home.latest_products')}
+                reklams={reklams}
+              />
+            </div>
+          </div>
+        </div>
+>>>>>>> Stashed changes
       </div>
 
       <div className="py-20">
