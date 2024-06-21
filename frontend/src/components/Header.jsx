@@ -206,7 +206,7 @@ const Header = () => {
       </div>
 
       <div className="w-full bg-white shadow-sm z-50 ">
-        <div className="w-[75%] lg:w-[90%] mx-auto">
+        <div className="w-[70%] lg:w-[90%] mx-auto">
           <div className="h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap">
             <div className="md-lg:w-full w-3/12 md-lg:pt-4">
               <div className="flex justify-between items-center">

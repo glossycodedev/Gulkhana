@@ -32,10 +32,50 @@ const Home = () => {
       <Header />
       <Banner />
       <Categorys />
+     
+      
       <div className=" py-[30px] mt-4">
         <FeatureProducts products={products} />
       </div>
 
+      {/* <div className="h-[350px] mt-6 max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] ">
+        {reklams?.map((reklam) => (
+          <>
+            <div className="flex justify-center  items-center  h-full w-full col-span-6 md:col-span-4 sm:col-span-12 ">
+              <img
+                src={`${backend_url_img}/uploads/${reklam.image}`}
+                className=" h-[350px] w-auto  ml-20 z-10 sm:opacity-50"
+                alt=""
+              />
+            </div>
+
+            <div className="w-full sm:absolute col-span-6 md:col-span-8 sm:col-span-12 p-6  z-50 text-white ">
+            <div >
+                <div className="py-1">
+                  <h2 className="flex justify-center py-8 w-full items-center text-4xl font-bold">
+                    {reklam.title}
+                    <h2 className="text-4xl font-bold text-black mx-2">
+                      20% Off
+                    </h2>
+                  </h2>
+                  <h2 className="flex justify-center w-full items-center ">
+                    {reklam.description}
+                  </h2>
+                </div>
+                <div className="flex justify-center items-center py-4">
+                  <Link
+                    className="px-8 py-3 bg-[#ffffff] hover:bg-[#000000] hover:text-[#ffffff] rounded-sm text-black"
+                    to="/shops"
+                  >
+                    {' '}
+                    Shop Now
+                  </Link>
+                </div>
+                </div>
+            </div>
+          </>
+        ))}
+      </div>  */}
       <div className="py-10 sm:py-4">
         <div className="w-full flex flex-wrap mx-auto">
           <div className="grid w-full grid-cols-1 md-lg:grid-cols-1 md:grid-cols-1 gap-3">
