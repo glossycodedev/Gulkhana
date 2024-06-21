@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { MdEmail } from 'react-icons/md';
+import { MdEmail, MdOutlineLanguage } from 'react-icons/md';
 import { IoMdPhonePortrait } from 'react-icons/io';
 import { FaFacebookF, FaList, FaLock, FaUser } from 'react-icons/fa';
-import { FaInstagram } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa6';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
@@ -32,14 +31,12 @@ const languages = [
     code: 'en',
     name: 'English',
     country_code: 'en',
-    image: '',
   },
   {
     code: 'kr',
     name: 'کوردی',
     dir: 'rtl',
     country_code: 'kr',
-    image: '',
   },
 ];
 
@@ -122,6 +119,8 @@ const Header = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const headerLogo = '../../../images/logo.png';
+  const langlogo = '../../../images/language.png';
   return (
     <div className="w-full bg-white">
       <div className="header-top bg-[#FEEAF1] md-lg:hidden">
@@ -132,7 +131,7 @@ const Header = () => {
                 <FaFacebookF />
               </a>
               <a href="#">
-                <FaInstagram />{' '}
+                <FaTwitter />{' '}
               </a>
               <a href="#">
                 <FaLinkedin />
@@ -145,12 +144,13 @@ const Header = () => {
             <div>
               <div className="flex justify-center items-center gap-10">
                 <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]">
-                  <img src="http://localhost:3000/images/language.png" alt="" />
+                  <img src={langlogo} alt="" />
+                  {/* <MdOutlineLanguage /> */}
                   <span>
                     <IoMdArrowDropdown />
                   </span>
                   <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
-                    {languages.map(({ code, name, country_code, image }) => (
+                    {languages.map(({ code, name, country_code }) => (
                       <li key={country_code}>
                         <a
                           href="/"
@@ -162,15 +162,6 @@ const Header = () => {
                           disabled={code === currentLanguageCode}
                         >
                           {name}
-
-                          <div className="flex justify-between items-center">
-                            {name}
-                            <img
-                              src={image}
-                              className="w-[22px] h-[15px]"
-                              alt={`${name} logo`}
-                            />
-                          </div>
                         </a>
                       </li>
                     ))}
@@ -206,13 +197,19 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="w-white">
+      <div className="w-full bg-white shadow-sm z-50 " >
         <div className="w-[85%] lg:w-[90%] mx-auto">
           <div className="h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap">
             <div className="md-lg:w-full w-3/12 md-lg:pt-4">
               <div className="flex justify-between items-center">
                 <Link to="/">
-                  <img src="http://localhost:3001/images/logo.png" alt="" />
+                  <img
+                    // src="http://localhost:3001/images/logo.png"
+                    src={headerLogo}
+                    className="w-[190px] h-[80px]"
+                    alt=""
+                  />
+                  {/* <img src="http://localhost:3001/images/logo.png" alt="" /> */}
                 </Link>
                 <div
                   className="justify-center items-center w-[30px] h-[30px] bg-white text-slate-600 border border-slate-600 rounded-sm cursor-pointer lg:hidden md-lg:flex xl:hidden hidden"
@@ -324,6 +321,17 @@ const Header = () => {
                 </ul>
 
                 <div className="flex md-lg:hidden justify-center items-center gap-5">
+                 <div className="flex justify-center gap-5">
+                    <span
+                      onClick={() => setSearchActive(!searchActive)}
+                      className="text-3xl cursor-pointer text-[#B65278]"
+                    >
+                      <CiSearch />
+                    </span>
+                  </div>
+                </div>
+                <div className="flex md-lg:hidden justify-center items-center gap-5">
+                
                   <div className="flex justify-center gap-5">
                     <div
                       onClick={() =>
@@ -381,16 +389,21 @@ const Header = () => {
         >
           <div className="flex justify-start flex-col gap-6">
             <Link to="/">
-              <img src="http://localhost:3001/images/logo.png" alt="" />
+              <img
+                // src="http://localhost:3001/images/logo.png"
+                src={headerLogo}
+                className="w-[190px] h-[70px]"
+                alt=""
+              />
             </Link>
             <div className="flex justify-start items-center gap-10">
               <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute ">
-                <img src="http://localhost:3000/images/language.png" alt="" />
+                <img src={langlogo} alt="" />
                 <span>
                   <IoMdArrowDropdown />
                 </span>
                 <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
-                  {languages.map(({ code, name, country_code, image }) => (
+                  {languages.map(({ code, name, country_code }) => (
                     <li key={country_code}>
                       <a
                         href="/"
@@ -399,15 +412,6 @@ const Header = () => {
                         disabled={code === currentLanguageCode}
                       >
                         {name}
-
-                        <div className="flex justify-between items-center">
-                          {name}
-                          <img
-                            src={image}
-                            className="w-[22px] h-[15px]"
-                            alt={`${name} logo`}
-                          />
-                        </div>
                       </a>
                     </li>
                   ))}
@@ -441,6 +445,7 @@ const Header = () => {
             <ul className="flex flex-col justify-start items-start text-sm rtl:text-lg font-bold uppercase">
               <li>
                 <Link
+                 to="/"
                   className={`py-2 block ${
                     pathname === '/' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
@@ -524,7 +529,18 @@ const Header = () => {
                   {t('home.contact_us')}
                 </Link>
               </li>
+              <div className="flex  justify-center items-center gap-5">
+                 <div className="flex justify-center gap-5">
+                 <span
+                      onClick={() => setSearchActive(!searchActive)}
+                      className="text-3xl cursor-pointer text-[#B65278]"
+                    >
+                      <CiSearch />
+                    </span>
+                  </div>
+                </div>
             </ul>
+            
             <div className="flex justify-start items-center gap-4 text-black">
               <a href="#">
                 <FaFacebookF />
@@ -614,60 +630,47 @@ const Header = () => {
                 </ul>
               </div>
             </div>
-          </div>
-
-          <div className="w-9/12 pl-8 md-lg:pl-0 md-lg:w-full ">
-            <div className="flex flex-wrap w-full justify-between items-center md-lg:gap-6 ">
-              <div className="w-8/12 md-lg:w-full rtl:px-8">
-                <div className="flex border h-[50px] items-center relative gap-2 ">
-                  <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] rtl:after:-right-[-155px] md:hidden">
-                    <select
-                      onChange={(e) => setCategory(e.target.value)}
-                      className="w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none"
+          </div> */}
+          {searchActive && (
+            <div className="w-full py-2 flex justify-center items-center">
+              <div className="flex flex-wrap w-full justify-center items-center ">
+                <div className="w-8/12 sm:w-full bg-[#F6F7F7]  md-lg:w-full">
+                  <div className="flex border h-[50px] items-center relative gap-2 ">
+                    <div className="relative after:absolute after:h-[25px] after:w-[1px] after:bg-[#afafaf] after:-right-[15px] rtl:after:-right-[-155px] md:hidden">
+                      <select
+                        onChange={(e) => setCategory(e.target.value)}
+                        className="w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none"
+                        name=""
+                        id=""
+                      >
+                        <option value="">{t('home.select_category')}</option>
+                        {categorys.map((c, i) => (
+                          <option key={i} value={c.name}>
+                            {' '}
+                            {c.name}{' '}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <input
+                      className="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full rtl:space-x-reverse"
+                      onChange={(e) => setSearchValue(e.target.value)}
+                      type="text"
                       name=""
                       id=""
+                      placeholder={t('home.need')}
+                    />
+                    <button
+                      onClick={search}
+                      className="bg-[#B65278]  px-8 h-full font-semibold uppercase text-white ltr:right-0 rtl:left-0"
                     >
-                      <option value="">{t('home.select_category')}</option>
-                      {categorys.map((c, i) => (
-                        <option key={i} value={c.name}>
-                          {' '}
-                          {c.name}{' '}
-                        </option>
-                      ))}
-                    </select>
+                      {t('home.search')}
+                    </button>
                   </div>
-                  <input
-                    className="w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full rtl:space-x-reverse"
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    type="text"
-                    name=""
-                    id=""
-                    placeholder={t('home.need')}
-                  />
-                  <button
-                    onClick={search}
-                    className="bg-[#B65278]  px-8 h-full font-semibold uppercase text-white ltr:right-0 rtl:left-0"
-                  >
-                    {t('home.search')}
-                  </button>
                 </div>
-              </div>
 
-              {/* <div className="w-4/12 block md-lg:hidden pl-2 md-lg:w-full md-lg:pl-0">
-                <div className="w-full flex justify-end md-lg:justify-start gap-3 items-center">
-                  <div className="w-[48px] h-[48px] rounded-full flex bg-[#f5f5f5] justify-center items-center ">
-                    <span>
-                      <FaPhoneAlt />
-                    </span>
-                  </div>
-                  <div className="flex justify-end flex-col gap-1">
-                    <h2 className="text-md font-medium text-slate-700">
-                      +1343-43233455
-                    </h2>
-                    <span className="text-sm">Support 24/7</span>
-                  </div>
-                </div>
-              </div> */}
+                
+              </div>
             </div>
           </div>
         </div>
