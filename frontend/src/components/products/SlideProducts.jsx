@@ -61,7 +61,6 @@ const SlideProducts = ({ title, reklams }) => {
         renderButtonGroupOutside={true}
         customButtonGroup={<ButtonGroup />}
       >
-        {/* <div className="h-[350px]  max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] "> */}
         {reklams?.map((reklam) => (
           <div className="h-[350px]  max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] ">
             <div className="flex justify-center z-50 items-center  h-full w-full col-span-6 md:col-span-4 sm:col-span-12 ">
@@ -98,26 +97,6 @@ const SlideProducts = ({ title, reklams }) => {
             </div>
           </div>
         ))}
-        {/* </div> */}
-        {/* {products.map((p, i) => {
-          return (
-            <div key={i} className="flex  justify-center gap-2">
-              {p.map((pl, j) => (
-                <Link key={j} className="flex justify-center items-center" to="#">
-                  <img
-                    className="w-[110px] h-[110px]"
-                    src={`${backend_url_img}/uploads/${pl.images[0]}`}
-                    alt=""
-                  />
-                  <div className="px-3 flex justify-start items-start gap-1  text-slate-600">
-                    <h2>{pl.name} </h2>
-                    <span className="text-lg font-bold">${pl.price}</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          );
-        })} */}
       </Carousel>
     </div>
   );

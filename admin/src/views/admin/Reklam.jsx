@@ -16,6 +16,8 @@ import {
   get_reklam,
   messageClear,
   reklamAdd,
+  reklamUpdate,
+  reklam_image_update,
 } from '../../store/Reducers/reklamReducer';
 
 const Reklam = () => {
@@ -30,7 +32,7 @@ const Reklam = () => {
   const [show, setShow] = useState(false);
   const [imageShow, setImage] = useState('');
   const [reklamId, setReklamId] = useState('');
-  const [oldImage, setOldImage] = useState('');
+  const [updateReklam, setUpdateReklam] = useState(false);
   const [newImage, setNewImage] = useState('');
   const [reklamName, setReklamName] = useState('');
   const [state, setState] = useState({
@@ -46,20 +48,31 @@ const Reklam = () => {
         ...state,
         image: files[0],
       });
+
+      if (reklamId) {
+        const newImageFile = files[0];
+
+        const formData = new FormData();
+        formData.append('image', newImageFile);
+
+        dispatch(reklam_image_update({ formData, reklamId }));
+        ClearAll();
+      }
     }
   };
+
   const add_reklam = (e) => {
     e.preventDefault();
     if (reklamId) {
       const obj = {
         title: state.title,
         description: state.description,
-        image: state.image,
+        // image: state.image,
         reklamId: reklamId,
       };
-      if (state.image) {
-        // dispatch(categoryUpdate(obj));
-      }
+      // if (state.image) {
+      dispatch(reklamUpdate(obj));
+      // }
     } else {
       dispatch(
         reklamAdd({
@@ -73,7 +86,7 @@ const Reklam = () => {
   };
 
   const ClearAll = () => {
-    setOldImage('');
+    setUpdateReklam(false);
     setNewImage('');
     setReklamName('');
     setReklamId('');
@@ -160,43 +173,34 @@ const Reklam = () => {
                       key={i}
                       className=" border-b text-lg text-[#595b5d] border-[#dcdada]"
                     >
-                      <td scope="row" className="py-1 px-4  whitespace-nowrap">
-                        {i + 1}
-                      </td>
-                      <td scope="row" className="py-1 px-4 whitespace-nowrap">
+                      <td className="py-1 px-4  whitespace-nowrap">{i + 1}</td>
+                      <td className="py-1 px-4 whitespace-nowrap">
                         <img
                           className="w-[45px] h-[45px]"
                           src={`${backend_url_img}/uploads/${d.image}`}
                           alt=""
                         />
                       </td>
-                      <td scope="row" className="py-1 px-4 whitespace-nowrap">
-                        {d.title}
-                      </td>
-                      <td
-                        scope="row"
-                        className="py-1 px-4 whitespace-nowrap "
-                      >
+                      <td className="py-1 px-4 whitespace-nowrap">{d.title}</td>
+                      <td className="py-1 px-4 whitespace-nowrap ">
                         <div className="line-clamp-1 block">
-                          {d.description.slice(0,20)}
+                          {d.description.slice(0, 20)}
                         </div>
                       </td>
 
-                      <td
-                        scope="row"
-                        className="py-1 px-4 font-medium whitespace-nowrap"
-                      >
+                      <td className="py-1 px-4 font-medium whitespace-nowrap">
                         <div className="flex justify-end items-center text-[#d0d2d6] gap-2">
                           <div
                             onClick={(e) => {
+                              setImage(`${backend_url_img}/uploads/${d.image}`);
                               setState({
                                 id: d._id,
                                 title: d.title,
                                 description: d.description,
-                                // image: `${backend_url_img}/uploads/${d.image}`,
+                                //  image: `${backend_url_img}/uploads/${d.image}`,
                                 // image: `${backend_url_img}/uploads/${d.image}`,
                               });
-                              setImage(`${backend_url_img}/uploads/${d.image}`);
+                              setUpdateReklam(true);
                               setReklamId(d._id);
                               setReklamName(d.name);
                               // console.log(imageShow);
@@ -265,7 +269,7 @@ const Reklam = () => {
                 </div>
                 <div className="flex flex-col w-full gap-1 mb-3">
                   <label htmlFor="description"> Reklam Description</label>
-                  <input
+                  <textarea
                     value={state.description}
                     onChange={(e) => {
                       setState({ ...state, description: e.target.value });
@@ -276,6 +280,7 @@ const Reklam = () => {
                     id="description"
                     name="reklam_description"
                     placeholder="Reklam Description"
+                    rows="3"
                   />
                 </div>
 
@@ -297,7 +302,7 @@ const Reklam = () => {
                   </label>
                   <input
                     onChange={(e) => imageHandle(imageShow, e.target.files)}
-                    // onChange={imageHandle}
+                    // onChange={(e) => changeImage(img, e.target.files,i)}
                     className="hidden"
                     type="file"
                     name="image"
@@ -314,7 +319,7 @@ const Reklam = () => {
                           cssOverride={overrideStyle}
                         />
                       ) : (
-                        'Add Reklam'
+                        <>{updateReklam ? 'Update Reklam' : 'Add Reklam'}</>
                       )}
                     </button>
                   </div>

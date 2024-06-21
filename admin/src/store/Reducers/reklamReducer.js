@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 
-
 export const reklamAdd = createAsyncThunk(
   'reklam/reklamAdd',
-  async ({ title,description, image }, { rejectWithValue, fulfillWithValue }) => {
+  async (
+    { title, description, image },
+    { rejectWithValue, fulfillWithValue }
+  ) => {
     try {
       const formData = new FormData();
       formData.append('title', title);
@@ -72,32 +74,41 @@ export const get_reklam = createAsyncThunk(
 
 // End Method
 
-// export const categoryUpdate = createAsyncThunk(
-//   'category/categoryUpdate',
-//   async (
-//     { categoryId, name, image },
-//     { rejectWithValue, fulfillWithValue }
-//   ) => {
-//     try {
-//       const formData = new FormData();
-//       formData.append('name', name);
-//       formData.append('categoryId', categoryId);
-//       formData.append('image', image);
-//       const { data } = await api.post('/category-update', formData, {
-//         withCredentials: true,
-//       });
+export const reklamUpdate = createAsyncThunk(
+  'reklam/reklamUpdate',
+  async (obj, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.post('/reklam-update', obj, {
+        withCredentials: true,
+      });
 
-//       return fulfillWithValue(data);
-//     } catch (error) {
-//       // console.log(error.response.data)
-//       return rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+      return fulfillWithValue(data);
+    } catch (error) {
+      // console.log(error.response.data)
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 // End Method
 
+export const reklam_image_update = createAsyncThunk(
+  'reklam/reklam_image_update',
+  async ({ formData, reklamId }, { rejectWithValue, fulfillWithValue }) => {
+    try {
+      const { data } = await api.post(
+        `/reklam-image-update/${reklamId}`,
+        formData,
+        { withCredentials: true }
+      );
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
+// End Method
 
 export const reklamReducer = createSlice({
   name: 'reklam',
@@ -129,28 +140,28 @@ export const reklamReducer = createSlice({
         state.reklams = [...state.reklams, payload.reklam];
       })
 
-    //   .addCase(get_categoryId.fulfilled, (state, { payload }) => {
-    //     state.loader = false;
-    //     state.successMessage = payload.message;
-    //   })
+      //   .addCase(get_categoryId.fulfilled, (state, { payload }) => {
+      //     state.loader = false;
+      //     state.successMessage = payload.message;
+      //   })
 
-    //   .addCase(categoryUpdate.pending, (state, { payload }) => {
-    //     state.loader = true;
-    //   })
-    //   .addCase(categoryUpdate.rejected, (state, { payload }) => {
-    //     state.loader = false;
-    //     state.errorMessage = payload.error;
-    //   })
-    //   .addCase(categoryUpdate.fulfilled, (state, { payload }) => {
-    //     state.loader = false;
-    //     state.category = payload.category;
-    //     state.successMessage = payload.message;
-    //   })
+      .addCase(reklamUpdate.pending, (state, { payload }) => {
+        state.loader = true;
+      })
+      .addCase(reklamUpdate.rejected, (state, { payload }) => {
+        state.loader = false;
+        state.errorMessage = payload.error;
+      })
+      .addCase(reklamUpdate.fulfilled, (state, { payload }) => {
+        state.loader = false;
+        state.reklam = payload.reklam;
+        state.successMessage = payload.message;
+      })
 
-    //   // .addCase(category_image_update.fulfilled, (state, { payload }) => {
-    //   //   state.category = payload.category;
-    //   //   // state.successMessage = payload.message;
-    //   // })
+      .addCase(reklam_image_update.fulfilled, (state, { payload }) => {
+        state.reklam = payload.reklam;
+        state.successMessage = payload.message;
+      })
 
       .addCase(get_reklam.fulfilled, (state, { payload }) => {
         state.totalReklam = payload.totalReklam;

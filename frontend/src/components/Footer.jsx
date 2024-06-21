@@ -81,19 +81,7 @@ const Footer = () => {
             <h2 className=" flex  justify-center font-bold text-lg mb-2">
               Join Our Shop
             </h2>
-            {/* <span>
-              Get Email updates about tour latest and shop specials offers
-            </span>
-            <div className="h-[50px] w-full bg-white border relative ">
-              <input
-                className="h-full bg-transparent w-full px-3 outline-0"
-                type="text"
-                placeholder="Enter Your Email"
-              />
-              <button className="h-full absolute ltr:right-0 rtl:left-0 bg-[#B65278] text-white uppercase px-4 font-bold text-sm">
-                Subscribe
-              </button>
-            </div> */}
+
             <ul className="flex justify-center items-center gap-3">
               <li>
                 <a

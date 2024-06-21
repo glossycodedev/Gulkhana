@@ -30,7 +30,7 @@ class reklamController {
           slug,
         });
         return responseReturn(res, 201, {
-            reklam,
+          reklam,
           message: 'Reklam added successfully',
         });
       }
@@ -39,21 +39,47 @@ class reklamController {
     }
   };
   // end method
-  category_update = async (req, res) => {
-    let { name, categoryId } = req.body;
-    name = name.trim();
-    const slug = name.split(' ').join('-');
+
+  reklam_update = async (req, res) => {
+    let { title, description, reklamId } = req.body;
+    title = title.trim();
+    const slug = title.split(' ').join('-');
+    try {
+      const existingReklam = await reklamModel.findById(reklamId);
+
+      if (existingReklam) {
+        await reklamModel.findByIdAndUpdate(reklamId, {
+          title,
+          description,
+          slug,
+        });
+      }
+
+      const reklam = await reklamModel.findById(reklamId);
+      responseReturn(res, 200, {
+        reklam,
+        message: 'Reklam Updated Successfully',
+      });
+    } catch (error) {
+      responseReturn(res, 500, { error: error.message });
+    }
+  };
+
+  // End Method
+  reklam_image_update = async (req, res) => {
+    let { reklamId } = req.params;
+
     try {
       const imageFileName = req.file.filename; // Extract the filename
 
-      const existingCategory = await categoryModel.findById(categoryId);
+      const existingReklam = await reklamModel.findById(reklamId);
 
-      if (existingCategory) {
+      if (existingReklam) {
         const oldImagePath = path.join(
           __dirname,
           '..',
-          '../uploads/categories',
-          existingCategory.image
+          '../uploads',
+          existingReklam.image
         );
         // console.log(`Old image path: ${oldImagePath}`);
         // Check if the old image exists before deleting
@@ -71,19 +97,17 @@ class reklamController {
           }
         });
 
-        existingCategory.image = imageFileName; // Save only the filename
+        existingReklam.image = imageFileName; // Save only the filename
 
-        await categoryModel.findByIdAndUpdate(categoryId, {
-          name,
-          slug,
+        await reklamModel.findByIdAndUpdate(reklamId, {
           image: imageFileName,
         });
       }
 
-      const category = await categoryModel.findById(categoryId);
+      const reklam = await reklamModel.findById(reklamId);
       responseReturn(res, 200, {
-        category,
-        message: 'Category Updated Successfully',
+        reklam,
+        message: 'Reklam Image Updated Successfully',
       });
     } catch (error) {
       responseReturn(res, 500, { error: error.message });
@@ -92,16 +116,15 @@ class reklamController {
 
   // End Method
 
-
-  get_categoryId = async (req, res) => {
-    const { categoryId } = req.params;
-    try {
-      const category = await categoryModel.findById(categoryId);
-      responseReturn(res, 200, { category });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  // get_categoryId = async (req, res) => {
+  //   const { categoryId } = req.params;
+  //   try {
+  //     const category = await categoryModel.findById(categoryId);
+  //     responseReturn(res, 200, { category });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
   // End Method
 
   get_reklams = async (req, res) => {
