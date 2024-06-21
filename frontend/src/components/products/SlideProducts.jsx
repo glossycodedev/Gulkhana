@@ -6,7 +6,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { backend_url_img } from '../../api/server';
 import cookies from 'js-cookie';
 
-const SlideProducts = ({ title, products }) => {
+const SlideProducts = ({ title, reklams }) => {
   const currentLanguageCode = cookies.get('i18next') || 'en';
   const responsive = {
     superLargeDesktop: {
@@ -30,17 +30,17 @@ const SlideProducts = ({ title, products }) => {
   const ButtonGroup = ({ next, previous }) => {
     return (
       <div className="flex justify-between items-center">
-        <div className="text-xl font-bold text-slate-600"> {title} </div>
-        <div className="flex justify-center items-center gap-3 text-slate-600 px-12">
+        <div className="text-xl font-bold text-slate-200  px-12"> </div>
+        <div className="flex justify-center items-center gap-3 text-slate-200  px-8">
           <button
             onClick={() => previous()}
-            className="w-[30px] h-[30px] flex justify-center items-center bg-slate-300 border border-slate-200"
+            className="w-[30px] h-[30px] flex justify-center items-center bg-[#B65278] hover:text-black hover:bg-[#c78aa1] border border-slate-200"
           >
             <IoIosArrowBack />
           </button>
           <button
             onClick={() => next()}
-            className="w-[30px] h-[30px] flex justify-center items-center bg-slate-300 border border-slate-200"
+            className="w-[30px] h-[30px] flex justify-center items-center bg-[#B65278] hover:text-black hover:bg-[#c78aa1] border border-slate-200"
           >
             <IoIosArrowForward />
           </button>
@@ -50,10 +50,10 @@ const SlideProducts = ({ title, products }) => {
   };
 
   return (
-    <div className="flex gap-6 flex-col-reverse">
+    <div className="flex gap-3 flex-col-reverse">
       <Carousel
         autoPlay={false}
-        infinite={true}
+        infinite={false}
         arrows={false}
         rtl={currentLanguageCode === 'en' ? false : true}
         responsive={responsive}
@@ -61,17 +61,55 @@ const SlideProducts = ({ title, products }) => {
         renderButtonGroupOutside={true}
         customButtonGroup={<ButtonGroup />}
       >
-        {products.map((p, i) => {
+        {/* <div className="h-[350px]  max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] "> */}
+        {reklams?.map((reklam) => (
+          <div className="h-[350px]  max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] ">
+            <div className="flex justify-center z-50 items-center  h-full w-full col-span-6 md:col-span-4 sm:col-span-12 ">
+              <img
+                src={`${backend_url_img}/uploads/${reklam.image}`}
+                className=" h-[350px] w-auto  ml-20 z-10 sm:opacity-50"
+                alt=""
+              />
+            </div>
+
+            <div className="w-full sm:absolute col-span-6 md:col-span-8 sm:col-span-12 p-6  z-50 text-white ">
+              <div>
+                <div className="py-1">
+                  <h2 className="flex justify-center py-8 w-full items-center text-4xl font-bold">
+                    {reklam.title}
+                    <h2 className="text-4xl font-bold text-black mx-2">
+                      20% Off
+                    </h2>
+                  </h2>
+                  <h2 className="flex justify-center w-full items-center sm:line-clamp-3">
+                    {reklam.description}
+                  </h2>
+                </div>
+                <div className="flex justify-center items-center py-4">
+                  <Link
+                    className="px-8 py-3 bg-[#ffffff] hover:bg-[#000000] hover:text-[#ffffff] rounded-sm text-black"
+                    to="/shops"
+                  >
+                    {' '}
+                    Shop Now
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+        {/* </div> */}
+        {/* {products.map((p, i) => {
           return (
-            <div key={i} className="flex flex-col justify-start gap-2">
+            <div key={i} className="flex  justify-center gap-2">
               {p.map((pl, j) => (
-                <Link key={j} className="flex justify-start items-start" to="#">
+                <Link key={j} className="flex justify-center items-center" to="#">
                   <img
                     className="w-[110px] h-[110px]"
                     src={`${backend_url_img}/uploads/${pl.images[0]}`}
                     alt=""
                   />
-                  <div className="px-3 flex justify-start items-start gap-1 flex-col text-slate-600">
+                  <div className="px-3 flex justify-start items-start gap-1  text-slate-600">
                     <h2>{pl.name} </h2>
                     <span className="text-lg font-bold">${pl.price}</span>
                   </div>
@@ -79,7 +117,7 @@ const SlideProducts = ({ title, products }) => {
               ))}
             </div>
           );
-        })}
+        })} */}
       </Carousel>
     </div>
   );
