@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { MdEmail, MdOutlineLanguage } from 'react-icons/md';
 import { IoMdPhonePortrait } from 'react-icons/io';
-import { FaFacebookF, FaList, FaLock, FaUser } from 'react-icons/fa';
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaList,
+  FaLock,
+  FaUser,
+} from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa6';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
@@ -23,6 +29,7 @@ import i18next from 'i18next';
 import cookies from 'js-cookie';
 
 import { Ripple, initTWE } from 'tw-elements';
+import { CiSearch } from 'react-icons/ci';
 
 initTWE({ Ripple });
 
@@ -31,12 +38,14 @@ const languages = [
     code: 'en',
     name: 'English',
     country_code: 'en',
+    image: '../../../images/language.png',
   },
   {
     code: 'kr',
     name: 'کوردی',
     dir: 'rtl',
     country_code: 'kr',
+    image: '../../../images/kur.png',
   },
 ];
 
@@ -57,6 +66,7 @@ const Header = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const [showShidebar, setShowShidebar] = useState(true);
   const [categoryShow, setCategoryShow] = useState(true);
+  const [searchActive, setSearchActive] = useState(false);
 
   const [searchValue, setSearchValue] = useState('');
   const [category, setCategory] = useState('');
@@ -83,6 +93,7 @@ const Header = () => {
       dispatch(get_card_products(userInfo.id));
       dispatch(get_wishlist_products(userInfo.id));
     }
+    setSearchActive(false);
   }, [userInfo]);
 
   useEffect(() => {
@@ -131,7 +142,7 @@ const Header = () => {
                 <FaFacebookF />
               </a>
               <a href="#">
-                <FaTwitter />{' '}
+                <FaInstagram />{' '}
               </a>
               <a href="#">
                 <FaLinkedin />
@@ -149,8 +160,8 @@ const Header = () => {
                   <span>
                     <IoMdArrowDropdown />
                   </span>
-                  <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
-                    {languages.map(({ code, name, country_code }) => (
+                  <ul className="absolute invisible transition-all top-8 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
+                    {languages.map(({ code, name, country_code, image }) => (
                       <li key={country_code}>
                         <a
                           href="/"
@@ -161,7 +172,14 @@ const Header = () => {
                           }}
                           disabled={code === currentLanguageCode}
                         >
-                          {name}
+                          <div className="flex justify-between items-center">
+                            {name}
+                            <img
+                              src={image}
+                              className="w-[22px] h-[15px]"
+                              alt={`${name} logo`}
+                            />
+                          </div>
                         </a>
                       </li>
                     ))}
@@ -197,8 +215,8 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="w-full bg-white shadow-sm z-50 " >
-        <div className="w-[85%] lg:w-[90%] mx-auto">
+      <div className="w-full bg-white shadow-sm z-50 ">
+        <div className="w-[75%] lg:w-[90%] mx-auto">
           <div className="h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap">
             <div className="md-lg:w-full w-3/12 md-lg:pt-4">
               <div className="flex justify-between items-center">
@@ -249,53 +267,17 @@ const Header = () => {
                       {t('home.shop')}
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
-                      onClick={() => setCategoryShow(!categoryShow)}
-                      className={`flex p-2  ${
+                      className={`p-2 block ${
                         pathname === '/blog'
                           ? 'text-[#B65278]'
                           : 'text-slate-600'
                       } `}
                     >
-                      Categories
-                      <span className="pt-1">
-                        <IoIosArrowDown />
-                      </span>
+                      Blog
                     </Link>
-                    <div className="">
-                      <div
-                        className={`${
-                          categoryShow ? 'h-0' : 'h-auto'
-                        } overflow-hidden transition-all md-lg:relative duration-500 absolute w-2/12 z-[99999] bg-[#fcfdfd]  border-x`}
-                      >
-                        <ul className="py-2 text-slate-600 font-medium ">
-                          {categorys.map((c, i) => {
-                            return (
-                              <li
-                                key={i}
-                                className="flex justify-start items-center gap-2 px-[24px] py-[6px] "
-                              >
-                                <img
-                                  src={`${backend_url_img}/uploads/categories/${c.image}`}
-                                  className="w-[30px] h-[30px] rounded-full overflow-hidden"
-                                  alt=""
-                                />
-                                <Link
-                                  to={`/products?category=${c.name}`}
-                                  className="text-sm block"
-                                  onClick={() => setCategoryShow(!categoryShow)}
-                                >
-                                  {c.name}
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    </div>
-                    {/* </div> */}
-                  </li>
+                  </li> */}
                   <li>
                     <Link
                       className={`p-2 block ${
@@ -321,7 +303,7 @@ const Header = () => {
                 </ul>
 
                 <div className="flex md-lg:hidden justify-center items-center gap-5">
-                 <div className="flex justify-center gap-5">
+                  <div className="flex justify-center gap-5">
                     <span
                       onClick={() => setSearchActive(!searchActive)}
                       className="text-3xl cursor-pointer text-[#B65278]"
@@ -331,7 +313,6 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="flex md-lg:hidden justify-center items-center gap-5">
-                
                   <div className="flex justify-center gap-5">
                     <div
                       onClick={() =>
@@ -402,8 +383,8 @@ const Header = () => {
                 <span>
                   <IoMdArrowDropdown />
                 </span>
-                <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
-                  {languages.map(({ code, name, country_code }) => (
+                <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white sm:ml-6 p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
+                  {languages.map(({ code, name, country_code, image }) => (
                     <li key={country_code}>
                       <a
                         href="/"
@@ -411,7 +392,14 @@ const Header = () => {
                         onClick={() => i18next.changeLanguage(code)}
                         disabled={code === currentLanguageCode}
                       >
-                        {name}
+                        <div className="flex justify-between items-center">
+                          {name}
+                          <img
+                            src={image}
+                            className="w-[22px] h-[15px]"
+                            alt={`${name} logo`}
+                          />
+                        </div>
                       </a>
                     </li>
                   ))}
@@ -445,7 +433,7 @@ const Header = () => {
             <ul className="flex flex-col justify-start items-start text-sm rtl:text-lg font-bold uppercase">
               <li>
                 <Link
-                 to="/"
+                  to="/"
                   className={`py-2 block ${
                     pathname === '/' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
@@ -464,51 +452,15 @@ const Header = () => {
                   {t('home.shop')}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
-                  onClick={() => setCategoryShow(!categoryShow)}
-                  className={`flex p-2 ${
+                  className={`py-2 block ${
                     pathname === '/blog' ? 'text-[#B65278]' : 'text-slate-600'
                   } `}
                 >
-                  Categories
-                  <span className="pt-1">
-                    <IoIosArrowDown />
-                  </span>
+                  Blog
                 </Link>
-                <div className="">
-                  <div
-                    className={`${
-                      categoryShow ? 'h-0' : 'h-auto'
-                    } overflow-hidden transition-all md-lg:relative duration-500 absolute w-full z-[99999] bg-[#fcfdfd]  border-x`}
-                  >
-                    <ul className="py-2 text-slate-600 font-medium ">
-                      {categorys.map((c, i) => {
-                        return (
-                          <li
-                            key={i}
-                            className="flex justify-start items-center gap-2 px-[24px] py-[6px] "
-                          >
-                            <img
-                              src={`${backend_url_img}/uploads/categories/${c.image}`}
-                              className="w-[30px] h-[30px] rounded-full overflow-hidden"
-                              alt=""
-                            />
-                            <Link
-                              to={`/products?category=${c.name}`}
-                              className="text-sm block"
-                              onClick={() => setCategoryShow(!categoryShow)}
-                            >
-                              {c.name}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                </div>
-                {/* </div> */}
-              </li>
+              </li> */}
               <li>
                 <Link
                   className={`py-2 block ${
@@ -530,17 +482,17 @@ const Header = () => {
                 </Link>
               </li>
               <div className="flex  justify-center items-center gap-5">
-                 <div className="flex justify-center gap-5">
-                 <span
-                      onClick={() => setSearchActive(!searchActive)}
-                      className="text-3xl cursor-pointer text-[#B65278]"
-                    >
-                      <CiSearch />
-                    </span>
-                  </div>
+                <div className="flex justify-center gap-5">
+                  <span
+                    onClick={() => setSearchActive(!searchActive)}
+                    className="text-3xl cursor-pointer text-[#B65278]"
+                  >
+                    <CiSearch />
+                  </span>
                 </div>
+              </div>
             </ul>
-            
+
             <div className="flex justify-start items-center gap-4 text-black">
               <a href="#">
                 <FaFacebookF />
@@ -582,9 +534,9 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="w-[85%] lg:w-[90%] mx-auto">
+      <div className="w-[85%] lg:w-[90%] flex justify-center items-center mx-auto">
         <div className="flex w-full flex-wrap md-lg:gap-8">
-          <div className="w-3/12 md-lg:w-full">
+          {/* <div className="w-3/12 md-lg:w-full">
             <div className="bg-white relative">
               <div
                 onClick={() => setCategoryShow(!categoryShow)}
@@ -668,11 +620,9 @@ const Header = () => {
                     </button>
                   </div>
                 </div>
-
-                
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <button
@@ -680,7 +630,7 @@ const Header = () => {
         type="button"
         data-twe-ripple-init
         data-twe-ripple-color="light"
-        className="!fixed bottom-5 end-5  z-10 hidden rounded-full bg-[#B65278] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#D871A1] hover:shadow-lg focus:bg-[#D871A1]  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#D871A1]  active:shadow-lg"
+        className="!fixed bottom-5 sm:bottom-32 end-3  z-10 hidden rounded-full bg-[#B65278] p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-[#D871A1] hover:shadow-lg focus:bg-[#D871A1]  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#D871A1]  active:shadow-lg"
         id="btn-back-to-top"
       >
         <span className="[&>svg]:w-4">
