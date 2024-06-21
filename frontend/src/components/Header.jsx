@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { MdEmail } from 'react-icons/md';
 import { IoMdPhonePortrait } from 'react-icons/io';
-<<<<<<< Updated upstream
 import { FaFacebookF, FaList, FaLock, FaUser } from 'react-icons/fa';
-=======
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaList,
-  FaLock,
-  FaUser,
-} from 'react-icons/fa';
->>>>>>> Stashed changes
+import { FaInstagram } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa6';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
@@ -41,12 +32,14 @@ const languages = [
     code: 'en',
     name: 'English',
     country_code: 'en',
+    image: '',
   },
   {
     code: 'kr',
     name: 'کوردی',
     dir: 'rtl',
     country_code: 'kr',
+    image: '',
   },
 ];
 
@@ -139,11 +132,7 @@ const Header = () => {
                 <FaFacebookF />
               </a>
               <a href="#">
-<<<<<<< Updated upstream
-                <FaTwitter />{' '}
-=======
                 <FaInstagram />{' '}
->>>>>>> Stashed changes
               </a>
               <a href="#">
                 <FaLinkedin />
@@ -161,7 +150,7 @@ const Header = () => {
                     <IoMdArrowDropdown />
                   </span>
                   <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-black p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-[#F9FBFE] z-10">
-                    {languages.map(({ code, name, country_code }) => (
+                    {languages.map(({ code, name, country_code, image }) => (
                       <li key={country_code}>
                         <a
                           href="/"
@@ -172,9 +161,8 @@ const Header = () => {
                           }}
                           disabled={code === currentLanguageCode}
                         >
-<<<<<<< Updated upstream
                           {name}
-=======
+
                           <div className="flex justify-between items-center">
                             {name}
                             <img
@@ -183,7 +171,6 @@ const Header = () => {
                               alt={`${name} logo`}
                             />
                           </div>
->>>>>>> Stashed changes
                         </a>
                       </li>
                     ))}
@@ -357,7 +344,6 @@ const Header = () => {
 
                     <div
                       onClick={redirect_card_page}
-                      
                       className="relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]"
                     >
                       <span className="text-xl text-[#B65278]">
@@ -371,7 +357,6 @@ const Header = () => {
                           {card_product_count}
                         </div>
                       )}
-                     
                     </div>
                   </div>
                 </div>
@@ -405,7 +390,7 @@ const Header = () => {
                   <IoMdArrowDropdown />
                 </span>
                 <ul className="absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10">
-                  {languages.map(({ code, name, country_code }) => (
+                  {languages.map(({ code, name, country_code, image }) => (
                     <li key={country_code}>
                       <a
                         href="/"
@@ -413,9 +398,8 @@ const Header = () => {
                         onClick={() => i18next.changeLanguage(code)}
                         disabled={code === currentLanguageCode}
                       >
-<<<<<<< Updated upstream
                         {name}
-=======
+
                         <div className="flex justify-between items-center">
                           {name}
                           <img
@@ -424,7 +408,6 @@ const Header = () => {
                             alt={`${name} logo`}
                           />
                         </div>
->>>>>>> Stashed changes
                       </a>
                     </li>
                   ))}

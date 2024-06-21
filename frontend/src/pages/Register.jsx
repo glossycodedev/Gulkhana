@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { customer_register, messageClear } from '../store/reducers/authReducer';
 import toast from 'react-hot-toast';
 import { FadeLoader } from 'react-spinners';
+import { IoIosArrowForward } from 'react-icons/io';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -57,6 +58,19 @@ const Register = () => {
       )}
 
       <Header />
+      <section>
+        <div className=" bg-[#F8F9F9] py-5 mb-5 mt-8">
+          <div className="w-[70%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
+            <div className="flex justify-start items-center text-md text-slate-600 w-full">
+              <Link to="/">Home</Link>
+              <span>
+                <IoIosArrowForward />
+              </span>
+              <span className="text-[#B65278]">Register</span>
+            </div>
+          </div>
+        </div>
+      </section>
       <div className="bg-slate-200 mt-4">
         <div className="w-full justify-center items-center p-10">
           <div className="grid grid-cols-2 w-[60%] mx-auto bg-white rounded-md">
