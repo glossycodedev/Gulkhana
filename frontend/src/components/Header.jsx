@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdEmail, MdOutlineLanguage } from 'react-icons/md';
 import { IoMdPhonePortrait } from 'react-icons/io';
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaList,
-  FaLock,
-  FaUser,
-} from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaList, FaLock, FaUser } from 'react-icons/fa';
 import { FaTwitter } from 'react-icons/fa6';
 import { FaLinkedin } from 'react-icons/fa';
 import { FaGithub } from 'react-icons/fa';
@@ -142,7 +136,7 @@ const Header = () => {
                 <FaFacebookF />
               </a>
               <a href="#">
-                <FaInstagram />{' '}
+              <FaInstagram />{' '}
               </a>
               <a href="#">
                 <FaLinkedin />
@@ -173,13 +167,9 @@ const Header = () => {
                           disabled={code === currentLanguageCode}
                         >
                           <div className="flex justify-between items-center">
-                            {name}
-                            <img
-                              src={image}
-                              className="w-[22px] h-[15px]"
-                              alt={`${name} logo`}
-                            />
+                          {name}<img src={image}  className="w-[22px] h-[15px]" alt={`${name} logo`} />
                           </div>
+                          
                         </a>
                       </li>
                     ))}
@@ -393,13 +383,8 @@ const Header = () => {
                         disabled={code === currentLanguageCode}
                       >
                         <div className="flex justify-between items-center">
-                          {name}
-                          <img
-                            src={image}
-                            className="w-[22px] h-[15px]"
-                            alt={`${name} logo`}
-                          />
-                        </div>
+                          {name}<img src={image}  className="w-[22px] h-[15px]" alt={`${name} logo`} />
+                          </div>
                       </a>
                     </li>
                   ))}
