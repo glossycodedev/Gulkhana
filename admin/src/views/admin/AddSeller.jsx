@@ -7,9 +7,11 @@ import { overrideStyle } from '../../utils/utils';
 import toast from 'react-hot-toast';
 import { seller_register } from '../../store/Reducers/sellerReducer';
 import { FaImage } from 'react-icons/fa';
+import { get_category } from '../../store/Reducers/categoryReducer';
 
 const AddSeller = () => {
   const dispatch = useDispatch();
+  const { categorys } = useSelector((state) => state.category);
   const { loader, successMessage, errorMessage } = useSelector(
     (state) => state.seller
   );
@@ -18,11 +20,43 @@ const AddSeller = () => {
     name: '',
     phone: '',
     password: '',
-    address: '',
+        address: '',
     shopName: '',
     city: '',
     image: '',
   });
+
+  useEffect(() => {
+    dispatch(
+      get_category({
+        searchValue: '',
+        parPage: '',
+        page: '',
+      })
+    );
+  }, []);
+
+  const [cateShow, setCateShow] = useState(false);
+  const [category, setCategory] = useState('');
+  const [allCategory, setAllCategory] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const categorySearch = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    if (value) {
+      let srcValue = allCategory.filter(
+        (c) => c.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+      );
+      setAllCategory(srcValue);
+    } else {
+      setAllCategory(categorys);
+    }
+  };
+
+  useEffect(() => {
+    setAllCategory(categorys);
+  }, [categorys]);
 
   const inputHandle = (e) => {
     setState({
@@ -49,12 +83,13 @@ const AddSeller = () => {
         name: '',
         phone: '',
         password: '',
-        address: '',
+              address: '',
         shopName: '',
         city: '',
         image: '',
       });
       setImage('');
+      setCategory('');
     }
     if (errorMessage) {
       toast.error(errorMessage);
@@ -68,6 +103,7 @@ const AddSeller = () => {
     formData.append('name', state.name);
     formData.append('phone', state.phone);
     formData.append('password', state.password);
+    formData.append('category', category);
     formData.append('address', state.address);
     formData.append('shopName', state.shopName);
     formData.append('city', state.city);
@@ -135,6 +171,54 @@ const AddSeller = () => {
                   id="password"
                   required
                 />
+              </div>
+              <div className="flex flex-col w-full gap-1 relative">
+                <label htmlFor="category">Category</label>
+                <input
+                  readOnly
+                  onClick={() => setCateShow(!cateShow)}
+                  className="px-3 py-2 focus:border-[#969494] outline-none bg-[#ffffff] border border-[#bcb9b9] rounded-md text-[#000000]"
+                  onChange={inputHandle}
+                  value={category}
+                  type="text"
+                  id="category"
+                  placeholder="--select category--"
+                />
+
+                <div
+                  className={`absolute top-[101%] bg-[#dee1e4] w-full transition-all ${
+                    cateShow ? 'scale-100' : 'scale-0'
+                  } `}
+                >
+                  <div className="w-full px-4 py-2 fixed">
+                    <input
+                      value={searchValue}
+                      onChange={categorySearch}
+                      className="px-3 py-1 w-full  focus:border-[#2A629A] outline-none bg-transparent border border-slate-700 rounded-md text-[#5c5a5a]  overflow-hidden"
+                      type="text"
+                      placeholder="search"
+                    />
+                  </div>
+                  <div className="pt-14"></div>
+                  <div className="flex justify-start items-start flex-col h-auto overflow-x-scrool">
+                    {allCategory.map((c, i) => (
+                      <span
+                        key={i}
+                        className={`px-4 py-2 hover:bg-[#2A629A] hover:text-white hover:shadow-lg w-full cursor-pointer ${
+                          category === c.name && 'bg-[#2A629A] text-white'
+                        }`}
+                        onClick={() => {
+                          setCateShow(false);
+                          setCategory(c.name);
+                          setSearchValue('');
+                          setAllCategory(categorys);
+                        }}
+                      >
+                        {c.name}{' '}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

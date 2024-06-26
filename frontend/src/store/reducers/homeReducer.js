@@ -28,6 +28,38 @@ export const get_products = createAsyncThunk(
 );
 // End Method
 
+export const get_user_sellers = createAsyncThunk(
+  'home/get_user_sellers',
+  async (_, { fulfillWithValue }) => {
+    try {
+      const { data } = await api.get('/home/get-user-sellers');
+      console.log(data);
+      return fulfillWithValue(data);
+    } catch (error) {
+      console.log(error.respone);
+    }
+  }
+);
+// End Method
+
+export const query_sellers = createAsyncThunk(
+  'seller/query_sellers',
+  async (query, { fulfillWithValue }) => {
+    try {
+      const { data } = await api.get(
+        `/home/query-sellers?category=${query.category}&&pageNumber=${query.pageNumber}&&searchValue=${
+          query.searchValue ? query.searchValue : ''
+        } `
+      );
+        console.log(data)
+      return fulfillWithValue(data);
+    } catch (error) {
+      console.log(error.respone);
+    }
+  }
+);
+// End Method
+
 export const price_range_product = createAsyncThunk(
   'product/price_range_product',
   async (_, { fulfillWithValue }) => {
@@ -122,7 +154,6 @@ export const get_banners = createAsyncThunk(
 );
 // End Method
 
-
 export const get_reklams = createAsyncThunk(
   'reklam/get_reklams',
   async (_, { fulfillWithValue }) => {
@@ -153,14 +184,11 @@ export const submit_address = createAsyncThunk(
 
 // End Method
 
-
 export const get_address = createAsyncThunk(
   'address/get_address',
   async (userId, { rejectWithValue, fulfillWithValue }) => {
     try {
-      const { data } = await api.get(
-        `/home/address/${userId}`
-      );
+      const { data } = await api.get(`/home/address/${userId}`);
       // console.log(data)
       return fulfillWithValue(data);
     } catch (error) {
@@ -179,6 +207,8 @@ export const homeReducer = createSlice({
     categorys: [],
     reklams: [],
     products: [],
+    sellers: [],
+    totalSellers: 0,
     totalProduct: 0,
     parPage: 3,
     latest_product: [],
@@ -215,6 +245,17 @@ export const homeReducer = createSlice({
         state.topRated_product = payload.topRated_product;
         state.discount_product = payload.discount_product;
       })
+
+      .addCase(get_user_sellers.fulfilled, (state, { payload }) => {
+        state.sellers = payload.sellers;
+      })
+
+      .addCase(query_sellers.fulfilled, (state, { payload }) => {
+        state.sellers = payload.sellers;
+        state.totalSellers = payload.totalSellers;
+        state.parPage = payload.parPage;
+      })
+
       .addCase(price_range_product.fulfilled, (state, { payload }) => {
         state.latest_product = payload.latest_product;
         state.priceRange = payload.priceRange;

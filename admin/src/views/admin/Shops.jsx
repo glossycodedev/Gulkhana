@@ -73,9 +73,9 @@ const Shops = () => {
                 <th scope="col" className="py-3 px-4">
                   Shop Name
                 </th>
-                {/* <th scope="col" className="py-3 px-4">
-                  Payment Status
-                </th> */}
+                <th scope="col" className="py-3 px-4">
+                  Shop Category
+                </th>
                 <th scope="col" className="py-3 px-4">
                   Phone
                 </th>
@@ -109,9 +109,9 @@ const Shops = () => {
                   <td className="py-1 px-4 whitespace-nowrap">
                     {d.shopInfo?.shopName}
                   </td>
-                  {/* <td className="py-1 px-4  whitespace-nowrap">
-                    <span>{d.payment}</span>{' '}
-                  </td> */}
+                  <td className="py-1 px-4  whitespace-nowrap">
+                    <span>{d.category}</span>{' '}
+                  </td>
                   <td className="py-1 px-4 whitespace-nowrap">{d.phone} </td>
 
                   <td className="py-1 px-4 whitespace-nowrap">{d.status} </td>

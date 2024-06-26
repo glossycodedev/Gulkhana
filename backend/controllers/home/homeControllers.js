@@ -2,8 +2,10 @@ const categoryModel = require('../../models/categoryModel');
 const productModel = require('../../models/productModel');
 const reviewModel = require('../../models/reviewModel');
 const addressModel = require('../../models/addressModel');
+const sellerModel = require('../../models/sellerModel');
 const { responseReturn } = require('../../utiles/response');
 const queryProducts = require('../../utiles/queryProducts');
+const querySellers = require('../../utiles/querySellers');
 const moment = require('moment');
 const {
   mongo: { ObjectId },
@@ -76,6 +78,54 @@ class homeControllers {
         topRated_product,
         discount_product,
       });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  // end method
+
+  get_user_sellers = async (req, res) => {
+    try {
+      const sellers = await sellerModel.find({}).limit(12).sort({
+        createdAt: -1,
+      });
+      responseReturn(res, 200, {
+        sellers,
+      });
+      console.log(sellers);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  // end method
+
+  query_sellers = async (req, res) => {
+    const parPage = 12;
+    req.query.parPage = parPage;
+
+    try {
+      const sellers = await sellerModel.find({}).sort({
+        createdAt: -1,
+      });
+      const totalSellers = new querySellers(sellers, req.query)
+        .categoryQuery()
+        .searchQuery()
+        .countSellers();
+
+      const result = new querySellers(sellers, req.query)
+        .categoryQuery()
+
+        .searchQuery()
+        .skip()
+        .limit()
+        .getSellers();
+
+      responseReturn(res, 200, {
+        sellers: result,
+        totalSellers,
+        parPage,
+      });
+      
     } catch (error) {
       console.log(error.message);
     }
@@ -344,7 +394,7 @@ class homeControllers {
     const { userId } = req.params;
     try {
       const addresses = await addressModel.find({ userId });
-      
+
       responseReturn(res, 200, { addresses });
     } catch (error) {
       responseReturn(res, 500, { error: error.message });

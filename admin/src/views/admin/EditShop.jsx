@@ -16,10 +16,12 @@ import {
   get_seller,
   profile_image_upload,
 } from '../../store/Reducers/sellerReducer';
+import { get_category } from '../../store/Reducers/categoryReducer';
 
 const EditShop = () => {
   const dispatch = useDispatch();
   const { sellerId } = useParams();
+  const { categorys } = useSelector((state) => state.category);
   const { loader, successMessage, errorMessage, seller } = useSelector(
     (state) => state.seller
   );
@@ -36,6 +38,38 @@ const EditShop = () => {
   });
 
   useEffect(() => {
+    dispatch(
+      get_category({
+        searchValue: '',
+        parPage: '',
+        page: '',
+      })
+    );
+  }, []);
+
+  const [cateShow, setCateShow] = useState(false);
+  const [category, setCategory] = useState('');
+  const [allCategory, setAllCategory] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const categorySearch = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    if (value) {
+      let srcValue = allCategory.filter(
+        (c) => c.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+      );
+      setAllCategory(srcValue);
+    } else {
+      setAllCategory(categorys);
+    }
+  };
+
+  useEffect(() => {
+    setAllCategory(categorys);
+  }, [categorys]);
+
+  useEffect(() => {
     dispatch(get_seller(sellerId));
   }, [sellerId]);
 
@@ -44,11 +78,13 @@ const EditShop = () => {
       name: seller?.name,
       phone: seller?.phone,
       password: seller?.password,
+
       address: seller.shopInfo?.address,
       shopName: seller.shopInfo?.shopName,
       city: seller.shopInfo?.city,
       //   image: `${backend_url_img}/uploads/${seller?.image}`,
     });
+    setCategory(seller.category);
     setImage(`${backend_url_img}/uploads/${seller?.image}`);
   }, [seller]);
 
@@ -87,6 +123,7 @@ const EditShop = () => {
       });
       setImage('');
       setSellerImage('');
+      setCategory('');
     }
     if (errorMessage) {
       toast.error(errorMessage);
@@ -100,12 +137,12 @@ const EditShop = () => {
       name: state.name,
       phone: state.phone,
       password: state.password,
+      category: category,
       address: state.address,
       shopName: state.shopName,
       city: state.city,
       sellerId: sellerId,
     };
-   
 
     dispatch(seller_update(obj));
   };
@@ -169,6 +206,54 @@ const EditShop = () => {
                   id="password"
                   required
                 />
+              </div>
+              <div className="flex flex-col w-full gap-1 relative">
+                <label htmlFor="category">Category</label>
+                <input
+                  readOnly
+                  onClick={() => setCateShow(!cateShow)}
+                  className="px-3 py-2 focus:border-[#969494] outline-none bg-[#ffffff] border border-[#bcb9b9] rounded-md text-[#000000]"
+                  onChange={inputHandle}
+                  value={category}
+                  type="text"
+                  id="category"
+                  placeholder="--select category--"
+                />
+
+                <div
+                  className={`absolute top-[101%] bg-[#dee1e4] w-full transition-all ${
+                    cateShow ? 'scale-100' : 'scale-0'
+                  } `}
+                >
+                  <div className="w-full px-4 py-2 fixed">
+                    <input
+                      value={searchValue}
+                      onChange={categorySearch}
+                      className="px-3 py-1 w-full  focus:border-[#2A629A] outline-none bg-transparent border border-slate-700 rounded-md text-[#5c5a5a]  overflow-hidden"
+                      type="text"
+                      placeholder="search"
+                    />
+                  </div>
+                  <div className="pt-14"></div>
+                  <div className="flex justify-start items-start flex-col h-auto overflow-x-scrool">
+                    {allCategory.map((c, i) => (
+                      <span
+                        key={i}
+                        className={`px-4 py-2 hover:bg-[#2A629A] hover:text-white hover:shadow-lg w-full cursor-pointer ${
+                          category === c.name && 'bg-[#2A629A] text-white'
+                        }`}
+                        onClick={() => {
+                          setCateShow(false);
+                          setCategory(c.name);
+                          setSearchValue('');
+                          setAllCategory(categorys);
+                        }}
+                      >
+                        {c.name}{' '}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

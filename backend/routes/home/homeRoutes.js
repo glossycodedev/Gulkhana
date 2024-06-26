@@ -3,6 +3,8 @@ const router = require('express').Router();
 
 router.get('/get-categorys', homeControllers.get_categorys);
 router.get('/get-products', homeControllers.get_products);
+router.get('/get-user-sellers', homeControllers.get_user_sellers);
+router.get('/query-sellers', homeControllers.query_sellers);
 router.get('/price-range-latest-product', homeControllers.price_range_product);
 router.get('/query-products', homeControllers.query_products);
 router.get('/product-details/:slug', homeControllers.product_details);

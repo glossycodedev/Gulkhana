@@ -32,7 +32,8 @@ class sellerController {
   // end method
 
   seller_register = async (req, res) => {
-    const { phone, name, password, address, shopName, city } = req.body;
+    const { phone, name, password, category, address, shopName, city } =
+      req.body;
     try {
       if (!req.file) {
         return responseReturn(res, 404, { error: 'Image upload failed' });
@@ -46,6 +47,7 @@ class sellerController {
           name,
           phone,
           password: await bcrpty.hash(password, 10),
+          category,
           method: 'menualy',
           shopInfo: {
             shopName,
@@ -66,14 +68,23 @@ class sellerController {
   // End Method
 
   seller_update = async (req, res) => {
-    const { phone, name, password, address, shopName, city, sellerId } =
-      req.body;
+    const {
+      phone,
+      name,
+      password,
+      category,
+      address,
+      shopName,
+      city,
+      sellerId,
+    } = req.body;
 
     try {
       await sellerModel.findByIdAndUpdate(sellerId, {
         name,
         phone,
         password: await bcrpty.hash(password, 10),
+        category,
         method: 'menualy',
         shopInfo: {
           shopName,

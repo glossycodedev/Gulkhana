@@ -15,6 +15,10 @@ const sellerSchema = new Schema(
       required: true,
       select: false,
     },
+    category: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       default: 'seller',
@@ -47,6 +51,7 @@ sellerSchema.index(
   {
     name: 'text',
     phone: 'text',
+    category: 'text',
   },
   {
     weights: {

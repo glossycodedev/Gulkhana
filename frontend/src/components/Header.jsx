@@ -244,7 +244,6 @@ const Header = () => {
                       {t('home.home')}
                     </Link>
                   </li>
-
                   <li>
                     <Link
                       to="/shops"
@@ -255,6 +254,19 @@ const Header = () => {
                       } `}
                     >
                       {t('home.shop')}
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      to="/productsList"
+                      className={`p-2 block ${
+                        pathname === '/productsList'
+                          ? 'text-[#B65278]'
+                          : 'text-slate-600'
+                      } `}
+                    >
+                      {t('home.productList')}
                     </Link>
                   </li>
                   {/* <li>
