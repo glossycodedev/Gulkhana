@@ -21,8 +21,8 @@ class productController {
 
     name = name.trim();
     const slug = name.split(' ').join('-');
-    shop = shopName.trim();
-    const slugShop = shop.split(' ').join('-');
+    shopName = shopName.trim();
+    const slugShop = shopName.split(' ').join('-');
 
     try {
       if (!req.files || req.files.length === 0) {
