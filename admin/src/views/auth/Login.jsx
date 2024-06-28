@@ -16,7 +16,7 @@ const Login = () => {
     const {loader,errorMessage,successMessage} = useSelector(state=>state.auth)
 
     const [state, setState] = useState({ 
-        email: "",
+        phone: "",
         password: ""
     })
 
@@ -58,8 +58,8 @@ const Login = () => {
     <form onSubmit={submit}>
          
         <div className='flex flex-col w-full gap-1 mb-3'>
-            <label htmlFor="email">Email</label>
-            <input onChange={inputHandle} value={state.email}  className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="email" name='email' placeholder='Email' id='email' required />
+            <label htmlFor="phone">Phone</label>
+            <input onChange={inputHandle} value={state.phone}  className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="phone" name='phone' placeholder='Phone' id='phone' required />
 
         </div>
 

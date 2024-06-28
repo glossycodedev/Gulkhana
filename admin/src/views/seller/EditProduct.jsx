@@ -23,6 +23,7 @@ const EditProduct = () => {
   const { product, loader, successMessage, errorMessage } = useSelector(
     (state) => state.product
   );
+  const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(
@@ -76,9 +77,9 @@ const EditProduct = () => {
 
   const changeImage = (img, files, index) => {
     if (files.length > 0) {
-        const newImageFile = files[0]; 
-        // const productId = 'your-product-id'; 
-        const imageIndex = index; 
+      const newImageFile = files[0];
+      // const productId = 'your-product-id';
+      const imageIndex = index;
       const formData = new FormData();
       formData.append('image', newImageFile);
       formData.append('imageIndex', imageIndex);
@@ -132,6 +133,7 @@ const EditProduct = () => {
       discount: state.discount,
       price: state.price,
       brand: state.brand,
+      shopName: userInfo.shopInfo.shopName,
       stock: state.stock,
       productId: productId,
     };
@@ -215,7 +217,8 @@ const EditProduct = () => {
                   <div className="flex justify-start items-start flex-col h-auto overflow-x-scrool">
                     {allCategory.length > 0 &&
                       allCategory.map((c, i) => (
-                        <span key={i}
+                        <span
+                          key={i}
                           className={`px-4 py-2 hover:bg-[#2A629A] hover:text-white hover:shadow-lg w-full cursor-pointer ${
                             category === c.name && 'bg-[#2A629A] text-white'
                           }`}
@@ -300,7 +303,7 @@ const EditProduct = () => {
                       <img src={`${backend_url_img}/uploads/${img}`} alt="" />
                     </label>
                     <input
-                      onChange={(e) => changeImage(img, e.target.files,i)}
+                      onChange={(e) => changeImage(img, e.target.files, i)}
                       type="file"
                       id={i}
                       className="hidden"

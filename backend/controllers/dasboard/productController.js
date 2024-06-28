@@ -21,6 +21,8 @@ class productController {
 
     name = name.trim();
     const slug = name.split(' ').join('-');
+    shop = shopName.trim();
+    const slugShop = shop.split(' ').join('-');
 
     try {
       if (!req.files || req.files.length === 0) {
@@ -34,6 +36,7 @@ class productController {
         name,
         slug,
         shopName,
+        slugShop,
         category: category.trim(),
         description: description.trim(),
         stock: parseInt(stock),
@@ -153,10 +156,21 @@ class productController {
   // End Method
 
   product_update = async (req, res) => {
-    let { name, description, stock, price, discount, brand, productId } =
-      req.body;
+    let {
+      name,
+      description,
+      stock,
+      price,
+      discount,
+      brand,
+      shopName,
+      productId,
+    } = req.body;
     name = name.trim();
     const slug = name.split(' ').join('-');
+
+    shop = shopName.trim();
+    const slugShop = shop.split(' ').join('-');
 
     try {
       await productModel.findByIdAndUpdate(productId, {
@@ -168,6 +182,8 @@ class productController {
         brand,
         productId,
         slug,
+        shopName,
+        slugShop,
       });
       const product = await productModel.findById(productId);
       responseReturn(res, 200, {

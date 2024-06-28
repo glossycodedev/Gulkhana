@@ -23,6 +23,10 @@ const sellerSchema = new Schema(
       type: String,
       default: 'seller',
     },
+    slug: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       default: 'pending',

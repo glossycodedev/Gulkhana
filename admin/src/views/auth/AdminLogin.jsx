@@ -64,7 +64,7 @@ const AdminLogin = () => {
          
         <div className='flex flex-col w-full gap-1 mb-3'>
             <label htmlFor="phone">Phone</label>
-            <input onChange={inputHandle} value={state.email}  className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="text" name='phone' placeholder='Phone' id='phone' required />
+            <input onChange={inputHandle} value={state.phone}  className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="text" name='phone' placeholder='Phone' id='phone' required />
 
         </div>
 

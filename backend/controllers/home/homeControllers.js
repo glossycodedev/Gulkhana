@@ -125,7 +125,6 @@ class homeControllers {
         totalSellers,
         parPage,
       });
-      
     } catch (error) {
       console.log(error.message);
     }

@@ -118,9 +118,10 @@ const ShopList = ({ styles, sellers }) => {
             <h2 className="font-bold">{p.shopInfo?.shopName}</h2>
             <div className="flex justify-start items-center gap-3">
               <span className="text-md font-semibold">{p.phone}</span>
-             
             </div>
-            <div className="flex justify-end">{p.shopInfo?.address}/{p.shopInfo?.city}</div>
+            <div className="flex justify-end">
+              {p.shopInfo?.address}/{p.shopInfo?.city}
+            </div>
           </div>
         </div>
       ))}

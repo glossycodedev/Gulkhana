@@ -32,7 +32,7 @@ const ProductsList = () => {
   const [currentLanguageCode, setCurrentLanguageCode] = useState(
     cookies.get('i18next') || 'en'
   );
- 
+
   useEffect(() => {
     dispatch(price_range_product());
   }, [currentLanguageCode]);
@@ -41,7 +41,7 @@ const ProductsList = () => {
     setState({
       values: [priceRange.low, priceRange.high],
     });
-    
+
     setCurrentLanguageCode(cookies.get('i18next') || 'en');
   }, [priceRange, currentLanguageCode]);
 
@@ -102,7 +102,7 @@ const ProductsList = () => {
   return (
     <div>
       <Header />
-      <section className=' mt-8 bg-cover bg-no-repeat relative bg-left'>
+      <section className=" mt-8 bg-cover bg-no-repeat relative bg-left">
         <div className="absolute left-0 top-0 w-full h-full bg-[#2422228a]">
           <div className="w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto">
             <div className="flex flex-col justify-center gap-1 items-center h-full w-full text-white">
@@ -130,7 +130,7 @@ const ProductsList = () => {
               {/* <span>
                 <IoIosArrowForward />
               </span> */}
-              <span className='text-[#B65278]'>Products </span>
+              <span className="text-[#B65278]">Products </span>
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@ const ProductsList = () => {
                   Price
                 </h2>
 
-                <Range
+                {/* <Range
                   rtl={currentLanguageCode === 'en' ? false : true}
                   step={5}
                   min={priceRange.low}
@@ -210,7 +210,7 @@ const ProductsList = () => {
                       {...props}
                     />
                   )}
-                />
+                /> */}
                 <div>
                   <span className="text-slate-800 font-bold text-lg">
                     ${Math.floor(state.values[0])} - $

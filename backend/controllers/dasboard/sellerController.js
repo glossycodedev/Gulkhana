@@ -34,6 +34,8 @@ class sellerController {
   seller_register = async (req, res) => {
     const { phone, name, password, category, address, shopName, city } =
       req.body;
+    shopName = shopName.trim();
+    const slug = shopName.split(' ').join('-');
     try {
       if (!req.file) {
         return responseReturn(res, 404, { error: 'Image upload failed' });
@@ -49,6 +51,7 @@ class sellerController {
           password: await bcrpty.hash(password, 10),
           category,
           method: 'menualy',
+          slug,
           shopInfo: {
             shopName,
             address,
@@ -78,7 +81,8 @@ class sellerController {
       city,
       sellerId,
     } = req.body;
-
+    shopName = shopName.trim();
+    const slug = shopName.split(' ').join('-');
     try {
       await sellerModel.findByIdAndUpdate(sellerId, {
         name,
@@ -86,6 +90,7 @@ class sellerController {
         password: await bcrpty.hash(password, 10),
         category,
         method: 'menualy',
+        slug,
         shopInfo: {
           shopName,
           address,

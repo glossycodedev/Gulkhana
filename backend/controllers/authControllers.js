@@ -38,9 +38,9 @@ class authControllers {
   // End Method
 
   seller_login = async (req, res) => {
-    const { email, password } = req.body;
+    const { phone, password } = req.body;
     try {
-      const seller = await sellerModel.findOne({ email }).select('+password');
+      const seller = await sellerModel.findOne({ phone }).select('+password');
       // console.log(admin)
       if (seller) {
         const match = await bcrpty.compare(password, seller.password);

@@ -61,8 +61,8 @@ const SlideProducts = ({ title, reklams }) => {
         renderButtonGroupOutside={true}
         customButtonGroup={<ButtonGroup />}
       >
-        {reklams?.map((reklam) => (
-          <div className="h-[350px]  max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] ">
+        {reklams?.map((reklam,i) => (
+          <div key={i} className="h-[350px]  max-w-full grid grid-cols-12 gap-4 sm:gap-0 relative bg-[#D871A1] ">
             <div className="flex justify-center z-50 items-center  h-full w-full col-span-6 md:col-span-4 sm:col-span-12 ">
               <img
                 src={`${backend_url_img}/uploads/${reklam.image}`}
