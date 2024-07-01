@@ -82,7 +82,7 @@ const ShopList = ({ styles, sellers }) => {
                 : 'md-lg:w-full relative group h-[210px] md:h-[260px] sm:h-[180px] overflow-hidden'
             }
           >
-            <Link to={`/product/details/${p.slug}`}>
+            <Link to={`/shop/products/${p.slug}`}>
               <img
                 className="h-[210px] md:h-[140px] sm:h-[120px] rounded-md w-full "
                 src={`${backend_url_img}/uploads/${p.image}`}

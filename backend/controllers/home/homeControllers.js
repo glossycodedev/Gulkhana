@@ -5,7 +5,9 @@ const addressModel = require('../../models/addressModel');
 const sellerModel = require('../../models/sellerModel');
 const { responseReturn } = require('../../utiles/response');
 const queryProducts = require('../../utiles/queryProducts');
+const queryShopProducts = require('../../utiles/queryShopProducts');
 const querySellers = require('../../utiles/querySellers');
+
 const moment = require('moment');
 const {
   mongo: { ObjectId },
@@ -92,7 +94,6 @@ class homeControllers {
       responseReturn(res, 200, {
         sellers,
       });
-      console.log(sellers);
     } catch (error) {
       console.log(error.message);
     }
@@ -177,6 +178,46 @@ class homeControllers {
 
       const result = new queryProducts(products, req.query)
         .categoryQuery()
+        .ratingQuery()
+        .priceQuery()
+        .searchQuery()
+        .sortByPrice()
+        .skip()
+        .limit()
+        .getProducts();
+
+      responseReturn(res, 200, {
+        products: result,
+        totalProduct,
+        parPage,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  // end method
+
+  query_shop_products = async (req, res) => {
+    const { slugShop } = req.params;
+    const parPage = 12;
+    req.query.parPage = parPage;
+    
+    try {
+      const products = await productModel.find({ slugShop }).sort({
+        createdAt: -1,
+      });
+
+      console.log(products);
+      const totalProduct = new queryShopProducts(products, req.query)
+        // .categoryQuery()
+        .ratingQuery()
+        .searchQuery()
+        .priceQuery()
+        .sortByPrice()
+        .countProducts();
+
+      const result = new queryShopProducts(products, req.query)
+        // .categoryQuery()
         .ratingQuery()
         .priceQuery()
         .searchQuery()

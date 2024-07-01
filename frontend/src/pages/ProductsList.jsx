@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { Range } from 'react-range';
 import { AiFillStar } from 'react-icons/ai';
@@ -16,13 +16,15 @@ import cookies from 'js-cookie';
 import {
   price_range_product,
   query_products,
+  query_shop_products,
 } from '../store/reducers/homeReducer';
 
 const ProductsList = () => {
+  const { slugShop } = useParams();
   const dispatch = useDispatch();
   const {
     products,
-    categorys,
+    // categorys,
     priceRange,
     latest_product,
     totalProduct,
@@ -35,7 +37,7 @@ const ProductsList = () => {
 
   useEffect(() => {
     dispatch(price_range_product());
-  }, [currentLanguageCode]);
+  }, [slugShop,currentLanguageCode]);
 
   useEffect(() => {
     setState({
@@ -56,21 +58,22 @@ const ProductsList = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const [sortPrice, setSortPrice] = useState('');
-  const [category, setCategory] = useState('');
-  const queryCategory = (e, value) => {
-    if (e.target.checked) {
-      setCategory(value);
-    } else {
-      setCategory('');
-    }
-  };
+  // const [category, setCategory] = useState('');
+  // const queryCategory = (e, value) => {
+  //   if (e.target.checked) {
+  //     setCategory(value);
+  //   } else {
+  //     setCategory('');
+  //   }
+  // };
 
   useEffect(() => {
     dispatch(
-      query_products({
+      query_shop_products({
         low: state.values[0],
         high: state.values[1],
-        category,
+        // category,
+        slugShop,
         rating,
         sortPrice,
         pageNumber,
@@ -79,7 +82,8 @@ const ProductsList = () => {
   }, [
     state.values[0],
     state.values[1],
-    category,
+    // category,
+    slugShop,
     rating,
     sortPrice,
     pageNumber,
@@ -88,10 +92,11 @@ const ProductsList = () => {
   const resetRating = () => {
     setRating('');
     dispatch(
-      query_products({
+      query_shop_products({
         low: state.values[0],
         high: state.values[1],
-        category,
+        // category,
+        slugShop,
         rating: '',
         sortPrice,
         pageNumber,
@@ -126,10 +131,10 @@ const ProductsList = () => {
               <span>
                 <IoIosArrowForward />
               </span>
-              {/* <Link to="/">{}</Link> */}
-              {/* <span>
+              <Link to="/shops">{slugShop}</Link>
+              <span>
                 <IoIosArrowForward />
-              </span> */}
+              </span>
               <span className="text-[#B65278]">Products </span>
             </div>
           </div>
@@ -155,10 +160,10 @@ const ProductsList = () => {
                   : 'md:h-auto md:overflow-auto md:mb-0'
               } `}
             >
-              <h2 className="text-3xl font-bold mb-3 text-slate-600">
+              {/* <h2 className="text-3xl font-bold mb-3 text-slate-600">
                 Category{' '}
-              </h2>
-              <div className="py-2 ">
+              </h2> */}
+              {/* <div className="py-2 ">
                 {categorys.map((c, i) => (
                   <div
                     key={i}
@@ -178,14 +183,14 @@ const ProductsList = () => {
                     </label>
                   </div>
                 ))}
-              </div>
+              </div> */}
 
               <div className="py-2 flex flex-col gap-5">
                 <h2 className="text-3xl font-bold mb-3 text-slate-600">
                   Price
                 </h2>
 
-                {/* <Range
+                <Range
                   rtl={currentLanguageCode === 'en' ? false : true}
                   step={5}
                   min={priceRange.low}
@@ -210,7 +215,7 @@ const ProductsList = () => {
                       {...props}
                     />
                   )}
-                /> */}
+                />
                 <div>
                   <span className="text-slate-800 font-bold text-lg">
                     ${Math.floor(state.values[0])} - $

@@ -7,6 +7,10 @@ router.get('/get-user-sellers', homeControllers.get_user_sellers);
 router.get('/query-sellers', homeControllers.query_sellers);
 router.get('/price-range-latest-product', homeControllers.price_range_product);
 router.get('/query-products', homeControllers.query_products);
+router.get(
+  '/query-shop-products/:slugShop',
+  homeControllers.query_shop_products
+);
 router.get('/product-details/:slug', homeControllers.product_details);
 
 router.post('/customer/submit-review', homeControllers.submit_review);

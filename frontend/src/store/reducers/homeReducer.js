@@ -47,11 +47,11 @@ export const query_sellers = createAsyncThunk(
   async (query, { fulfillWithValue }) => {
     try {
       const { data } = await api.get(
-        `/home/query-sellers?category=${query.category}&&pageNumber=${query.pageNumber}&&searchValue=${
-          query.searchValue ? query.searchValue : ''
-        } `
+        `/home/query-sellers?category=${query.category}&&pageNumber=${
+          query.pageNumber
+        }&&searchValue=${query.searchValue ? query.searchValue : ''} `
       );
-        console.log(data)
+      console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       console.log(error.respone);
@@ -88,6 +88,26 @@ export const query_products = createAsyncThunk(
         } `
       );
       //  console.log(data)
+      return fulfillWithValue(data);
+    } catch (error) {
+      console.log(error.respone);
+    }
+  }
+);
+// End Method
+
+export const query_shop_products = createAsyncThunk(
+  'product/query_shop_products',
+  async (query, { fulfillWithValue }) => {
+    try {
+      const { data } = await api.get(
+        `/home/query-shop-products/${query.slugShop}?&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${
+          query.high
+        }&&sortPrice=${query.sortPrice}&&pageNumber=${
+          query.pageNumber
+        }&&searchValue=${query.searchValue ? query.searchValue : ''} `
+      );
+      console.log(data);
       return fulfillWithValue(data);
     } catch (error) {
       console.log(error.respone);
@@ -261,6 +281,11 @@ export const homeReducer = createSlice({
         state.priceRange = payload.priceRange;
       })
       .addCase(query_products.fulfilled, (state, { payload }) => {
+        state.products = payload.products;
+        state.totalProduct = payload.totalProduct;
+        state.parPage = payload.parPage;
+      })
+      .addCase(query_shop_products.fulfilled, (state, { payload }) => {
         state.products = payload.products;
         state.totalProduct = payload.totalProduct;
         state.parPage = payload.parPage;
